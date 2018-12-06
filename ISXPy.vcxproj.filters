@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c3e07982-838a-441a-9b9f-3e9e3edc7f1e}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Source Files\LavishScript Extensions">
+      <UniqueIdentifier>{70f9d419-ed12-422e-a70c-c9a613187891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LavishGUI Elements">
+      <UniqueIdentifier>{bc976b93-52ba-41ee-ada1-b3d87d20e7bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Services">
+      <UniqueIdentifier>{7043695e-c0eb-41dc-be02-5c5de3c6d7c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{33eb26ec-0f40-4e47-8ec8-96f6eea56707}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Header Files\LavishScript Extensions">
+      <UniqueIdentifier>{98033e4d-0b0c-4fd5-9f78-397f07721d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LavishScript Extensions\Lists">
+      <UniqueIdentifier>{32799ee2-6faa-4dbc-a836-fceaf48a0e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LavishGUI Elements">
+      <UniqueIdentifier>{bff4d1d8-67f7-44ad-bb46-f87d5c8cae8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Services">
+      <UniqueIdentifier>{a594a40b-febb-4d73-9bb8-8d5b94664a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Services\List">
+      <UniqueIdentifier>{645c7422-78a1-42e1-8c75-591f58a36861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PCH">
+      <UniqueIdentifier>{ad3f6b5d-cfdd-4ac1-844c-4cd40e8ea132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PCH">
+      <UniqueIdentifier>{03716e1d-4994-4163-be52-09bcf73f00d4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ISXPy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands.cpp">
+      <Filter>Source Files\LavishScript Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="DataTypes.cpp">
+      <Filter>Source Files\LavishScript Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="TopLevelObjects.cpp">
+      <Filter>Source Files\LavishScript Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="LGUIPyFrame.cpp">
+      <Filter>Source Files\LavishGUI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Services.cpp">
+      <Filter>Source Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="ISXPyPCH.cpp">
+      <Filter>Source Files\PCH</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ISXPy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTypes.h">
+      <Filter>Header Files\LavishScript Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>Header Files\LavishScript Extensions\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTypeList.h">
+      <Filter>Header Files\LavishScript Extensions\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="TopLevelObjects.h">
+      <Filter>Header Files\LavishScript Extensions\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="LGUIPyFrame.h">
+      <Filter>Header Files\LavishGUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ISXPyServices.h">
+      <Filter>Header Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services.h">
+      <Filter>Header Files\Services\List</Filter>
+    </ClInclude>
+    <ClInclude Include="ISXPyPCH.h">
+      <Filter>Header Files\PCH</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

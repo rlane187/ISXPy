@@ -3,6 +3,7 @@
 #include <windows.h>
 
 
+
 class ISXPy :
 	public ISXInterface
 {

@@ -1,7 +1,8 @@
 //
 // ISXPy
 //
-
+#include <pyconfig.h>
+#include <Python.h>
 // Version guideline: YYYYMMDD
 // Add lettering to the end to indicate a new version on the same date, such as 20060305a, 20060305b, etc
 // You can also use a standard version numbering system such as 1.00, 1.01, etc. 
@@ -9,7 +10,7 @@
 // same extension to check for new versions -- if this version text comes before the compared text (in a 
 // dictionary), then an update is available.  Equal text means the version is up to date.  After means this 
 // is newer than the compared version.  With that said, use whatever version numbering system you'd like.
-#define EXTENSION_VERSION "20060617"
+#define EXTENSION_VERSION "20101128"
 
 #include "ISXPy.h"
 #pragma comment(lib,"isxdk.lib")
@@ -19,6 +20,11 @@
 // debug logging if we need it.  It also sets up a variable "pExtension" which is the pointer to
 // our instanced class.
 ISXPreSetup("ISXPy",ISXPy);
+
+int Test(int argc, char *argv[])
+{
+	return 0;
+}
 
 // Basic LavishScript datatypes, these get retrieved on startup by our initialize function, so we can
 // use them in our Top-Level Objects or custom datatypes
