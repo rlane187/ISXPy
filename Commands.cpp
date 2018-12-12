@@ -1,5 +1,6 @@
 #include "ISXPy.h"
 #include <Python.h>
+#include "globals.h"
 #define BOOST_PYTHON_STATIC_LIB
 #include <boost/python.hpp>
 
@@ -7,21 +8,22 @@ using namespace boost::python;
 
 int CMD_Py(int argc, char *argv[])
 {
-	printf("Running Py...");
-	//wchar_t *program = Py_DecodeLocale(argv[0], NULL);
-	//if (program == NULL) {
-	//	fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
-	//	exit(1);
-	//}
-	//Py_SetProgramName(program);  /* optional but recommended */
-
-	//Py_SetPythonHome(path.c_str());
 	Py_Initialize();
-	//PyRun_SimpleString("from time import time,ctime\n"
-	//	"print('Today is', ctime(time()))\n");
-	//if (Py_FinalizeEx() < 0) {
-	//	exit(120);
-	//}
-	//PyMem_RawFree(program);
+	PyObject *moduleMainString = PyUnicode_FromString("__main__");
+	PyObject *moduleMain = PyImport_Import(moduleMainString);
+
+	PyRun_SimpleString(
+		"def mul(a, b):                                 \n"\
+		"   return a * b                                \n"\
+	);
+
+	PyObject *func = PyObject_GetAttrString(moduleMain, "mul");
+	PyObject *args = PyTuple_Pack(2, PyFloat_FromDouble(3.0), PyFloat_FromDouble(4.0));
+
+	PyObject *result = PyObject_CallObject(func, args);
+
+	printf("mul(3,4): %.2f\n", PyFloat_AsDouble(result)); // 12
+	Py_Finalize();
+
 	return 0;
 }

@@ -32,8 +32,8 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ISXDK_INCLUDES);$(SolutionDir)packages\boost.1.67.0.0\lib\native\include;$(SolutionDir)packages\python2x86.2.7.15\tools\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ISXDK_LIBS);$(SolutionDir)packages\python2x86.2.7.15\tools\libs;$(SolutionDir)packages\boost_python27-vc140.1.67.0.0\lib\native;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);D:\repos\python\PC;D:\repos\python\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ISXDK_LIBS);D:\repos\python\PCbuild\win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -57,8 +57,8 @@
       <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <ImportLibrary>$(OutDir)ISXPy.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(SolutionDir)packages\boost_python27-vc140.1.67.0.0\lib\native;$(SolutionDir)packages\python2x86.2.7.15\tools\libs;$(ISXDK_LIBS);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ISUI.lib;kernel32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\repos\python\PCbuild\win32;$(ISXDK_LIBS);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pathcch.lib;ws2_32.lib;shlwapi.lib;python37.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -79,6 +79,7 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DataTypeList.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="ISXPy.h" />
     <ClInclude Include="ISXPyPCH.h" />
     <ClInclude Include="ISXPyServices.h" />
@@ -91,14 +92,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\boost.1.67.0.0\build\boost.targets" Condition="Exists('packages\boost.1.67.0.0\build\boost.targets')" />
-    <Import Project="packages\boost_python27-vc140.1.67.0.0\build\boost_python27-vc140.targets" Condition="Exists('packages\boost_python27-vc140.1.67.0.0\build\boost_python27-vc140.targets')" />
+    <Import Project="packages\boost.1.68.0.0\build\boost.targets" Condition="Exists('packages\boost.1.68.0.0\build\boost.targets')" />
+    <Import Project="packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets" Condition="Exists('packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\boost.1.67.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.67.0.0\build\boost.targets'))" />
-    <Error Condition="!Exists('packages\boost_python27-vc140.1.67.0.0\build\boost_python27-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_python27-vc140.1.67.0.0\build\boost_python27-vc140.targets'))" />
+    <Error Condition="!Exists('packages\boost.1.68.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.68.0.0\build\boost.targets'))" />
+    <Error Condition="!Exists('packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets'))" />
   </Target>
 </Project>

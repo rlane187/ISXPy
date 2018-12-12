@@ -2,8 +2,6 @@
 #include <isxdk.h>
 #include <windows.h>
 
-
-
 class ISXPy :
 	public ISXInterface
 {
@@ -90,8 +88,12 @@ extern LSType *pBytePtrType;
 
 extern char Py_Version[];
 
+
+
 #include "Commands.h"
 #include "DataTypes.h"
 #include "TopLevelObjects.h"
 #include "Services.h"
+
+
 

@@ -13,13 +13,19 @@
 #define EXTENSION_VERSION "20101128"
 
 #include "ISXPy.h"
+#include <PathCch.h>
+#include "globals.h"
+
+char DllPath[MAX_PATH] = { 0 };
+char PythonHome[MAX_PATH] = { 0 };
+
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
 // This sets up a "ModulePath" variable which contains the path to this module in case we want it,
 // and a "PluginLog" variable, which contains the path and filename of what we should use for our
 // debug logging if we need it.  It also sets up a variable "pExtension" which is the pointer to
 // our instanced class.
-ISXPreSetup("ISXPy",ISXPy);
+ISXPreSetup("ISXPy",ISXPy)
 
 int Test(int argc, char *argv[])
 {
@@ -78,9 +84,19 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 	 * Most of the functionality in Initialize is completely optional and could be removed or
 	 * changed if so desired.  The defaults are simply a suggestion that can be easily followed.
 	 */
-
 	__try // exception handling. See __except below.
 	{
+		GetModuleFileName((HINSTANCE)&__ImageBase, DllPath, _countof(DllPath));
+		wchar_t temp[MAX_PATH];
+		mbstowcs(temp, DllPath, 2048);
+		PathCchRemoveFileSpec(temp, _countof(DllPath));
+		wcstombs(DllPath, temp, _countof(temp));
+		strcpy(PythonHome, DllPath);
+		strcat(PythonHome, "\\python");
+		mbstowcs(temp, PythonHome, _countof(PythonHome));
+		Py_SetPythonHome(temp);
+
+
 		// Keep a global copy of the ISInterface pointer, which is for calling Inner Space API
 		pISInterface=p_ISInterface;
 
@@ -116,6 +132,8 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		RegisterTriggers();
 
 		printf("ISXPy version %s Loaded",Py_Version);
+
+		//Py_Initialize();
 		return true;
 	}
 
@@ -162,6 +180,7 @@ void ISXPy::Shutdown()
 	UnRegisterDataTypes();
 	UnRegisterAliases();
 	UnRegisterCommands();
+	//Py_Finalize();
 }
 
 /*
