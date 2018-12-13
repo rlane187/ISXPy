@@ -1,14 +1,11 @@
+#include "ISXPyPCH.h"
 #include "ISXPy.h"
-#include <Python.h>
 #include "globals.h"
-#define BOOST_PYTHON_STATIC_LIB
-#include <boost/python.hpp>
-
-using namespace boost::python;
 
 int CMD_Py(int argc, char *argv[])
 {
-	Py_Initialize();
+	printf(PythonHome);
+	//Py_Initialize();
 	PyObject *moduleMainString = PyUnicode_FromString("__main__");
 	PyObject *moduleMain = PyImport_Import(moduleMainString);
 
@@ -23,7 +20,32 @@ int CMD_Py(int argc, char *argv[])
 	PyObject *result = PyObject_CallObject(func, args);
 
 	printf("mul(3,4): %.2f\n", PyFloat_AsDouble(result)); // 12
-	Py_Finalize();
+	//Py_Finalize();
 
 	return 0;
+}
+
+int CMD_HelloWorld(int argc, char *argv[])
+{
+	using namespace boost::python;
+	try
+	{
+		object main_module = import("__main__");
+		object main_namespace = main_module.attr("__dict__");
+		import("output");
+		std::string stdOut = 
+		   "import sys\n\
+			import output\n\
+			outputHandler = output.OutputHandler()\n\
+			sys.stdout = outputHandler\n\
+			print(\'Hello World\')\n\
+			";
+		PyRun_SimpleString(stdOut.c_str());
+		return 0;
+	}
+	catch (const error_already_set&)
+	{
+		PyErr_Print();
+		return 1;
+	}
 }

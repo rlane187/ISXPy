@@ -39,6 +39,12 @@
     <Filter Include="Source Files\PCH">
       <UniqueIdentifier>{03716e1d-4994-4163-be52-09bcf73f00d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PythonExtensions">
+      <UniqueIdentifier>{c2ba8f36-6a05-4570-a16d-e589b88eeb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions">
+      <UniqueIdentifier>{1ee53b61-d846-4a23-bc41-2354cd6c1a6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ISXPy.cpp">
@@ -61,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="ISXPyPCH.cpp">
       <Filter>Source Files\PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="ISXPyExt.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ISXPyExt.h">
+      <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

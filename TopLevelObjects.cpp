@@ -1,3 +1,4 @@
+#include "ISXPyPCH.h"
 #include "ISXPy.h"
 
 // A LavishScript Top-Level Object is similar to a global C++ object.  The main difference is that

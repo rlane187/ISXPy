@@ -7,7 +7,7 @@
 
 // sample
 COMMAND("Py",CMD_Py,true,false);
-
+COMMAND("HelloWorld", CMD_HelloWorld, true, false);
 
 
 

@@ -1,8 +1,7 @@
+#include "ISXPyPCH.h"
 //
 // ISXPy
 //
-#include <pyconfig.h>
-#include <Python.h>
 // Version guideline: YYYYMMDD
 // Add lettering to the end to indicate a new version on the same date, such as 20060305a, 20060305b, etc
 // You can also use a standard version numbering system such as 1.00, 1.01, etc. 
@@ -15,9 +14,20 @@
 #include "ISXPy.h"
 #include <PathCch.h>
 #include "globals.h"
+#include "ISXPyExt.h"
 
 char DllPath[MAX_PATH] = { 0 };
+wchar_t DllPathW[MAX_PATH] = { 0 };
+char ExtensionPath[MAX_PATH] = { 0 };
+wchar_t ExtensionPathW[MAX_PATH] = { 0 };
 char PythonHome[MAX_PATH] = { 0 };
+wchar_t PythonHomeW[MAX_PATH] = { 0 };
+char PythonPath[2048] = { 0 };
+wchar_t PythonPathW[2048] = { 0 };
+char PythonDLLs[MAX_PATH] = { 0 };
+wchar_t PythonDLLsW[MAX_PATH] = { 0 };
+char PythonLibs[MAX_PATH] = { 0 };
+wchar_t PythonLibsW[MAX_PATH] = { 0 };
 
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
@@ -27,9 +37,12 @@ char PythonHome[MAX_PATH] = { 0 };
 // our instanced class.
 ISXPreSetup("ISXPy",ISXPy)
 
-int Test(int argc, char *argv[])
+using namespace boost::python;
+
+BOOST_PYTHON_MODULE(output)
 {
-	return 0;
+	class_<OutputHandler>("OutputHandler")
+		.def("write", &OutputHandler::write);
 }
 
 // Basic LavishScript datatypes, these get retrieved on startup by our initialize function, so we can
@@ -86,16 +99,6 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 	 */
 	__try // exception handling. See __except below.
 	{
-		GetModuleFileName((HINSTANCE)&__ImageBase, DllPath, _countof(DllPath));
-		wchar_t temp[MAX_PATH];
-		mbstowcs(temp, DllPath, 2048);
-		PathCchRemoveFileSpec(temp, _countof(DllPath));
-		wcstombs(DllPath, temp, _countof(temp));
-		strcpy(PythonHome, DllPath);
-		strcat(PythonHome, "\\python");
-		mbstowcs(temp, PythonHome, _countof(PythonHome));
-		Py_SetPythonHome(temp);
-
 
 		// Keep a global copy of the ISInterface pointer, which is for calling Inner Space API
 		pISInterface=p_ISInterface;
@@ -131,9 +134,55 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		// Register any text triggers built into ISXPy
 		RegisterTriggers();
 
+		//Initialize_Module_ISXPy();
+
 		printf("ISXPy version %s Loaded",Py_Version);
 
-		//Py_Initialize();
+		char buffer[2048];
+		wchar_t buffer_w[2048];
+		size_t chars_converted = 0;
+		// Set DllPath and DllPathW
+		GetModuleFileName(HINSTANCE(&__ImageBase), DllPath, _countof(DllPath));		
+		mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
+
+		// Set ExtensionPath and ExtensionPathW
+		wcscpy_s(buffer_w, _countof(DllPathW), DllPathW);
+		PathCchRemoveFileSpec(buffer_w, _countof(buffer_w));
+		wcscpy_s(ExtensionPathW, _countof(ExtensionPathW), buffer_w);
+		wcstombs_s(&chars_converted, ExtensionPath, ExtensionPathW, _countof(ExtensionPath));
+
+		// Set PythonHome and PythonHomeW
+		strcpy_s(PythonHome, _countof(PythonHome), ExtensionPath);
+		strcat_s(PythonHome, _countof(PythonHome), "\\python");
+		mbstowcs_s(&chars_converted, PythonHomeW, _countof(PythonHomeW), PythonHome, _countof(PythonHome));
+
+		Py_SetPythonHome(PythonHomeW);		
+
+		// Set PythonDLLs and PythonDLLsW
+		strcpy_s(PythonDLLs, _countof(PythonDLLs), PythonHome);
+		strcat_s(PythonDLLs, _countof(PythonDLLs), "\\DLLs");
+		mbstowcs_s(&chars_converted, PythonDLLsW, _countof(PythonDLLsW), PythonDLLs, _countof(PythonDLLs));
+
+		// Set PythonLibs and PythonLibsW
+		strcpy_s(PythonLibs, _countof(PythonLibs), PythonHome);
+		strcat_s(PythonLibs, _countof(PythonLibs), "\\Lib");
+		mbstowcs_s(&chars_converted, PythonLibsW, _countof(PythonLibsW), PythonLibs, _countof(PythonLibs));
+
+		// Set PythonPath and PythonPathW
+		strcpy_s(PythonPath, _countof(PythonPath), PythonLibs);
+		strcat_s(PythonPath, _countof(PythonPath), ";");
+		strcat_s(PythonPath, _countof(PythonPath), PythonDLLs);
+		strcat_s(PythonPath, _countof(PythonPath), ";");
+		strcat_s(PythonPath, _countof(PythonPath), ExtensionPath);
+		mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonPath, _countof(PythonPathW));
+
+		Py_SetPath(PythonPathW);
+
+		PyImport_AppendInittab("output", PyInit_output);
+		Initialize_Module_ISXPy();
+		Py_Initialize();
+		
+		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
 		return true;
 	}
 
@@ -180,7 +229,8 @@ void ISXPy::Shutdown()
 	UnRegisterDataTypes();
 	UnRegisterAliases();
 	UnRegisterCommands();
-	//Py_Finalize();
+	Shutdown_Module_ISXPy();
+	Py_Finalize();
 }
 
 /*
