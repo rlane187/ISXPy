@@ -69,13 +69,14 @@ public:
 	int64_t get_int64_from_lso();
 	LSOBJECT& get_lso();
 	std::string get_string_from_lso();
-protected:
 	void execute_method(PCHAR method, int argc, char* argv[]);	
-	LSObject get_member(PCHAR member, int argc, char* argv[]);	
+	LSObject get_member(PCHAR member, int argc, char* argv[]);
+	void get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object);
 	bool has_inherited_member(PCHAR member) const;
 	bool has_inherited_method(PCHAR method) const;
 	bool has_member(PCHAR member) const;
 	bool has_method(PCHAR method) const;
+protected:
 	LSOBJECT ls_object_;
 };
 

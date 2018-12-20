@@ -3,20 +3,26 @@
 
 int CMD_Py(int argc, char *argv[])
 {
-	PyCharacter* me = new PyCharacter();
 	LSOBJECT tlo_object;
 	if(pISInterface->IsTopLevelObject("Me")( 0, nullptr, tlo_object))
 	{
+		LSOBJECT IndexObject;
+		IndexObject.ObjectType = pIndexType;
+		IndexObject.Ptr = new LSIndex(pEffectType, nullptr);
 		const int argc = 1;
 		char* argv[argc];
-		argv[0] = "Self.Experience";
-		PyEQ2DynamicData game_data;
-		pCharacterType->GetMemberEx(tlo_object.GetObjectData(), "GetGameData", argc, argv, game_data.get_lso());
-		printf("%f", game_data.get_percent());
-	}
-
-	delete me;
+		argv[0] = "index:effect";
+		try
+		{
+			printf("%.08x", pCharacterType->FindMethod("QueryEffects"));
+			//pCharacterType->GetMethodEx(tlo_object.GetObjectData(), "QueryEffects", 1, argv);
+		}
+		catch (exception&) {}
 		
+		//printf("%s:", (LSIndex)IndexObject.Ptr);
+		
+	
+	}
 	return 0;
 }
 

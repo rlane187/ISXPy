@@ -85,6 +85,9 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pEffectInfoType;
+extern LSType *pEffectType;
+extern LSType *pMaintainedType;
 extern LSType *pEQ2DynamicDataType;
 extern LSType *pInt64Type;
 extern LSType *pInt64PtrType;
@@ -105,9 +108,12 @@ extern char Py_Version[];
 #include "Services.h"
 
 #include "ISXPyExt.h"
+#include "PyEffectInfo.h"
 #include "PyEQ2DynamicData.h"
+#include "PyEffect.h"
 #include "PyISXEQ2.h"
 #include "PyActor.h"
+#include "PyMaintained.h"
 #include "PyEQ2.h"
 #include "PyCharacter.h"
 

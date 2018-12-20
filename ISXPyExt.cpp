@@ -70,7 +70,6 @@ int TLOBase::get_byte_from_ls_object(LSOBJECT& ls_object)
 	return INT_MAX;
 }
 
-
 int TLOBase::get_int_from_ls_object(LSOBJECT& ls_object)
 {
 	if (strcmp(ls_object.Type->GetName(), "int") == 0)
@@ -160,6 +159,14 @@ LSObject LSObject::get_member(PCHAR member, int argc, char* argv[])
 	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, dest);
 	return static_cast<LSObject>(dest);
+}
+
+void LSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
+{
+	if (this->ls_object_.ObjectType && this->has_member(member))
+		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
+	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
+		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
 }
 
 bool LSObject::has_inherited_member(PCHAR member) const
@@ -278,8 +285,8 @@ std::string LSObject::get_string_from_lso()
 	{
 		size_t characters_converted;
 		char buffer[MAX_VARSTRING];
-		if (this->ls_object_.GetObjectData().CharPtr != nullptr)
-			return std::string(this->ls_object_.GetObjectData().CharPtr);
+		if (this->ls_object_.CharPtr != nullptr)
+			return std::string(this->ls_object_.CharPtr);
 		if (this->ls_object_.GetObjectData().ConstCharPtr != nullptr)
 			return std::string(this->ls_object_.GetObjectData().ConstCharPtr);
 		if (this->ls_object_.GetObjectData().WCharPtr != nullptr)

@@ -1,6 +1,9 @@
 #pragma once
 
-class PyActor : public TLOBase
+class PyActor : public LSObject
 {
-	PyActor();
+public:
+	PyActor() = default;
+	PyActor(LSOBJECT& ls_object);
+	std::string get_name();
 };

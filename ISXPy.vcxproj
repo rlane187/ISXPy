@@ -76,10 +76,13 @@
     <ClCompile Include="LGUIPyFrame.cpp" />
     <ClCompile Include="ISXPyExt.cpp" />
     <ClCompile Include="PyActor.cpp" />
+    <ClCompile Include="PyEffect.cpp" />
+    <ClCompile Include="PyEffectInfo.cpp" />
     <ClCompile Include="PyEQ2.cpp" />
     <ClCompile Include="PyEQ2DynamicData.cpp" />
     <ClCompile Include="PyISXEQ2.cpp" />
     <ClCompile Include="PyCharacter.cpp" />
+    <ClCompile Include="PyMaintained.cpp" />
     <ClCompile Include="Services.cpp" />
     <ClCompile Include="TopLevelObjects.cpp" />
   </ItemGroup>
@@ -96,9 +99,12 @@
     <ClInclude Include="ISXPyPCH.h" />
     <ClInclude Include="ISXPyServices.h" />
     <ClInclude Include="LGUIPyFrame.h" />
+    <ClInclude Include="PyEffect.h" />
+    <ClInclude Include="PyEffectInfo.h" />
     <ClInclude Include="PyEQ2.h" />
     <ClInclude Include="PyEQ2DynamicData.h" />
     <ClInclude Include="PyISXEQ2.h" />
+    <ClInclude Include="PyMaintained.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="TopLevelObjects.h" />
   </ItemGroup>

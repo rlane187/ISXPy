@@ -89,6 +89,15 @@
     <ClCompile Include="PyEQ2DynamicData.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
+    <ClCompile Include="PyMaintained.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="PyEffect.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="PyEffectInfo.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -140,6 +149,15 @@
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="PyEQ2DynamicData.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="PyMaintained.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="PyEffect.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="PyEffectInfo.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>

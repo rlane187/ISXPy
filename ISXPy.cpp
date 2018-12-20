@@ -51,6 +51,9 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pEffectInfoType = 0;
+LSType *pEffectType = 0;
+LSType *pMaintainedType = 0;
 LSType *pEQ2DynamicDataType = 0;
 LSType *pInt64Type = 0;
 LSType *pInt64PtrType = 0;
@@ -120,6 +123,9 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pEffectInfoType = pISInterface->FindLSType("effectinfo");
+		pEffectType = pISInterface->FindLSType("effect");
+		pMaintainedType = pISInterface->FindLSType("maintained");
 		pEQ2DynamicDataType = pISInterface->FindLSType("eq2dynamicdata");
 		pInt64Type = pISInterface->FindLSType("int64");
 		pInt64PtrType = pISInterface->FindLSType("int64ptr");

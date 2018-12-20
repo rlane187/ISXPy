@@ -80,6 +80,17 @@ std::string PyCharacter::get_class()
 	return std::string("Error");
 }
 
+int PyCharacter::get_copper()
+{
+	char* const member = static_cast<char *>("Copper");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (exception &) {}
+	return INT_MAX;
+}
+
 int64_t PyCharacter::get_current_health()
 {
 	char* const member = static_cast<char *>("CurrentHealth");
@@ -102,6 +113,24 @@ int PyCharacter::get_current_power()
 	return INT_MAX;
 }
 
+int PyCharacter::get_effects(boost::python::list& effect_list)
+{
+	const int argc = 1;
+	char* argv[argc];
+	argv[0] = const_cast<char*>("QueryEffects");
+	char* const member = static_cast<char *>("QueryEffects");
+	LSOBJECT IndexObject;
+	IndexObject.Type = pIndexType;
+	LSIndex* pIndex = new LSIndex(pEffectType, nullptr);
+	IndexObject.Ptr = pIndex;
+	try
+	{
+		this->get_member(member, 0, nullptr, IndexObject);
+	}
+	catch (exception &) {}
+	return pIndex->GetContainerUsed();
+}
+
 int PyCharacter::get_effective_level()
 {
 	char* const member = static_cast<char *>("EffectiveLevel");
@@ -111,6 +140,20 @@ int PyCharacter::get_effective_level()
 	}
 	catch (exception &) {}
 	return INT_MAX;
+}
+
+float PyCharacter::get_exp_bubble()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.ExperienceBubble");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
 }
 
 int PyCharacter::get_exp_current()
@@ -128,6 +171,21 @@ int PyCharacter::get_exp_current()
 	catch (exception &) {}
 	return INT_MAX;
 }
+
+float PyCharacter::get_exp_debt_current()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.ExperienceDebtCurrent");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
 
 int PyCharacter::get_exp_next_level()
 {
@@ -169,6 +227,18 @@ std::string PyCharacter::get_gender()
 	catch (exception &) {}
 	return std::string("Error");
 }
+
+int PyCharacter::get_gold()
+{
+	char* const member = static_cast<char *>("Gold");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (exception &) {}
+	return INT_MAX;
+}
+
 
 float PyCharacter::get_heading()
 {
@@ -225,6 +295,23 @@ int PyCharacter::get_level()
 	return INT_MAX;
 }
 
+int PyCharacter::get_maintained(boost::python::list& maintained_list)
+{
+	char* const count_maintained_string = static_cast<char *>("CountMaintained");
+	char* const maintained_string = static_cast<char *>("Maintained");
+	const int count_maintained = this->get_member(count_maintained_string, 0, nullptr).get_int_from_lso();
+	for(int i = 1; i <= count_maintained; i++)
+	{
+		const int argc = 1;
+		char* argv[argc];
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), "%d", i);
+		argv[0] = const_cast<char*>(buffer);
+		maintained_list.append(PyMaintained(this->get_member(maintained_string, argc, argv).get_lso()));
+	}
+	return len(maintained_list);
+}
+
 int PyCharacter::get_max_conc()
 {
 	char* const member = static_cast<char *>("MaxConc");
@@ -269,6 +356,17 @@ std::string PyCharacter::get_name()
 	return std::string("Error");
 }
 
+int PyCharacter::get_platinum()
+{
+	char* const member = static_cast<char *>("Platinum");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (exception &) {}
+	return INT_MAX;
+}
+
 int PyCharacter::get_power_regen()
 {
 	char* const member = static_cast<char *>("PowerRegen");
@@ -289,6 +387,17 @@ std::string PyCharacter::get_race()
 	}
 	catch (exception &) {}
 	return std::string("Error");
+}
+
+int PyCharacter::get_silver()
+{
+	char* const member = static_cast<char *>("Silver");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (exception &) {}
+	return INT_MAX;
 }
 
 int PyCharacter::get_strength()
@@ -358,6 +467,62 @@ std::string PyCharacter::get_ts_subclass()
 	return std::string("Error");
 }
 
+float PyCharacter::get_ts_vitality()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TSVitality");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_ts_vitality_lower_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TSVitalityLowerMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_ts_vitality_overflow_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TSVitalityOverflowMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_ts_vitality_upper_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TSVitalityUpperMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
 int PyCharacter::get_used_conc()
 {
 	char* const member = static_cast<char *>("UsedConc");
@@ -367,6 +532,62 @@ int PyCharacter::get_used_conc()
 	}
 	catch (exception &) {}
 	return INT_MAX;
+}
+
+float PyCharacter::get_vitality()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.Vitality");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_vitality_lower_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.VitalityLowerMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_vitality_overflow_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.VitalityOverflowMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyCharacter::get_vitality_upper_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.VitalityUpperMarker");
+		return PyEQ2DynamicData(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
 }
 
 float PyCharacter::get_water_depth()
