@@ -9,7 +9,7 @@
   <PropertyGroup Label="Globals">
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{61EC1DEF-EB8D-4FAA-A206-5F03A70BD165}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -32,8 +32,8 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);$(PYTHON_DEV)\PC;$(PYTHON_DEV)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ISXDK_LIBS);D:\repos\python\PCbuild\win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(PYTHON_DEV)\PC;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PYTHON_DEV)\libs;$(SolutionDir)packages\boost_python37-vc140.1.68.0.0\lib\native;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -57,11 +57,11 @@
       <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <ImportLibrary>$(OutDir)ISXPy.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>D:\repos\python\PCbuild\win32;$(ISXDK_LIBS);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>pathcch.lib;ws2_32.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(PYTHON_DEV)\libs;$(ISXDK_LIBS);D:\repos\ISXPy\packages\boost_python37-vc140.1.68.0.0\lib\native;$(PYTHON_DEV)\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>python37.lib;MinCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /e /r "$(OutDir)ISXPy.dll" "$(ISXDK_EXT_BUILD_PATH)"</Command>
@@ -70,10 +70,16 @@
   <ItemGroup>
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DataTypes.cpp" />
+    <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="ISXPy.cpp" />
     <ClCompile Include="ISXPyPCH.cpp" />
     <ClCompile Include="LGUIPyFrame.cpp" />
     <ClCompile Include="ISXPyExt.cpp" />
+    <ClCompile Include="PyActor.cpp" />
+    <ClCompile Include="PyEQ2.cpp" />
+    <ClCompile Include="PyEQ2DynamicData.cpp" />
+    <ClCompile Include="PyISXEQ2.cpp" />
+    <ClCompile Include="PyCharacter.cpp" />
     <ClCompile Include="Services.cpp" />
     <ClCompile Include="TopLevelObjects.cpp" />
   </ItemGroup>
@@ -81,12 +87,18 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DataTypeList.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="Extensions.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="PyActor.h" />
+    <ClInclude Include="PyCharacter.h" />
     <ClInclude Include="ISXPy.h" />
     <ClInclude Include="ISXPyExt.h" />
     <ClInclude Include="ISXPyPCH.h" />
     <ClInclude Include="ISXPyServices.h" />
     <ClInclude Include="LGUIPyFrame.h" />
+    <ClInclude Include="PyEQ2.h" />
+    <ClInclude Include="PyEQ2DynamicData.h" />
+    <ClInclude Include="PyISXEQ2.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="TopLevelObjects.h" />
   </ItemGroup>

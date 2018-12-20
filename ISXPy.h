@@ -85,15 +85,30 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pEQ2DynamicDataType;
+extern LSType *pInt64Type;
+extern LSType *pInt64PtrType;
+extern LSType *pISXEQ2Type;
+extern LSType *pEQ2Type;
+extern LSType *pActorType;
+extern LSType *pCharacterType;
+extern LSType *pIndexType;
 
 extern char Py_Version[];
 
 
+#include "globals.h"
 
 #include "Commands.h"
 #include "DataTypes.h"
 #include "TopLevelObjects.h"
 #include "Services.h"
 
+#include "ISXPyExt.h"
+#include "PyEQ2DynamicData.h"
+#include "PyISXEQ2.h"
+#include "PyActor.h"
+#include "PyEQ2.h"
+#include "PyCharacter.h"
 
-
+#include "Extensions.h"

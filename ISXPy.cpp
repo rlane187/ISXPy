@@ -13,8 +13,6 @@
 
 #include "ISXPy.h"
 #include <PathCch.h>
-#include "globals.h"
-#include "ISXPyExt.h"
 
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
@@ -29,6 +27,8 @@ wchar_t PythonDLLsW[MAX_PATH] = { 0 };
 char PythonLibs[MAX_PATH] = { 0 };
 wchar_t PythonLibsW[MAX_PATH] = { 0 };
 
+char PythonScriptPath[MAX_PATH] = { 0 };
+
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
 // This sets up a "ModulePath" variable which contains the path to this module in case we want it,
@@ -36,14 +36,6 @@ wchar_t PythonLibsW[MAX_PATH] = { 0 };
 // debug logging if we need it.  It also sets up a variable "pExtension" which is the pointer to
 // our instanced class.
 ISXPreSetup("ISXPy",ISXPy)
-
-using namespace boost::python;
-
-BOOST_PYTHON_MODULE(output)
-{
-	class_<OutputHandler>("OutputHandler")
-		.def("write", &OutputHandler::write);
-}
 
 // Basic LavishScript datatypes, these get retrieved on startup by our initialize function, so we can
 // use them in our Top-Level Objects or custom datatypes
@@ -58,6 +50,15 @@ LSType *pIntPtrType=0;
 LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
+
+LSType *pEQ2DynamicDataType = 0;
+LSType *pInt64Type = 0;
+LSType *pInt64PtrType = 0;
+LSType *pISXEQ2Type = 0;
+LSType *pEQ2Type = 0;
+LSType *pActorType = 0;
+LSType *pCharacterType = 0;
+LSType *pIndexType = 0;
 
 ISInterface *pISInterface=0;
 HISXSERVICE hPulseService;
@@ -119,6 +120,15 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pEQ2DynamicDataType = pISInterface->FindLSType("eq2dynamicdata");
+		pInt64Type = pISInterface->FindLSType("int64");
+		pInt64PtrType = pISInterface->FindLSType("int64ptr");
+		pISXEQ2Type = pISInterface->FindLSType("ISXEQ2");
+		pActorType = pISInterface->FindLSType("actor");
+		pEQ2Type = pISInterface->FindLSType("eq2");		
+		pCharacterType = pISInterface->FindLSType("character");
+		pIndexType = pISInterface->FindLSType("index");
+
 		// Connect to commonly used Inner Space services
 		ConnectServices();
 
@@ -176,13 +186,19 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		strcat_s(PythonPath, _countof(PythonPath), ExtensionPath);
 		mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonPath, _countof(PythonPathW));
 
+		pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
+		strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
+
+
 		Py_SetPath(PythonPathW);
 
-		PyImport_AppendInittab("output", PyInit_output);
 		Initialize_Module_ISXPy();
+		Initialize_Module_PyISXEQ2();
+
 		Py_Initialize();
-		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
+		Redirect_Output_to_Console();	
+		
 		return true;
 	}
 
@@ -230,7 +246,9 @@ void ISXPy::Shutdown()
 	UnRegisterAliases();
 	UnRegisterCommands();
 	Shutdown_Module_ISXPy();
+	Shutdown_Module_PyISXEQ2();
 	Py_Finalize();
+	printf("ISXPy Unloaded");
 }
 
 /*

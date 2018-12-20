@@ -1,51 +1,68 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
-#include "globals.h"
 
 int CMD_Py(int argc, char *argv[])
 {
-	printf(PythonHome);
-	//Py_Initialize();
-	PyObject *moduleMainString = PyUnicode_FromString("__main__");
-	PyObject *moduleMain = PyImport_Import(moduleMainString);
+	PyCharacter* me = new PyCharacter();
+	LSOBJECT tlo_object;
+	if(pISInterface->IsTopLevelObject("Me")( 0, nullptr, tlo_object))
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = "Self.Experience";
+		PyEQ2DynamicData game_data;
+		pCharacterType->GetMemberEx(tlo_object.GetObjectData(), "GetGameData", argc, argv, game_data.get_lso());
+		printf("%f", game_data.get_percent());
+	}
 
-	PyRun_SimpleString(
-		"def mul(a, b):                                 \n"\
-		"   return a * b                                \n"\
-	);
-
-	PyObject *func = PyObject_GetAttrString(moduleMain, "mul");
-	PyObject *args = PyTuple_Pack(2, PyFloat_FromDouble(3.0), PyFloat_FromDouble(4.0));
-
-	PyObject *result = PyObject_CallObject(func, args);
-
-	printf("mul(3,4): %.2f\n", PyFloat_AsDouble(result)); // 12
-	//Py_Finalize();
-
+	delete me;
+		
 	return 0;
 }
 
-int CMD_HelloWorld(int argc, char *argv[])
+int CMD_GetType(int argc, char *argv[])
 {
+	
+	return 0;
+}
+
+int CMD_Test(int argc, char *argv[])
+{	
 	using namespace boost::python;
 	try
 	{
 		object main_module = import("__main__");
-		object main_namespace = main_module.attr("__dict__");
-		import("output");
-		std::string stdOut = 
-		   "import sys\n\
-			import output\n\
-			outputHandler = output.OutputHandler()\n\
-			sys.stdout = outputHandler\n\
-			print(\'Hello World\')\n\
-			";
-		PyRun_SimpleString(stdOut.c_str());
-		return 0;
-	}
-	catch (const error_already_set&)
-	{
-		PyErr_Print();
+		dict main_namespace = extract<dict>(main_module.attr("__dict__"));
+		object isxeq2 = import("pyisxeq2");
+		std::string script = "import character\nme = character.character()\nprint(me.name)";
+		exec(script.c_str(), main_namespace, main_namespace);
+	}	catch (error_already_set& e) {
+		PyErr_PrintEx(0);
 		return 1;
 	}
+	return 0;
+}
+
+int CMD_RunPythonScript(int argc, char *argv[])
+{
+	if (argc <= 1)
+		return 0;
+	char file_path[MAX_VARSTRING];
+	strcpy_s(file_path, _countof(file_path), PythonScriptPath);
+	strcat_s(file_path, _countof(file_path), "\\");
+	strcat_s(file_path, _countof(file_path), argv[1]);
+	using namespace boost::python;
+	try
+	{
+		object main_module = import("__main__");
+		const dict main_namespace = extract<dict>(main_module.attr("__dict__"));
+		object isxpy = import("isxpy");
+		object isxeq2 = import("pyisxeq2");
+		exec_file(file_path, main_namespace, main_namespace);
+	}
+	catch (error_already_set& e) {
+		PyErr_PrintEx(0);
+		return 1;
+	}
+	return 0;
 }
