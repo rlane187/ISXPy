@@ -38,25 +38,6 @@ struct ErrorHandler
 
 };
 
-class TLOBase
-{
-public:
-	TLOBase();
-	bool get_ls_object_from_tlo_member(int tlo_argc, PCHAR tlo_argv[], PCHAR member_name, int argc, PCHAR argv[], LSOBJECT& dest) const;
-	bool execute_tlo_method(int tlo_argc, PCHAR tlo_argv[], PCHAR method_name, int argc, PCHAR argv[]) const;
-	static std::string get_string_from_ls_object(LSOBJECT& ls_object);
-	static bool get_bool_from_ls_object(LSOBJECT& ls_object);
-	static int get_byte_from_ls_object(LSOBJECT& ls_object);
-	static int get_int_from_ls_object(LSOBJECT& ls_object);
-	static int64_t get_int64_from_ls_object(LSOBJECT& ls_object);
-	static float get_float_from_ls_object(LSOBJECT& ls_object);
-protected:
-	std::string tlo_name_{};
-	std::string ls_type_name_{};
-	LSTypeDefinition* p_type_def_;
-	LSOBJECT ls_object;
-};
-
 class LSObject
 {
 public:

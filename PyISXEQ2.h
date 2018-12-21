@@ -1,11 +1,18 @@
 #pragma once
 
-class PyISXEQ2 : public TLOBase
+class PyISXEQ2 : public LSObject
 {
 public:
-	std::string get_version() const;
-	std::string get_api_version() const;
-	bool get_is_ready() const;
 	PyISXEQ2();
-	void popup(std::string message, std::string title, std::string status) const;
+	void disable_affliction_events();
+	void disable_custom_zoning_text();
+	void enable_affliction_events();
+	void enable_custom_zoning_text();
+	bool get_affliction_events_on();
+	std::string get_api_version();
+	std::string get_version();
+	bool get_is_ready();
+	bool get_is_valid_eq2press_key(std::string key_name);
+	void popup(std::string& message, std::string& title = std::string(), std::string& status = std::string());
+	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(isxeq2_popup_overloads, popup, 1, 3)
 };

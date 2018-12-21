@@ -3,94 +3,6 @@
 
 using namespace boost::python;
 
-TLOBase::TLOBase()
-{
-	this->tlo_name_ = std::string("");
-	this->p_type_def_ = nullptr;
-}
-
-bool TLOBase::get_ls_object_from_tlo_member(int tlo_argc, PCHAR tlo_argv[], PCHAR member_name, int argc, PCHAR argv[], LSOBJECT& dest) const
-{
-	bool is_valid = false;
-	try
-	{
-		LSOBJECT tlo_object;
-		is_valid = pISInterface->IsTopLevelObject(this->tlo_name_.c_str())(tlo_argc, tlo_argv, tlo_object);
-		if(!is_valid)
-		{
-			char buffer[MAX_VARSTRING];
-			sprintf_s(buffer, _countof(buffer), "%s is not a valid LS TLO.", this->tlo_name_.c_str());
-			throw std::runtime_error(buffer);
-		}
-		this->p_type_def_->GetMember(tlo_object.GetObjectData(), this->p_type_def_->FindMember(member_name), argc, argv, dest);
-		return is_valid;
-	}
-	catch (exception& e) {}
-	return is_valid;
-}
-
-bool TLOBase::execute_tlo_method(int tlo_argc, PCHAR tlo_argv[], PCHAR method_name, int argc, PCHAR argv[]) const
-{
-	bool is_valid = false;
-	try
-	{
-		LSOBJECT tlo_object;
-		is_valid = pISInterface->IsTopLevelObject(this->tlo_name_.c_str())(tlo_argc, tlo_argv, tlo_object);
-		if (!is_valid)
-		{
-			char buffer[MAX_VARSTRING];
-			sprintf_s(buffer, _countof(buffer), "%s is not a valid LS TLO.", this->tlo_name_.c_str());
-			throw std::runtime_error(buffer);
-		}
-		this->p_type_def_->GetMethod(tlo_object.GetObjectData(), this->p_type_def_->FindMethod(method_name), argc, argv);
-		return is_valid;
-	}
-	catch (exception& e) {}
-	return is_valid;
-}
-
-std::string TLOBase::get_string_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.Type->GetName(), "string") == 0 && ls_object.CharPtr != nullptr && strlen(ls_object.CharPtr) > 0)
-		return std::string(ls_object.CharPtr);
-	return std::string("Error");
-}
-
-bool TLOBase::get_bool_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.Type->GetName(), "bool") == 0)
-		return bool(ls_object.DWord);
-	return false;
-}
-
-int TLOBase::get_byte_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.Type->GetName(), "byte") == 0)
-		return int(ls_object.DWord);
-	return INT_MAX;
-}
-
-int TLOBase::get_int_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.Type->GetName(), "int") == 0)
-		return int(ls_object.DWord);
-	return INT_MAX;
-}
-
-int64_t TLOBase::get_int64_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.ObjectType->GetName(), "int64") == 0)
-		return int64_t(ls_object.Int64);
-	return INT64_MAX;
-}
-
-float TLOBase::get_float_from_ls_object(LSOBJECT& ls_object)
-{
-	if (strcmp(ls_object.ObjectType->GetName(), "float") == 0)
-		return float(ls_object.Float);
-	return FLT_MAX;
-}
-
 BOOST_PYTHON_MODULE(isxpy)
 {
 	class_<OutputHandler>("OutputHandler")
@@ -285,8 +197,8 @@ std::string LSObject::get_string_from_lso()
 	{
 		size_t characters_converted;
 		char buffer[MAX_VARSTRING];
-		if (this->ls_object_.CharPtr != nullptr)
-			return std::string(this->ls_object_.CharPtr);
+		if (this->ls_object_.GetObjectData().CharPtr != nullptr)
+			return std::string(this->ls_object_.GetObjectData().CharPtr);
 		if (this->ls_object_.GetObjectData().ConstCharPtr != nullptr)
 			return std::string(this->ls_object_.GetObjectData().ConstCharPtr);
 		if (this->ls_object_.GetObjectData().WCharPtr != nullptr)

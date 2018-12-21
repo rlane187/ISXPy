@@ -32,7 +32,7 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(PYTHON_DEV)\PC;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(PYTHON_DEV)\libs;$(SolutionDir)packages\boost_python37-vc140.1.68.0.0\lib\native;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

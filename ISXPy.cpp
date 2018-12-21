@@ -174,7 +174,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		strcat_s(PythonHome, _countof(PythonHome), "\\python");
 		mbstowcs_s(&chars_converted, PythonHomeW, _countof(PythonHomeW), PythonHome, _countof(PythonHome));
 
-		Py_SetPythonHome(PythonHomeW);		
+		//Py_SetPythonHome(PythonHomeW);		
 
 		// Set PythonDLLs and PythonDLLsW
 		strcpy_s(PythonDLLs, _countof(PythonDLLs), PythonHome);
@@ -198,7 +198,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
 
 
-		Py_SetPath(PythonPathW);
+		//Py_SetPath(PythonPathW);
 
 		Initialize_Module_ISXPy();
 		Initialize_Module_PyISXEQ2();

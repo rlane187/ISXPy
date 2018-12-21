@@ -5,15 +5,19 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 {
 	using namespace boost::python;
 
-	class_<TLOBase>("TLOBase", no_init);
-
 	class_<LSObject>("LSObject", no_init);
 
-	class_<PyISXEQ2, bases<TLOBase>>("isxeq2")
-		.add_property("version", &PyISXEQ2::get_version)
+	class_<PyISXEQ2, bases<LSObject>>("isxeq2")
+		.add_property("affliction_events_on", &PyISXEQ2::get_affliction_events_on)
 		.add_property("api_version", &PyISXEQ2::get_api_version)
+		.def("disable_affliction_events", &PyISXEQ2::disable_affliction_events)
+		.def("disable_custom_zoning_text", &PyISXEQ2::disable_custom_zoning_text)
+		.def("enable_affliction_events", &PyISXEQ2::enable_affliction_events)
+		.def("enable_custom_zoning_text", &PyISXEQ2::enable_custom_zoning_text)
 		.add_property("is_ready", &PyISXEQ2::get_is_ready)
-		.def("popup", &PyISXEQ2::popup);
+		.def("is_valid_eq2press_key", &PyISXEQ2::get_is_valid_eq2press_key)
+		.def("popup", &PyISXEQ2::popup, PyISXEQ2::isxeq2_popup_overloads(args("message", "title", "status")))		
+		.add_property("version", &PyISXEQ2::get_version);
 
 	class_<PyEffectInfo, bases<LSObject>>("effect_info")
 		.add_property("description", &PyEffectInfo::get_description)
