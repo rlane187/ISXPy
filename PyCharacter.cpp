@@ -12,10 +12,9 @@ bool PyCharacter::check_collision(float to_x, float to_y, float to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(std::to_string(to_x).c_str());
-	argv[1] = const_cast<char*>(std::to_string(to_y).c_str());
-	argv[2] = const_cast<char*>(std::to_string(to_z).c_str());
-	LSOBJECT dest;
+	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
+	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
+	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
 	char* const member = static_cast<char *>("CheckCollision");
 	try
 	{
@@ -621,9 +620,9 @@ float PyCharacter::heading_to(float to_x, float to_y, float to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(std::to_string(to_x).c_str());
-	argv[1] = const_cast<char*>(std::to_string(to_y).c_str());
-	argv[2] = const_cast<char*>(std::to_string(to_z).c_str());
+	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
+	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
+	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
 	char* const member = static_cast<char *>("HeadingTo");
 	try
 	{
@@ -638,9 +637,9 @@ std::string PyCharacter::heading_to_as_compass_bearing(float to_x, float to_y, f
 {
 	const int argc = 4;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(std::to_string(to_x).c_str());
-	argv[1] = const_cast<char*>(std::to_string(to_y).c_str());
-	argv[2] = const_cast<char*>(std::to_string(to_z).c_str());
+	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
+	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
+	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
 	argv[3] = static_cast<char *>("AsString");
 	char* const member = static_cast<char *>("HeadingTo");
 	try

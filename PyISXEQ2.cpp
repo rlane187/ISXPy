@@ -120,3 +120,44 @@ void PyISXEQ2::popup(std::string& message, std::string& title, std::string& stat
 	catch(exception&)	{}
 }
 
+void PyISXEQ2::set_actor_events_range(float range)
+{
+	const int argc = 1;
+	char* argv[argc];
+	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(range).c_str());
+	char* const method = static_cast<char *>("SetActorEventsRange");
+	try
+	{
+		this->execute_method(method, argc, argv);
+	}
+	catch (exception&) {}
+}
+
+void PyISXEQ2::set_actor_events_time_interval(int time)
+{
+	const int argc = 1;
+	char* argv[argc];
+	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(time).c_str());
+	char* const method = static_cast<char *>("SetActorEventsTimeInterval");
+	try
+	{
+		this->execute_method(method, argc, argv);
+	}
+	catch (exception&) {}
+}
+
+void PyISXEQ2::set_affliction_events_time_interval(int interval)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	_itoa_s(interval, buffer, _countof(buffer), 10);
+	argv[0] = buffer;
+	char* const method = static_cast<char *>("SetAfflictionEventsTimeInterval");
+	try
+	{
+		this->execute_method(method, argc, argv);
+	}
+	catch (exception&) {}
+}
+

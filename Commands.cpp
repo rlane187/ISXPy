@@ -45,17 +45,36 @@ int CMD_GetType(int argc, char *argv[])
 	return 0;
 }
 
-int CMD_Test(int argc, char *argv[])
+int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
 {	
+	if (argc <= 1)
+	{
+		printf("You must provide a script file name.");
+		return 0;
+	}
+	char subprocess_file_path[MAX_VARSTRING];
+	strcpy_s(subprocess_file_path, _countof(subprocess_file_path), PythonScriptPath);
+	strcat_s(subprocess_file_path, _countof(subprocess_file_path), "\\open_script_as_subprocess.py");
+	char file_path[MAX_VARSTRING];
+	strcpy_s(file_path, _countof(file_path), PythonScriptPath);
+	strcat_s(file_path, _countof(file_path), "\\");
+	strcat_s(file_path, _countof(file_path), argv[1]);
+	wchar_t file_path_w[MAX_VARSTRING];
+	size_t characters_converted;
+	mbstowcs_s(&characters_converted, file_path_w, _countof(file_path_w), file_path, _countof(file_path));
+	wchar_t* p_file_path_w = &file_path_w[0];
+	PySys_SetArgv(1, &p_file_path_w);
 	using namespace boost::python;
 	try
 	{
+
 		object main_module = import("__main__");
-		dict main_namespace = extract<dict>(main_module.attr("__dict__"));
+		const dict main_namespace = extract<dict>(main_module.attr("__dict__"));
+		object isxpy = import("isxpy");
 		object isxeq2 = import("pyisxeq2");
-		std::string script = "import character\nme = character.character()\nprint(me.name)";
-		exec(script.c_str(), main_namespace, main_namespace);
-	}	catch (error_already_set& e) {
+		exec_file(subprocess_file_path, main_namespace, main_namespace);
+	}
+	catch (error_already_set& e) {
 		PyErr_PrintEx(0);
 		return 1;
 	}
@@ -65,7 +84,10 @@ int CMD_Test(int argc, char *argv[])
 int CMD_RunPythonScript(int argc, char *argv[])
 {
 	if (argc <= 1)
+	{
+		printf("You must provide a script file name.");
 		return 0;
+	}		
 	char file_path[MAX_VARSTRING];
 	strcpy_s(file_path, _countof(file_path), PythonScriptPath);
 	strcat_s(file_path, _countof(file_path), "\\");

@@ -7,7 +7,7 @@
 
 // sample
 COMMAND("Py",CMD_Py,true,false);
-COMMAND("TestPy", CMD_Test, true, false);
+COMMAND("RunPySub", CMD_RunPythonScriptSubprocess, true, false);
 COMMAND("RunPy", CMD_RunPythonScript, true, false);
 COMMAND("GetType", CMD_GetType, true, false);
 

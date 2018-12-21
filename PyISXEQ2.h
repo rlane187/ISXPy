@@ -14,5 +14,8 @@ public:
 	bool get_is_ready();
 	bool get_is_valid_eq2press_key(std::string key_name);
 	void popup(std::string& message, std::string& title = std::string(), std::string& status = std::string());
-	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(isxeq2_popup_overloads, popup, 1, 3)
+	void set_actor_events_range(float range);
+	void set_actor_events_time_interval(int time);
+	void set_affliction_events_time_interval(int interval);
+	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(isxeq2_popup_overloads, popup, 1, 3)	
 };

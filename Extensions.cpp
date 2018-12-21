@@ -15,8 +15,11 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.def("enable_affliction_events", &PyISXEQ2::enable_affliction_events)
 		.def("enable_custom_zoning_text", &PyISXEQ2::enable_custom_zoning_text)
 		.add_property("is_ready", &PyISXEQ2::get_is_ready)
-		.def("is_valid_eq2press_key", &PyISXEQ2::get_is_valid_eq2press_key)
-		.def("popup", &PyISXEQ2::popup, PyISXEQ2::isxeq2_popup_overloads(args("message", "title", "status")))		
+		.def("is_valid_eq2press_key", &PyISXEQ2::get_is_valid_eq2press_key, args("key"))
+		.def("popup", &PyISXEQ2::popup, PyISXEQ2::isxeq2_popup_overloads(args("message", "title", "status")))
+		.def("set_actor_events_range", &PyISXEQ2::set_actor_events_range, args("range"))
+		.def("set_actor_events_time_interval", &PyISXEQ2::set_actor_events_time_interval, args("time"))
+		.def("set_affliction_events_time_interval", &PyISXEQ2::set_affliction_events_time_interval, args("time"))
 		.add_property("version", &PyISXEQ2::get_version);
 
 	class_<PyEffectInfo, bases<LSObject>>("effect_info")
