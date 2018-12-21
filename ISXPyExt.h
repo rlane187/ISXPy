@@ -76,6 +76,8 @@ public:
 	bool has_inherited_method(PCHAR method) const;
 	bool has_member(PCHAR member) const;
 	bool has_method(PCHAR method) const;
+	template <class T>
+	int get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list);
 protected:
 	LSOBJECT ls_object_;
 };

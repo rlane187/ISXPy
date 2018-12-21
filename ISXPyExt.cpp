@@ -303,3 +303,55 @@ std::string LSObject::get_string_from_lso()
 	return std::string("Error");
 }
 
+template <class T>
+int LSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
+{
+	LSOBJECT index_object;
+	size_t size = 0;
+	const int random = rand() % INT_MAX;
+	const int argc = 1;
+	const int argc_query = 2;
+	char* argv[argc];
+	char* argv_query[argc_query];
+	char variable_name[MAX_VARSTRING];
+	char declare_command[MAX_VARSTRING];
+	char delete_command[MAX_VARSTRING];
+	sprintf_s(variable_name, _countof(variable_name), "%s_%d", "ISXPy_index_random", random);
+	sprintf_s(declare_command, _countof(declare_command), "DeclareVariable %s index:%s global", variable_name, index_type);
+	sprintf_s(delete_command, _countof(delete_command), "DeleteVariable %s", variable_name);
+	argv[0] = variable_name;
+	argv_query[0] = variable_name;
+	argv_query[1] = query;
+	try
+	{
+		pISInterface->ExecuteCommand(declare_command);
+		pISInterface->DataParse(argv[0], index_object);
+		if (query == nullptr)
+			this->execute_method(method, argc, argv);
+		else
+			this->execute_method(method, argc_query, argv_query);
+		size = static_cast<LSIndex*>(index_object.Ptr)->GetContainerUsed();
+		for (size_t i = 0; i < size; i++)
+		{
+			python_list.append(reinterpret_cast<T*>((*static_cast<LSIndex*>(index_object.Ptr)->GetIndex())[i]));
+		}
+		pISInterface->ExecuteCommand(delete_command);
+	}
+	catch (exception &) {}
+	return len(python_list);
+}
+
+int PyCharacter::get_effects(boost::python::list& effect_list)
+{
+	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), nullptr, effect_list);
+}
+
+int PyCharacter::get_detrimental_effects(boost::python::list& detrimental_list)
+{
+	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), static_cast<char *>("Type == \"Detrimental\""), detrimental_list);
+}
+
+int PyCharacter::get_beneficial_effects(boost::python::list& beneficial_list)
+{
+	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), static_cast<char *>("Type == \"Beneficial\""), beneficial_list);
+}

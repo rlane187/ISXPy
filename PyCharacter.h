@@ -8,11 +8,13 @@ public:
 	std::string get_archetype();
 	bool get_at_char_select();	
 	int get_base_strength();
+	int get_beneficial_effects(boost::python::list& beneficial_list);
 	float get_breath();
 	std::string get_class();
 	int get_copper();
 	int64_t get_current_health();
 	int get_current_power();
+	int get_detrimental_effects(boost::python::list& detrimental_list);
 	int get_effective_level();
 	int get_effects(boost::python::list& effect_list);
 	float get_exp_bubble();
