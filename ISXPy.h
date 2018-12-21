@@ -107,6 +107,7 @@ extern char Py_Version[];
 #include "TopLevelObjects.h"
 #include "Services.h"
 
+
 #include "ISXPyExt.h"
 #include "PyEffectInfo.h"
 #include "PyEQ2DynamicData.h"
@@ -116,5 +117,6 @@ extern char Py_Version[];
 #include "PyMaintained.h"
 #include "PyEQ2.h"
 #include "PyCharacter.h"
+#include "PyIndex.h"
 
 #include "Extensions.h"

@@ -154,6 +154,8 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 
 		printf("ISXPy version %s Loaded",Py_Version);
 
+		srand(time(nullptr));
+
 		char buffer[2048];
 		wchar_t buffer_w[2048];
 		size_t chars_converted = 0;

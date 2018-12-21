@@ -115,20 +115,36 @@ int PyCharacter::get_current_power()
 
 int PyCharacter::get_effects(boost::python::list& effect_list)
 {
+	LSOBJECT index_object;
+	size_t size = 0;	
+	const int random = rand() % INT_MAX;
 	const int argc = 1;
 	char* argv[argc];
-	argv[0] = const_cast<char*>("QueryEffects");
-	char* const member = static_cast<char *>("QueryEffects");
-	LSOBJECT IndexObject;
-	IndexObject.Type = pIndexType;
-	LSIndex* pIndex = new LSIndex(pEffectType, nullptr);
-	IndexObject.Ptr = pIndex;
+	char* method = const_cast<char*>("QueryEffects");
+	char variable_name[MAX_VARSTRING];
+	char declare_command[MAX_VARSTRING];
+	char delete_command[MAX_VARSTRING];
+	sprintf_s(variable_name, _countof(variable_name), "%s_%d", "PyEffects", random);
+	printf(variable_name);
+	sprintf_s(declare_command, _countof(declare_command), "DeclareVariable %s index:effect global", variable_name);
+	printf(declare_command);
+	sprintf_s(delete_command, _countof(delete_command), "DeleteVariable %s", variable_name);
+	printf(delete_command);
+	argv[0] = variable_name;	
 	try
-	{
-		this->get_member(member, 0, nullptr, IndexObject);
+	{		
+		pISInterface->ExecuteCommand(declare_command);
+		pISInterface->DataParse(argv[0], index_object);
+		this->execute_method(method, argc, argv);
+		size = static_cast<LSIndex*>(index_object.Ptr)->GetContainerUsed();
+		for (size_t i = 0; i < size; i++)
+		{
+			effect_list.append(reinterpret_cast<PyEffect*>((*static_cast<LSIndex*>(index_object.Ptr)->GetIndex())[i]));
+		}
+		pISInterface->ExecuteCommand(delete_command);
 	}
 	catch (exception &) {}
-	return pIndex->GetContainerUsed();
+	return len(effect_list);
 }
 
 int PyCharacter::get_effective_level()

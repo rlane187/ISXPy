@@ -98,6 +98,9 @@
     <ClCompile Include="PyEffectInfo.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
+    <ClCompile Include="PyIndex.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -158,6 +161,9 @@
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="PyEffectInfo.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="PyIndex.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>

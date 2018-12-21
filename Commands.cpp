@@ -7,17 +7,30 @@ int CMD_Py(int argc, char *argv[])
 	if(pISInterface->IsTopLevelObject("Me")( 0, nullptr, tlo_object))
 	{
 		LSOBJECT IndexObject;
-		IndexObject.ObjectType = pIndexType;
-		IndexObject.Ptr = new LSIndex(pEffectType, nullptr);
+		//int key = pISInterface->PersistObject(IndexObject);
+		//printf("%d", key);
+		//IndexObject.ObjectType = pIndexType;
+		//IndexObject.Ptr = new LSIndex(pEffectType, nullptr);
 		const int argc = 1;
-		char* argv[argc];
-		argv[0] = "index:effect";
+		char* argv_[argc];
+		char buffer[MAX_VARSTRING];
+		pISInterface->ExecuteCommand("DeclareVariable Effects index:effect global");
+		sprintf_s(buffer, _countof(buffer), "Effects");
+		argv_[0] = buffer;
+		list<PyEffect> effects;
 		try
 		{
-			printf("%.08x", pCharacterType->FindMethod("QueryEffects"));
-			//pCharacterType->GetMethodEx(tlo_object.GetObjectData(), "QueryEffects", 1, argv);
+			pISInterface->DataParse(argv_[0], IndexObject);			
+			pCharacterType->GetMethodEx(tlo_object.GetObjectData(), "QueryEffects", 1, argv_);
+			const auto size = static_cast<LSIndex*>(IndexObject.Ptr)->GetContainerUsed();
+			for (size_t i = 0; i < size; i++)
+			{
+				auto item = reinterpret_cast<PyEffect*>((*static_cast<LSIndex*>(IndexObject.Ptr)->GetIndex())[i]);
+				printf("%d", item->get_id());
+			}
 		}
 		catch (exception&) {}
+		pISInterface->ExecuteCommand("DeleteVariable Effects");
 		
 		//printf("%s:", (LSIndex)IndexObject.Ptr);
 		
