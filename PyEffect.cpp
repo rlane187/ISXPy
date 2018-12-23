@@ -1,7 +1,7 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyEffect::PyEffect(LSOBJECT& ls_object)
+PyEffect::PyEffect(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }

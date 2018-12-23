@@ -1,6 +1,5 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
-
 using namespace boost::python;
 
 BOOST_PYTHON_MODULE(isxpy)
@@ -48,14 +47,12 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 	return false;
 }
 
-LSObject::LSObject() = default;
-
-LSObject::LSObject(LSOBJECT& ls_object)
+PyLSObject::PyLSObject(LSOBJECT& ls_object)
 {	
 	this->ls_object_ = ls_object;
 }
 
-void LSObject::execute_method(PCHAR method, int argc, char* argv[])
+void PyLSObject::execute_method(PCHAR method, int argc, char* argv[])
 {
 	if (this->ls_object_.ObjectType && this->has_method(method))
 		this->ls_object_.ObjectType->GetMethodEx(this->ls_object_.GetObjectData(), method, argc, argv);
@@ -63,17 +60,17 @@ void LSObject::execute_method(PCHAR method, int argc, char* argv[])
 		this->ls_object_.ObjectType->GetInheritedMethod(this->ls_object_.GetObjectData(), method, argc, argv);
 }
 
-LSObject LSObject::get_member(PCHAR member, int argc, char* argv[])
+PyLSObject PyLSObject::get_member(PCHAR member, int argc, char* argv[])
 {
 	LSOBJECT dest;
 	if(this->ls_object_.ObjectType && this->has_member(member))
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, dest);
 	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, dest);
-	return static_cast<LSObject>(dest);
+	return static_cast<PyLSObject>(dest);
 }
 
-void LSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
+void PyLSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
 {
 	if (this->ls_object_.ObjectType && this->has_member(member))
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
@@ -81,7 +78,7 @@ void LSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_obj
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
 }
 
-bool LSObject::has_inherited_member(PCHAR member) const
+bool PyLSObject::has_inherited_member(PCHAR member) const
 {
 	if (this->ls_object_.ObjectType)
 	{
@@ -91,7 +88,7 @@ bool LSObject::has_inherited_member(PCHAR member) const
 	return false;
 }
 
-bool LSObject::has_inherited_method(PCHAR method) const
+bool PyLSObject::has_inherited_method(PCHAR method) const
 {
 	if (this->ls_object_.ObjectType)
 	{
@@ -101,7 +98,7 @@ bool LSObject::has_inherited_method(PCHAR method) const
 	return false;
 }
 
-bool LSObject::has_member(PCHAR member) const
+bool PyLSObject::has_member(PCHAR member) const
 {
 	if(this->ls_object_.ObjectType)
 	{
@@ -111,7 +108,7 @@ bool LSObject::has_member(PCHAR member) const
 	return false;
 }
 
-bool LSObject::has_method(PCHAR method) const
+bool PyLSObject::has_method(PCHAR method) const
 {
 	if(this->ls_object_.ObjectType)
 	{
@@ -121,7 +118,7 @@ bool LSObject::has_method(PCHAR method) const
 	return false;
 }
 
-bool LSObject::get_bool_from_lso()
+bool PyLSObject::get_bool_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pBoolType)
 	{
@@ -134,7 +131,7 @@ bool LSObject::get_bool_from_lso()
 	return false;
 }
 
-int LSObject::get_byte_from_lso()
+int PyLSObject::get_byte_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pByteType)
 	{
@@ -147,7 +144,7 @@ int LSObject::get_byte_from_lso()
 	return false;
 }
 
-float LSObject::get_float_from_lso()
+float PyLSObject::get_float_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pFloatType)
 	{
@@ -160,7 +157,7 @@ float LSObject::get_float_from_lso()
 	return FLT_MAX;
 }
 
-int LSObject::get_int_from_lso()
+int PyLSObject::get_int_from_lso()
 {
 	if(this->ls_object_.ObjectType && this->ls_object_.ObjectType == pIntType)
 	{
@@ -173,7 +170,7 @@ int LSObject::get_int_from_lso()
 	return INT_MAX;
 }
 
-int64_t LSObject::get_int64_from_lso()
+int64_t PyLSObject::get_int64_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pInt64Type)
 	{
@@ -186,12 +183,12 @@ int64_t LSObject::get_int64_from_lso()
 	return INT64_MAX;
 }
 
-LSOBJECT& LSObject::get_lso()
+const LSOBJECT& PyLSObject::get_lso()
 {
 	return this->ls_object_;
 }
 
-std::string LSObject::get_string_from_lso()
+std::string PyLSObject::get_string_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pStringType)
 	{
@@ -215,8 +212,17 @@ std::string LSObject::get_string_from_lso()
 	return std::string("Error");
 }
 
+unsigned int PyLSObject::get_uint_from_lso()
+{
+	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pUintType)
+	{
+		return unsigned int(this->ls_object_.GetObjectData().DWord);
+	}
+	return UINT_MAX;
+}
+
 template <class T>
-int LSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
+int PyLSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
 {
 	LSOBJECT index_object;
 	size_t size = 0;
@@ -253,17 +259,12 @@ int LSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR q
 	return len(python_list);
 }
 
-int PyCharacter::get_effects(boost::python::list& effect_list)
+int PyCharacter::query_effects(boost::python::list& effect_list, const std::string& query)
 {
-	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), nullptr, effect_list);
+	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), const_cast<char *>(query.c_str()), effect_list);
 }
 
-int PyCharacter::get_detrimental_effects(boost::python::list& detrimental_list)
+int PyEQ2::query_actors(boost::python::list& actor_list, const std::string& query)
 {
-	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), static_cast<char *>("Type == \"Detrimental\""), detrimental_list);
-}
-
-int PyCharacter::get_beneficial_effects(boost::python::list& beneficial_list)
-{
-	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), static_cast<char *>("Type == \"Beneficial\""), beneficial_list);
+	return this->get_list_from_index_method<PyActor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"), const_cast<char *>(query.c_str()), actor_list);
 }

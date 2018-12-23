@@ -16,17 +16,6 @@
 
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
-char ExtensionPath[MAX_PATH] = { 0 };
-wchar_t ExtensionPathW[MAX_PATH] = { 0 };
-char PythonHome[MAX_PATH] = { 0 };
-wchar_t PythonHomeW[MAX_PATH] = { 0 };
-char PythonPath[2048] = { 0 };
-wchar_t PythonPathW[2048] = { 0 };
-char PythonDLLs[MAX_PATH] = { 0 };
-wchar_t PythonDLLsW[MAX_PATH] = { 0 };
-char PythonLibs[MAX_PATH] = { 0 };
-wchar_t PythonLibsW[MAX_PATH] = { 0 };
-
 char PythonScriptPath[MAX_PATH] = { 0 };
 
 #pragma comment(lib,"isxdk.lib")
@@ -154,46 +143,11 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 
 		printf("ISXPy version %s Loaded",Py_Version);
 
-		srand(time(nullptr));
-
-		char buffer[2048];
-		wchar_t buffer_w[2048];
+		srand(unsigned int(time(nullptr)));
 		size_t chars_converted = 0;
 		// Set DllPath and DllPathW
 		GetModuleFileName(HINSTANCE(&__ImageBase), DllPath, _countof(DllPath));		
 		mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
-
-		// Set ExtensionPath and ExtensionPathW
-		wcscpy_s(buffer_w, _countof(DllPathW), DllPathW);
-		PathCchRemoveFileSpec(buffer_w, _countof(buffer_w));
-		wcscpy_s(ExtensionPathW, _countof(ExtensionPathW), buffer_w);
-		wcstombs_s(&chars_converted, ExtensionPath, ExtensionPathW, _countof(ExtensionPath));
-
-		// Set PythonHome and PythonHomeW
-		strcpy_s(PythonHome, _countof(PythonHome), ExtensionPath);
-		strcat_s(PythonHome, _countof(PythonHome), "\\python");
-		mbstowcs_s(&chars_converted, PythonHomeW, _countof(PythonHomeW), PythonHome, _countof(PythonHome));
-
-		//Py_SetPythonHome(PythonHomeW);		
-
-		// Set PythonDLLs and PythonDLLsW
-		strcpy_s(PythonDLLs, _countof(PythonDLLs), PythonHome);
-		strcat_s(PythonDLLs, _countof(PythonDLLs), "\\DLLs");
-		mbstowcs_s(&chars_converted, PythonDLLsW, _countof(PythonDLLsW), PythonDLLs, _countof(PythonDLLs));
-
-		// Set PythonLibs and PythonLibsW
-		strcpy_s(PythonLibs, _countof(PythonLibs), PythonHome);
-		strcat_s(PythonLibs, _countof(PythonLibs), "\\Lib");
-		mbstowcs_s(&chars_converted, PythonLibsW, _countof(PythonLibsW), PythonLibs, _countof(PythonLibs));
-
-		// Set PythonPath and PythonPathW
-		strcpy_s(PythonPath, _countof(PythonPath), PythonLibs);
-		strcat_s(PythonPath, _countof(PythonPath), ";");
-		strcat_s(PythonPath, _countof(PythonPath), PythonDLLs);
-		strcat_s(PythonPath, _countof(PythonPath), ";");
-		strcat_s(PythonPath, _countof(PythonPath), ExtensionPath);
-		mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonPath, _countof(PythonPathW));
-
 		pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 		strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
 

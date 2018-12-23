@@ -1,6 +1,6 @@
 #pragma once
 
-class PyEQ2DynamicData : public LSObject
+class PyEQ2DynamicData : public PyLSObject
 {
 public:
 	PyEQ2DynamicData() = default;

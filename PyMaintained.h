@@ -1,10 +1,10 @@
 #pragma once
 
-class PyMaintained : public LSObject
+class PyMaintained : public PyLSObject
 {
 public:
 	PyMaintained() = default;
-	PyMaintained(LSOBJECT& ls_object);
+	PyMaintained(const LSOBJECT& ls_object);
 	int get_concentration_cost();
 	int get_current_increments();
 	int get_damage_remaining();

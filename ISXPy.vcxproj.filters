@@ -98,7 +98,7 @@
     <ClCompile Include="PyEffectInfo.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
-    <ClCompile Include="PyIndex.cpp">
+    <ClCompile Include="PyPoint3f.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -163,7 +163,7 @@
     <ClInclude Include="PyEffectInfo.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
-    <ClInclude Include="PyIndex.h">
+    <ClInclude Include="PyPoint3f.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>

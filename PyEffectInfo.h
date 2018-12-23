@@ -1,10 +1,10 @@
 #pragma once
 
-class PyEffectInfo : public LSObject
+class PyEffectInfo : public PyLSObject
 {
 public:
 	PyEffectInfo() = default;
-	PyEffectInfo(LSOBJECT& ls_object);
+	PyEffectInfo(const LSOBJECT& ls_object);
 	std::string get_description();
 	std::string get_name();
 	std::string get_type();

@@ -1,10 +1,10 @@
 #pragma once
 
-class PyEffect : public LSObject
+class PyEffect : public PyLSObject
 {
 public:
 	PyEffect() = default;
-	PyEffect(LSOBJECT& ls_object);	
+	PyEffect(const LSOBJECT& ls_object);	
 	int get_back_drop_icon_id();
 	int get_current_increments();
 	float get_duration();

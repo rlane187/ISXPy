@@ -1,7 +1,7 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyMaintained::PyMaintained(LSOBJECT& ls_object)
+PyMaintained::PyMaintained(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }

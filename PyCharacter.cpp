@@ -8,13 +8,19 @@ PyCharacter::PyCharacter()
 	pISInterface->IsTopLevelObject("Me")(0, nullptr, *reinterpret_cast<LSOBJECT*>(this));
 }
 
-bool PyCharacter::check_collision(float to_x, float to_y, float to_z)
+bool PyCharacter::check_collision(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
-	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
-	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(to_x).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(to_y).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(to_z).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
 	char* const member = static_cast<char *>("CheckCollision");
 	try
 	{
@@ -616,13 +622,19 @@ float PyCharacter::get_z()
 	return FLT_MAX;
 }
 
-float PyCharacter::heading_to(float to_x, float to_y, float to_z)
+float PyCharacter::heading_to(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
-	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
-	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(to_x).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(to_y).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(to_z).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
 	char* const member = static_cast<char *>("HeadingTo");
 	try
 	{
@@ -633,13 +645,19 @@ float PyCharacter::heading_to(float to_x, float to_y, float to_z)
 }
 
 
-std::string PyCharacter::heading_to_as_compass_bearing(float to_x, float to_y, float to_z)
+std::string PyCharacter::heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 4;
 	char* argv[argc];
-	argv[0] = const_cast<char*>(boost::lexical_cast<std::string>(to_x).c_str());
-	argv[1] = const_cast<char*>(boost::lexical_cast<std::string>(to_y).c_str());
-	argv[2] = const_cast<char*>(boost::lexical_cast<std::string>(to_z).c_str());
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(to_x).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(to_y).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(to_z).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
 	argv[3] = static_cast<char *>("AsString");
 	char* const member = static_cast<char *>("HeadingTo");
 	try

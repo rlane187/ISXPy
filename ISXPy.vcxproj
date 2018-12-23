@@ -80,10 +80,10 @@
     <ClCompile Include="PyEffectInfo.cpp" />
     <ClCompile Include="PyEQ2.cpp" />
     <ClCompile Include="PyEQ2DynamicData.cpp" />
-    <ClCompile Include="PyIndex.cpp" />
     <ClCompile Include="PyISXEQ2.cpp" />
     <ClCompile Include="PyCharacter.cpp" />
     <ClCompile Include="PyMaintained.cpp" />
+    <ClCompile Include="PyPoint3f.cpp" />
     <ClCompile Include="Services.cpp" />
     <ClCompile Include="TopLevelObjects.cpp" />
   </ItemGroup>
@@ -104,9 +104,9 @@
     <ClInclude Include="PyEffectInfo.h" />
     <ClInclude Include="PyEQ2.h" />
     <ClInclude Include="PyEQ2DynamicData.h" />
-    <ClInclude Include="PyIndex.h" />
     <ClInclude Include="PyISXEQ2.h" />
     <ClInclude Include="PyMaintained.h" />
+    <ClInclude Include="PyPoint3f.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="TopLevelObjects.h" />
   </ItemGroup>

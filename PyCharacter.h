@@ -1,22 +1,19 @@
 #pragma once
 
-class PyCharacter : public LSObject
+class PyCharacter : public PyLSObject
 {
 public:
 	PyCharacter();
-	bool check_collision(float to_x, float to_y, float to_z);
+	bool check_collision(const float& to_x, const float& to_y, const float& to_z);
 	std::string get_archetype();
 	bool get_at_char_select();	
 	int get_base_strength();
-	int get_beneficial_effects(boost::python::list& beneficial_list);
 	float get_breath();
 	std::string get_class();
 	int get_copper();
 	int64_t get_current_health();
 	int get_current_power();
-	int get_detrimental_effects(boost::python::list& detrimental_list);
-	int get_effective_level();
-	int get_effects(boost::python::list& effect_list);
+	int get_effective_level();	
 	float get_exp_bubble();
 	int get_exp_current();
 	float get_exp_debt_current();
@@ -57,6 +54,8 @@ public:
 	float get_x();
 	float get_y();
 	float get_z();
-	float heading_to(float to_x, float to_y, float to_z);
-	std::string heading_to_as_compass_bearing(float to_x, float to_y, float to_z);
+	float heading_to(const float& to_x, const float& to_y, const float& to_z);
+	std::string heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z);
+	int query_effects(boost::python::list& effect_list, const std::string& query = std::string());
+	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(query_effects_overloads, query_effects, 1, 2)
 };

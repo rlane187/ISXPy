@@ -74,7 +74,7 @@ int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
 		object isxeq2 = import("pyisxeq2");
 		exec_file(subprocess_file_path, main_namespace, main_namespace);
 	}
-	catch (error_already_set& e) {
+	catch (error_already_set&) {
 		PyErr_PrintEx(0);
 		return 1;
 	}
@@ -101,7 +101,7 @@ int CMD_RunPythonScript(int argc, char *argv[])
 		object isxeq2 = import("pyisxeq2");
 		exec_file(file_path, main_namespace, main_namespace);
 	}
-	catch (error_already_set& e) {
+	catch (error_already_set&) {
 		PyErr_PrintEx(0);
 		return 1;
 	}

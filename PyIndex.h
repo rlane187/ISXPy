@@ -1,6 +1,6 @@
 #pragma once
 
-class PyIndex : public LSObject
+class PyIndex : public PyLSObject
 {
 public:
 	PyIndex() = default;
