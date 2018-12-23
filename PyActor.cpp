@@ -270,6 +270,39 @@ bool PyActor::get_interactable()
 	return false;
 }
 
+bool PyActor::get_is_banker()
+{
+	char* const member = static_cast<char *>("IsBanker");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
+bool PyActor::get_is_chest()
+{
+	char* const member = static_cast<char *>("IsChest");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
+bool PyActor::get_is_merchant()
+{
+	char* const member = static_cast<char *>("IsMerchant");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
 std::string PyActor::get_last_name()
 {
 	char* const member = static_cast<char *>("LastName");

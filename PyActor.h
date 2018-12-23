@@ -27,6 +27,9 @@ public:
 	std::string get_heading_to_as_compass_bearing();
 	int get_health();
 	unsigned int get_id();
+	bool get_is_banker();
+	bool get_is_chest();
+	bool get_is_merchant();
 	bool get_in_my_group();
 	bool get_interactable();
 	std::string get_last_name();
