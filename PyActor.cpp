@@ -52,6 +52,28 @@ std::string PyActor::get_class()
 	return std::string("Error");
 }
 
+float PyActor::get_collision_radius()
+{
+	char* const member = static_cast<char *>("CollisionRadius");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
+float PyActor::get_collision_scale()
+{
+	char* const member = static_cast<char *>("CollisionScale");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
 std::string PyActor::get_con_color(const bool& as_rgb)
 {
 	const int argc = 1;
@@ -134,6 +156,18 @@ std::string PyActor::get_faction_standing()
 	return std::string("Error");
 }
 
+bool PyActor::get_flying_using_mount()
+{
+	char* const member = static_cast<char *>("FlyingUsingMount");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
+
 std::string PyActor::get_gender()
 {
 	char* const member = static_cast<char *>("Gender");
@@ -214,6 +248,28 @@ unsigned int PyActor::get_id()
 	return UINT_MAX;
 }
 
+bool PyActor::get_in_my_group()
+{
+	char* const member = static_cast<char *>("InMyGroup");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
+bool PyActor::get_interactable()
+{
+	char* const member = static_cast<char *>("Interactable");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
 std::string PyActor::get_last_name()
 {
 	char* const member = static_cast<char *>("LastName");
@@ -283,6 +339,17 @@ std::string PyActor::get_name()
 	return std::string("Error");
 }
 
+bool PyActor::get_on_flying_mount()
+{
+	char* const member = static_cast<char *>("OnFlyingMount");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (exception &) {}
+	return false;
+}
+
 std::string PyActor::get_overlay()
 {
 	char* const member = static_cast<char *>("Overlay");
@@ -316,6 +383,17 @@ std::string PyActor::get_race()
 	return std::string("Error");
 }
 
+float PyActor::get_speed()
+{
+	char* const member = static_cast<char *>("Speed");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
+}
+
 std::string PyActor::get_suffix_title()
 {
 	char* const member = static_cast<char *>("SuffixTitle");
@@ -325,6 +403,17 @@ std::string PyActor::get_suffix_title()
 	}
 	catch (exception &) {}
 	return std::string("Error");
+}
+
+float PyActor::get_swimming_speed_mod()
+{
+	char* const member = static_cast<char *>("SwimmingSpeedMod");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
 }
 
 PyActor PyActor::get_target()
@@ -337,6 +426,17 @@ PyActor PyActor::get_target()
 	}
 	catch (exception&) {}
 	return pet;
+}
+
+float PyActor::get_target_ring_radius()
+{
+	char* const member = static_cast<char *>("TargetRingRadius");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (exception &) {}
+	return FLT_MAX;
 }
 
 int PyActor::get_threat_to_me()
@@ -372,7 +472,7 @@ int PyActor::get_threat_to_pet()
 	return INT_MAX;
 }
 
-unsigned PyActor::get_tint_flags()
+unsigned int PyActor::get_tint_flags()
 {
 	char* const member = static_cast<char *>("TintFlags");
 	try
@@ -418,9 +518,30 @@ std::string PyActor::get_visual_variant()
 	return std::string("Error");
 }
 
+std::string PyActor::get_who_following()
+{
+	char* const member = static_cast<char *>("WhoFollowing");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_string_from_lso();
+	}
+	catch (exception &) {}
+	return std::string("Error");
+}
+
+int PyActor::get_who_following_id()
+{
+	char* const member = static_cast<char *>("WhoFollowingID");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (exception &) {}
+	return INT_MAX;
+}
+
 float PyActor::get_x()
 {
-
 	char* const member = static_cast<char *>("X");
 	try
 	{

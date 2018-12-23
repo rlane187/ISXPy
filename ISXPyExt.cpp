@@ -183,7 +183,7 @@ int64_t PyLSObject::get_int64_from_lso()
 	return INT64_MAX;
 }
 
-const LSOBJECT& PyLSObject::get_lso()
+const LSOBJECT& PyLSObject::get_lso() const
 {
 	return this->ls_object_;
 }

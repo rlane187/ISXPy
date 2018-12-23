@@ -43,7 +43,7 @@ class PyLSObject
 public:
 	PyLSObject() = default;
 	PyLSObject(LSOBJECT& ls_object);
-	const LSOBJECT& get_lso();
+	const LSOBJECT& get_lso() const;
 	void execute_method(PCHAR method, int argc, char* argv[]);
 	PyLSObject get_member(PCHAR member, int argc, char* argv[]);
 	void get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object);
