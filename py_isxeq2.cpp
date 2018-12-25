@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyISXEQ2::PyISXEQ2()
+py_isxeq2::py_isxeq2()
 {
 	pISInterface->IsTopLevelObject("ISXEQ2")(0, nullptr, *reinterpret_cast<LSOBJECT*>(this));
 }
 
-void PyISXEQ2::add_loc(const std::string& label, const std::string& notes)
+void py_isxeq2::add_loc(const std::string& label, const std::string& notes)
 {
 	char* const method = static_cast<char *>("AddLoc");
 	const int argc = 1;
@@ -26,7 +26,7 @@ void PyISXEQ2::add_loc(const std::string& label, const std::string& notes)
 	catch (exception&) {}
 }
 
-void PyISXEQ2::clear_abilities_cache()
+void py_isxeq2::clear_abilities_cache()
 {
 	char* const method = static_cast<char *>("ClearAbilitiesCache");
 	try
@@ -36,7 +36,7 @@ void PyISXEQ2::clear_abilities_cache()
 	catch (exception &) {}
 }
 
-void PyISXEQ2::disable_affliction_events()
+void py_isxeq2::disable_affliction_events()
 {
 	char* const method = static_cast<char *>("DisableAfflictionEvents");
 	try
@@ -46,7 +46,7 @@ void PyISXEQ2::disable_affliction_events()
 	catch (exception &) {}
 }
 
-void PyISXEQ2::disable_custom_zoning_text()
+void py_isxeq2::disable_custom_zoning_text()
 {
 	char* const method = static_cast<char *>("DisableCustomZoningText");
 	try
@@ -56,7 +56,7 @@ void PyISXEQ2::disable_custom_zoning_text()
 	catch (exception &) {}
 }
 
-void PyISXEQ2::enable_affliction_events()
+void py_isxeq2::enable_affliction_events()
 {
 	char* const method = static_cast<char *>("EnableAfflictionEvents");
 	try
@@ -66,7 +66,7 @@ void PyISXEQ2::enable_affliction_events()
 	catch (exception &) {}
 }
 
-void PyISXEQ2::enable_custom_zoning_text()
+void py_isxeq2::enable_custom_zoning_text()
 {
 	char* const method = static_cast<char *>("EnableCustomZoningText");
 	try
@@ -76,7 +76,7 @@ void PyISXEQ2::enable_custom_zoning_text()
 	catch (exception &) {}
 }
 
-bool PyISXEQ2::get_affliction_events_on()
+bool py_isxeq2::get_affliction_events_on()
 {
 	char* const member = static_cast<char *>("AfflictionEventsOn");
 	try
@@ -87,7 +87,7 @@ bool PyISXEQ2::get_affliction_events_on()
 	return false;
 }
 
-std::string PyISXEQ2::get_api_version()
+std::string py_isxeq2::get_api_version()
 {
 	char* const member = static_cast<char *>("APIVersion");
 	try
@@ -98,7 +98,7 @@ std::string PyISXEQ2::get_api_version()
 	return std::string("Error");
 }
 
-int PyISXEQ2::get_eq2locs_count(const bool& all_zones)
+int py_isxeq2::get_eq2locs_count(const bool& all_zones)
 {
 	char* const member = static_cast<char *>("EQ2LocsCount");
 	const int argc = 1;
@@ -117,7 +117,7 @@ int PyISXEQ2::get_eq2locs_count(const bool& all_zones)
 }
 
 
-std::string PyISXEQ2::get_version()
+std::string py_isxeq2::get_version()
 {
 	char* const member = static_cast<char *>("Version");
 	try
@@ -128,7 +128,7 @@ std::string PyISXEQ2::get_version()
 	return std::string("Error");
 }
 
-bool PyISXEQ2::get_is_ready()
+bool py_isxeq2::get_is_ready()
 {
 	char* const member = static_cast<char *>("IsReady");
 	try
@@ -139,7 +139,7 @@ bool PyISXEQ2::get_is_ready()
 	return false;
 }
 
-bool PyISXEQ2::get_is_valid_eq2press_key(const std::string& key_name)
+bool py_isxeq2::get_is_valid_eq2press_key(const std::string& key_name)
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -154,7 +154,7 @@ bool PyISXEQ2::get_is_valid_eq2press_key(const std::string& key_name)
 }
 
 
-void PyISXEQ2::popup(const std::string& message, const std::string& title, const std::string& status)
+void py_isxeq2::popup(const std::string& message, const std::string& title, const std::string& status)
 {
 	const int argc = 3;
 	char* argv[argc];
@@ -169,7 +169,7 @@ void PyISXEQ2::popup(const std::string& message, const std::string& title, const
 	catch(exception&)	{}
 }
 
-void PyISXEQ2::reset_internal_vending_system()
+void py_isxeq2::reset_internal_vending_system()
 {
 	char* const method = static_cast<char *>("ResetInternalVendingSystem");
 	try
@@ -180,7 +180,7 @@ void PyISXEQ2::reset_internal_vending_system()
 }
 
 
-void PyISXEQ2::set_actor_events_range(const float& range)
+void py_isxeq2::set_actor_events_range(const float& range)
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -196,7 +196,7 @@ void PyISXEQ2::set_actor_events_range(const float& range)
 	catch (exception&) {}
 }
 
-void PyISXEQ2::set_actor_events_time_interval(const int& time)
+void py_isxeq2::set_actor_events_time_interval(const int& time)
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -211,7 +211,7 @@ void PyISXEQ2::set_actor_events_time_interval(const int& time)
 	catch (exception&) {}
 }
 
-void PyISXEQ2::set_affliction_events_time_interval(const int& interval)
+void py_isxeq2::set_affliction_events_time_interval(const int& interval)
 {
 	const int argc = 1;
 	char* argv[argc];

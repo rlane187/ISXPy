@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyMaintained::PyMaintained(const LSOBJECT& ls_object)
+py_maintained::py_maintained(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }
 
-int PyMaintained::get_concentration_cost()
+int py_maintained::get_concentration_cost()
 {
 	char* const member = static_cast<char *>("ConcentrationCost");
 	try
@@ -17,7 +17,7 @@ int PyMaintained::get_concentration_cost()
 	return INT_MAX;
 }
 
-int PyMaintained::get_current_increments()
+int py_maintained::get_current_increments()
 {
 	char* const member = static_cast<char *>("CurrentIncrements");
 	try
@@ -28,7 +28,7 @@ int PyMaintained::get_current_increments()
 	return INT_MAX;
 }
 
-int PyMaintained::get_damage_remaining()
+int py_maintained::get_damage_remaining()
 {
 	char* const member = static_cast<char *>("DamageRemaining");
 	try
@@ -39,7 +39,7 @@ int PyMaintained::get_damage_remaining()
 	return INT_MAX;
 }
 
-float PyMaintained::get_duration()
+float py_maintained::get_duration()
 {
 	char* const member = static_cast<char *>("Duration");
 	try
@@ -51,7 +51,7 @@ float PyMaintained::get_duration()
 }
 
 
-bool PyMaintained::get_is_beneficial()
+bool py_maintained::get_is_beneficial()
 {
 	char* const member = static_cast<char *>("IsBeneficial");
 	try
@@ -62,7 +62,7 @@ bool PyMaintained::get_is_beneficial()
 	return false;
 }
 
-float PyMaintained::get_max_duration()
+float py_maintained::get_max_duration()
 {
 	char* const member = static_cast<char *>("MaxDuration");
 	try
@@ -73,7 +73,7 @@ float PyMaintained::get_max_duration()
 	return FLT_MAX;
 }
 
-std::string PyMaintained::get_name()
+std::string py_maintained::get_name()
 {
 	char* const member = static_cast<char *>("Name");
 	try
@@ -84,19 +84,19 @@ std::string PyMaintained::get_name()
 	return std::string("Error");
 }
 
-PyActor PyMaintained::get_target()
+py_actor py_maintained::get_target()
 {
-	PyActor actor;
+	py_actor actor;
 	char* const member = static_cast<char *>("Target");
 	try
 	{
-		actor = PyActor(this->get_member(member, 0, nullptr).get_lso());
+		actor = py_actor(this->get_member(member, 0, nullptr).get_lso());
 	}
 	catch (exception &) {}
 	return actor;
 }
 
-std::string PyMaintained::get_target_type()
+std::string py_maintained::get_target_type()
 {
 	char* const member = static_cast<char *>("TargetType");
 	try
@@ -107,7 +107,7 @@ std::string PyMaintained::get_target_type()
 	return std::string("Error");
 }
 
-int PyMaintained::get_uses_remaining()
+int py_maintained::get_uses_remaining()
 {
 	char* const member = static_cast<char *>("UsesRemaining");
 	try

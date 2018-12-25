@@ -1,10 +1,10 @@
 #pragma once
 
-class PyActor : public PyLSObject
+class py_actor : public py_lsobject
 {
 public:
-	PyActor() = default;
-	PyActor(const LSOBJECT& ls_object);
+	py_actor() = default;
+	py_actor(const LSOBJECT& ls_object);
 	std::string get_aura();
 	bool check_collision(const float& to_x = NULL, const float& to_y = NULL, const float& to_z = NULL);
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(check_collision_overloads, check_collision, 0, 3)
@@ -27,36 +27,54 @@ public:
 	std::string get_heading_to_as_compass_bearing();
 	int get_health();
 	unsigned int get_id();
+	bool get_is_aggro();
+	bool get_is_afk();
+	bool get_is_a_pet();
+	bool get_is_camping();
+	bool get_is_epic();
+	bool get_is_heroic();	
 	bool get_is_banker();
 	bool get_is_chest();
+	bool get_is_encounter_broken();
+	bool get_is_invis();
+	bool get_is_lfg();
+	bool get_is_lfw();
+	bool get_is_linkdead();
+	bool get_is_locked();	
 	bool get_is_merchant();
+	bool get_is_my_pet();
+	bool get_is_named();
+	bool get_is_solo();
+	bool get_is_swimming();
 	bool get_in_my_group();
 	bool get_interactable();
 	std::string get_last_name();
 	int get_level();
-	PyPoint3f get_loc();
+	py_point3f get_loc();
 	std::string get_mood();
 	std::string get_name();
+	int get_num_effects();
 	bool get_on_flying_mount();
 	std::string get_overlay();
-	PyActor get_pet();
+	py_actor get_pet();
 	int get_power();
 	std::string get_race();
 	float get_speed();
 	std::string get_suffix_title();
 	float get_swimming_speed_mod();
-	PyActor get_target();
+	py_actor get_target();
 	float get_target_ring_radius();
 	int get_threat_to_me();
 	int get_threat_to_pet();
 	int get_threat_to_next();
 	unsigned int get_tint_flags();
 	std::string get_type();
-	PyPoint3f get_velocity();
+	py_point3f get_velocity();
 	std::string get_visual_variant();
 	std::string get_who_following();
 	int get_who_following_id();
 	float get_x();
 	float get_y();
 	float get_z();
+	int get_effects(boost::python::list& effect_list);
 };

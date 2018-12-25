@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyEffectInfo::PyEffectInfo(const LSOBJECT& ls_object)
+py_effect_info::py_effect_info(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }
 
-std::string PyEffectInfo::get_description()
+std::string py_effect_info::get_description()
 {
 	char* const member = static_cast<char *>("Description");
 	try
@@ -17,7 +17,7 @@ std::string PyEffectInfo::get_description()
 	return std::string("Error");
 }
 
-std::string PyEffectInfo::get_name()
+std::string py_effect_info::get_name()
 {
 	char* const member = static_cast<char *>("Name");
 	try
@@ -28,7 +28,7 @@ std::string PyEffectInfo::get_name()
 	return std::string("Error");
 }
 
-std::string PyEffectInfo::get_type()
+std::string py_effect_info::get_type()
 {
 	char* const member = static_cast<char *>("type");
 	try

@@ -47,12 +47,12 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 	return false;
 }
 
-PyLSObject::PyLSObject(LSOBJECT& ls_object)
+py_lsobject::py_lsobject(LSOBJECT& ls_object)
 {	
 	this->ls_object_ = ls_object;
 }
 
-void PyLSObject::execute_method(PCHAR method, int argc, char* argv[])
+void py_lsobject::execute_method(PCHAR method, int argc, char* argv[])
 {
 	if (this->ls_object_.ObjectType && this->has_method(method))
 		this->ls_object_.ObjectType->GetMethodEx(this->ls_object_.GetObjectData(), method, argc, argv);
@@ -60,17 +60,17 @@ void PyLSObject::execute_method(PCHAR method, int argc, char* argv[])
 		this->ls_object_.ObjectType->GetInheritedMethod(this->ls_object_.GetObjectData(), method, argc, argv);
 }
 
-PyLSObject PyLSObject::get_member(PCHAR member, int argc, char* argv[])
+py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
 {
 	LSOBJECT dest;
 	if(this->ls_object_.ObjectType && this->has_member(member))
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, dest);
 	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, dest);
-	return static_cast<PyLSObject>(dest);
+	return static_cast<py_lsobject>(dest);
 }
 
-void PyLSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
+void py_lsobject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
 {
 	if (this->ls_object_.ObjectType && this->has_member(member))
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
@@ -78,7 +78,7 @@ void PyLSObject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_o
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
 }
 
-bool PyLSObject::has_inherited_member(PCHAR member) const
+bool py_lsobject::has_inherited_member(PCHAR member) const
 {
 	if (this->ls_object_.ObjectType)
 	{
@@ -88,7 +88,7 @@ bool PyLSObject::has_inherited_member(PCHAR member) const
 	return false;
 }
 
-bool PyLSObject::has_inherited_method(PCHAR method) const
+bool py_lsobject::has_inherited_method(PCHAR method) const
 {
 	if (this->ls_object_.ObjectType)
 	{
@@ -98,7 +98,7 @@ bool PyLSObject::has_inherited_method(PCHAR method) const
 	return false;
 }
 
-bool PyLSObject::has_member(PCHAR member) const
+bool py_lsobject::has_member(PCHAR member) const
 {
 	if(this->ls_object_.ObjectType)
 	{
@@ -108,7 +108,7 @@ bool PyLSObject::has_member(PCHAR member) const
 	return false;
 }
 
-bool PyLSObject::has_method(PCHAR method) const
+bool py_lsobject::has_method(PCHAR method) const
 {
 	if(this->ls_object_.ObjectType)
 	{
@@ -118,7 +118,7 @@ bool PyLSObject::has_method(PCHAR method) const
 	return false;
 }
 
-bool PyLSObject::get_bool_from_lso()
+bool py_lsobject::get_bool_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pBoolType)
 	{
@@ -131,7 +131,7 @@ bool PyLSObject::get_bool_from_lso()
 	return false;
 }
 
-int PyLSObject::get_byte_from_lso()
+int py_lsobject::get_byte_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pByteType)
 	{
@@ -144,7 +144,7 @@ int PyLSObject::get_byte_from_lso()
 	return false;
 }
 
-float PyLSObject::get_float_from_lso()
+float py_lsobject::get_float_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pFloatType)
 	{
@@ -157,7 +157,7 @@ float PyLSObject::get_float_from_lso()
 	return FLT_MAX;
 }
 
-int PyLSObject::get_int_from_lso()
+int py_lsobject::get_int_from_lso()
 {
 	if(this->ls_object_.ObjectType && this->ls_object_.ObjectType == pIntType)
 	{
@@ -170,7 +170,7 @@ int PyLSObject::get_int_from_lso()
 	return INT_MAX;
 }
 
-int64_t PyLSObject::get_int64_from_lso()
+int64_t py_lsobject::get_int64_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pInt64Type)
 	{
@@ -183,12 +183,12 @@ int64_t PyLSObject::get_int64_from_lso()
 	return INT64_MAX;
 }
 
-const LSOBJECT& PyLSObject::get_lso() const
+const LSOBJECT& py_lsobject::get_lso() const
 {
 	return this->ls_object_;
 }
 
-std::string PyLSObject::get_string_from_lso()
+std::string py_lsobject::get_string_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pStringType)
 	{
@@ -212,7 +212,7 @@ std::string PyLSObject::get_string_from_lso()
 	return std::string("Error");
 }
 
-unsigned int PyLSObject::get_uint_from_lso()
+unsigned int py_lsobject::get_uint_from_lso()
 {
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pUintType)
 	{
@@ -222,7 +222,7 @@ unsigned int PyLSObject::get_uint_from_lso()
 }
 
 template <class T>
-int PyLSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
+int py_lsobject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
 {
 	LSOBJECT index_object;
 	size_t size = 0;
@@ -259,12 +259,12 @@ int PyLSObject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR
 	return len(python_list);
 }
 
-int PyCharacter::query_effects(boost::python::list& effect_list, const std::string& query)
+int py_character::query_effects(boost::python::list& effect_list, const std::string& query)
 {
-	return this->get_list_from_index_method<PyEffect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), const_cast<char *>(query.c_str()), effect_list);
+	return this->get_list_from_index_method<py_effect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), const_cast<char *>(query.c_str()), effect_list);
 }
 
-int PyEQ2::query_actors(boost::python::list& actor_list, const std::string& query)
+int py_eq2::query_actors(boost::python::list& actor_list, const std::string& query)
 {
-	return this->get_list_from_index_method<PyActor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"), const_cast<char *>(query.c_str()), actor_list);
+	return this->get_list_from_index_method<py_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"), const_cast<char *>(query.c_str()), actor_list);
 }

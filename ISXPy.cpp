@@ -40,6 +40,7 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pActorEffectType = 0;
 LSType *pEffectInfoType = 0;
 LSType *pEffectType = 0;
 LSType *pMaintainedType = 0;
@@ -112,6 +113,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pActorEffectType = pISInterface->FindLSType("actoreffect");
 		pEffectInfoType = pISInterface->FindLSType("effectinfo");
 		pEffectType = pISInterface->FindLSType("effect");
 		pMaintainedType = pISInterface->FindLSType("maintained");

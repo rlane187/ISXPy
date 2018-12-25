@@ -38,14 +38,14 @@ struct ErrorHandler
 
 };
 
-class PyLSObject
+class py_lsobject
 {
 public:
-	PyLSObject() = default;
-	PyLSObject(LSOBJECT& ls_object);
+	py_lsobject() = default;
+	py_lsobject(LSOBJECT& ls_object);
 	const LSOBJECT& get_lso() const;
 	void execute_method(PCHAR method, int argc, char* argv[]);
-	PyLSObject get_member(PCHAR member, int argc, char* argv[]);
+	py_lsobject get_member(PCHAR member, int argc, char* argv[]);
 	void get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object);
 	template <class T>
 	int get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list);

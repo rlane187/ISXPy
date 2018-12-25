@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyEQ2DynamicData::PyEQ2DynamicData(const LSOBJECT& ls_object)
+py_eq2_dynamic_data::py_eq2_dynamic_data(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }
 
-std::string PyEQ2DynamicData::get_label()
+std::string py_eq2_dynamic_data::get_label()
 {
 	char* const member = static_cast<char *>("Label");
 	try
@@ -17,7 +17,7 @@ std::string PyEQ2DynamicData::get_label()
 	return std::string("Error");
 }
 
-float PyEQ2DynamicData::get_percent()
+float py_eq2_dynamic_data::get_percent()
 {
 	char* const member = static_cast<char *>("Percent");
 	try

@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyPoint3f::PyPoint3f(const LSOBJECT& ls_object)
+py_point3f::py_point3f(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }
 
-float PyPoint3f::get_x()
+float py_point3f::get_x()
 {
 
 	char* const member = static_cast<char *>("X");
@@ -18,7 +18,7 @@ float PyPoint3f::get_x()
 	return FLT_MAX;
 }
 
-float PyPoint3f::get_y()
+float py_point3f::get_y()
 {
 	char* const member = static_cast<char *>("Y");
 	try
@@ -29,7 +29,7 @@ float PyPoint3f::get_y()
 	return FLT_MAX;
 }
 
-float PyPoint3f::get_z()
+float py_point3f::get_z()
 {
 	char* const member = static_cast<char *>("Z");
 	try
@@ -40,7 +40,7 @@ float PyPoint3f::get_z()
 	return FLT_MAX;
 }
 
-std::string PyPoint3f::get_xyz(const std::string& separator)
+std::string py_point3f::get_xyz(const std::string& separator)
 {
 	const int argc = 1;
 	char* argv[argc];

@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyEQ2::PyEQ2()
+py_eq2::py_eq2()
 {
 	pISInterface->IsTopLevelObject("EQ2")(0, nullptr, *reinterpret_cast<LSOBJECT*>(this));
 }
 
-std::string PyEQ2::get_server_name()
+std::string py_eq2::get_server_name()
 {
 	char* const member = static_cast<char *>("ServerName");
 	try

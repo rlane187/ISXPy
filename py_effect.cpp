@@ -1,12 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-PyEffect::PyEffect(const LSOBJECT& ls_object)
+py_effect::py_effect(const LSOBJECT& ls_object)
 {
 	this->ls_object_ = ls_object;
 }
 
-int PyEffect::get_back_drop_icon_id()
+int py_effect::get_back_drop_icon_id()
 {
 	char* const member = static_cast<char *>("BackDropIconID");
 	try
@@ -17,7 +17,7 @@ int PyEffect::get_back_drop_icon_id()
 	return INT_MAX;
 }
 
-int PyEffect::get_current_increments()
+int py_effect::get_current_increments()
 {
 	char* const member = static_cast<char *>("CurrentIncrements");
 	try
@@ -28,7 +28,7 @@ int PyEffect::get_current_increments()
 	return INT_MAX;
 }
 
-float PyEffect::get_duration()
+float py_effect::get_duration()
 {
 	char* const member = static_cast<char *>("Duration");
 	try
@@ -39,7 +39,7 @@ float PyEffect::get_duration()
 	return FLT_MAX;
 }
 
-int PyEffect::get_id()
+int py_effect::get_id()
 {
 	char* const member = static_cast<char *>("ID");
 	try
@@ -50,7 +50,7 @@ int PyEffect::get_id()
 	return INT_MAX;
 }
 
-bool PyEffect::get_is_effect_info_available()
+bool py_effect::get_is_effect_info_available()
 {
 	char* const member = static_cast<char *>("IsEffectInfoAvailable");
 	try
@@ -61,7 +61,7 @@ bool PyEffect::get_is_effect_info_available()
 	return false;
 }
 
-int PyEffect::get_main_icon_id()
+int py_effect::get_main_icon_id()
 {
 	char* const member = static_cast<char *>("MainIconID");
 	try
@@ -72,7 +72,7 @@ int PyEffect::get_main_icon_id()
 	return INT_MAX;
 }
 
-float PyEffect::get_max_duration()
+float py_effect::get_max_duration()
 {
 	char* const member = static_cast<char *>("MaxDuration");
 	try
@@ -83,20 +83,20 @@ float PyEffect::get_max_duration()
 	return FLT_MAX;
 }
 
-PyEffectInfo PyEffect::get_effect_info()
+py_effect_info py_effect::get_effect_info()
 {
-	PyEffectInfo effect_info;
+	py_effect_info effect_info;
 	char* const member = static_cast<char *>("ToEffectInfo");
 	try
 	{
-		effect_info = PyEffectInfo(this->get_member(member, 0, nullptr).get_lso());
+		effect_info = py_effect_info(this->get_member(member, 0, nullptr).get_lso());
 	}
 	catch (exception &) {}
 	return effect_info;
 }
 
 
-std::string PyEffect::get_type()
+std::string py_effect::get_type()
 {
 	char* const member = static_cast<char *>("Type");
 	try

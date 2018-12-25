@@ -1,9 +1,9 @@
 #pragma once
 
-class PyCharacter : public PyLSObject
+class py_character : public py_lsobject
 {
 public:
-	PyCharacter();
+	py_character();
 	bool check_collision(const float& to_x, const float& to_y, const float& to_z);
 	std::string get_archetype();
 	bool get_at_char_select();	

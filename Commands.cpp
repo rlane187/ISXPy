@@ -17,7 +17,7 @@ int CMD_Py(int argc, char *argv[])
 		pISInterface->ExecuteCommand("DeclareVariable Effects index:effect global");
 		sprintf_s(buffer, _countof(buffer), "Effects");
 		argv_[0] = buffer;
-		list<PyEffect> effects;
+		list<py_effect> effects;
 		try
 		{
 			pISInterface->DataParse(argv_[0], IndexObject);			
@@ -25,7 +25,7 @@ int CMD_Py(int argc, char *argv[])
 			const auto size = static_cast<LSIndex*>(IndexObject.Ptr)->GetContainerUsed();
 			for (size_t i = 0; i < size; i++)
 			{
-				auto item = reinterpret_cast<PyEffect*>((*static_cast<LSIndex*>(IndexObject.Ptr)->GetIndex())[i]);
+				auto item = reinterpret_cast<py_effect*>((*static_cast<LSIndex*>(IndexObject.Ptr)->GetIndex())[i]);
 				printf("%d", item->get_id());
 			}
 		}

@@ -1,9 +1,9 @@
 #pragma once
 
-class PyISXEQ2 : public PyLSObject
+class py_isxeq2 : public py_lsobject
 {
 public:
-	PyISXEQ2();
+	py_isxeq2();
 	void add_loc(const std::string& label, const std::string& notes = std::string());
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(add_loc_overloads, add_loc, 1, 2)
 	void clear_abilities_cache();

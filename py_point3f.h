@@ -1,10 +1,10 @@
 #pragma once
 
-class PyPoint3f : public PyLSObject
+class py_point3f : public py_lsobject
 {
 public:
-	PyPoint3f() = default;
-	PyPoint3f(const LSOBJECT& ls_object);
+	py_point3f() = default;
+	py_point3f(const LSOBJECT& ls_object);
 	float get_x();
 	float get_y();
 	float get_z();
