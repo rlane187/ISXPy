@@ -4,13 +4,13 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(isxpy)
 {
-	class_<OutputHandler>("OutputHandler")
-		.def("write", &OutputHandler::write)
-		.def("flush", &OutputHandler::flush);
+	class_<output_handler>("output_handler")
+		.def("write", &output_handler::write)
+		.def("flush", &output_handler::flush);
 
-	class_<ErrorHandler>("ErrorHandler")
-		.def("write", &ErrorHandler::write)
-		.def("flush", &ErrorHandler::flush);
+	class_<error_handler>("error_handler")
+		.def("write", &error_handler::write)
+		.def("flush", &error_handler::flush);
 }
 
 void Initialize_Module_ISXPy()

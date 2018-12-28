@@ -9,7 +9,7 @@
   <PropertyGroup Label="Globals">
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{61EC1DEF-EB8D-4FAA-A206-5F03A70BD165}</ProjectGuid>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -32,8 +32,8 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)packages\boost.1.68.0.0\lib\native\include;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(PYTHON_DEV)\libs;$(SolutionDir)packages\boost_python37-vc140.1.68.0.0\lib\native;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(PYTHON_DEV)\libs;$(BOOST_ROOT)\stage\lib;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -57,8 +57,8 @@
       <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <ImportLibrary>$(OutDir)ISXPy.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(PYTHON_DEV)\libs;$(ISXDK_LIBS);D:\repos\ISXPy\packages\boost_python37-vc140.1.68.0.0\lib\native;$(PYTHON_DEV)\DLLs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python37.lib;MinCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(PYTHON_DEV)\libs;$(ISXDK_LIBS);$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>python36.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
@@ -70,10 +70,11 @@
   <ItemGroup>
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DataTypes.cpp" />
-    <ClCompile Include="Extensions.cpp" />
+    <ClCompile Include="extensions.cpp" />
     <ClCompile Include="ISXPy.cpp" />
     <ClCompile Include="ISXPyPCH.cpp" />
     <ClCompile Include="LGUIPyFrame.cpp" />
+    <ClCompile Include="py_group_member.cpp" />
     <ClCompile Include="py_lsobject.cpp" />
     <ClCompile Include="py_actor.cpp" />
     <ClCompile Include="py_effect.cpp" />
@@ -92,12 +93,13 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DataTypeList.h" />
     <ClInclude Include="DataTypes.h" />
-    <ClInclude Include="Extensions.h" />
+    <ClInclude Include="extensions.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="py_actor.h" />
     <ClInclude Include="py_actor_effect.h" />
     <ClInclude Include="py_character.h" />
     <ClInclude Include="ISXPy.h" />
+    <ClInclude Include="py_group_member.h" />
     <ClInclude Include="py_lsobject.h" />
     <ClInclude Include="ISXPyPCH.h" />
     <ClInclude Include="ISXPyServices.h" />
@@ -112,19 +114,6 @@
     <ClInclude Include="Services.h" />
     <ClInclude Include="TopLevelObjects.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\boost.1.68.0.0\build\boost.targets" Condition="Exists('packages\boost.1.68.0.0\build\boost.targets')" />
-    <Import Project="packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets" Condition="Exists('packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\boost.1.68.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.68.0.0\build\boost.targets'))" />
-    <Error Condition="!Exists('packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost_python37-vc140.1.68.0.0\build\boost_python37-vc140.targets'))" />
-  </Target>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

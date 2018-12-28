@@ -17,6 +17,12 @@
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
 char PythonScriptPath[MAX_PATH] = { 0 };
+char PythonPath[MAX_PATH] = { 0 };
+wchar_t PythonPathW[MAX_PATH] = { 0 };
+char PythonLib[MAX_PATH] = { 0 };
+wchar_t PythonLibW[MAX_PATH] = { 0 };
+char PythonDLLs[MAX_PATH] = { 0 };
+wchar_t PythonDLLsW[MAX_PATH] = { 0 };
 
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
@@ -40,6 +46,7 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pGroupMemberType = 0;
 LSType *pActorEffectType = 0;
 LSType *pEffectInfoType = 0;
 LSType *pEffectType = 0;
@@ -113,6 +120,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pGroupMemberType = pISInterface->FindLSType("groupmember");
 		pActorEffectType = pISInterface->FindLSType("actoreffect");
 		pEffectInfoType = pISInterface->FindLSType("effectinfo");
 		pEffectType = pISInterface->FindLSType("effect");
@@ -153,8 +161,20 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 		strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
 
+		pISInterface->GetExtensionsPath(PythonPath, _countof(PythonPath));
+		strcat_s(PythonPath, _countof(PythonPath), "\\ISXDK35\\python");
+		mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonPath, _countof(PythonPath));
+
+		pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
+		strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
+		mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
+
+		pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
+		strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
+		mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
 
 		//Py_SetPath(PythonPathW);
+		//Py_SetPythonHome(PythonLibW);
 
 		Initialize_Module_ISXPy();
 		Initialize_Module_PyISXEQ2();

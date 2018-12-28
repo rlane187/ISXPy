@@ -85,6 +85,7 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pGroupMemberType;
 extern LSType *pActorEffectType;
 extern LSType *pPoint3f;
 extern LSType *pEffectInfoType;
@@ -122,5 +123,6 @@ extern char Py_Version[];
 #include "py_maintained.h"
 #include "py_eq2.h"
 #include "py_character.h"
+#include "py_group_member.h"
 
 #include "extensions.h"

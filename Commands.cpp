@@ -3,45 +3,32 @@
 
 int CMD_Py(int argc, char *argv[])
 {
-	LSOBJECT tlo_object;
-	if(pISInterface->IsTopLevelObject("Me")( 0, nullptr, tlo_object))
+	size_t chars_conv;
+	wchar_t path_w[MAX_VARSTRING];
+	try
 	{
-		LSOBJECT IndexObject;
-		//int key = pISInterface->PersistObject(IndexObject);
-		//printf("%d", key);
-		//IndexObject.ObjectType = pIndexType;
-		//IndexObject.Ptr = new LSIndex(pEffectType, nullptr);
-		const int argc = 1;
-		char* argv_[argc];
-		char buffer[MAX_VARSTRING];
-		pISInterface->ExecuteCommand("DeclareVariable Effects index:effect global");
-		sprintf_s(buffer, _countof(buffer), "Effects");
-		argv_[0] = buffer;
-		list<py_effect> effects;
-		try
-		{
-			pISInterface->DataParse(argv_[0], IndexObject);			
-			pCharacterType->GetMethodEx(tlo_object.GetObjectData(), "QueryEffects", 1, argv_);
-			const auto size = static_cast<LSIndex*>(IndexObject.Ptr)->GetContainerUsed();
-			for (size_t i = 0; i < size; i++)
-			{
-				auto item = reinterpret_cast<py_effect*>((*static_cast<LSIndex*>(IndexObject.Ptr)->GetIndex())[i]);
-				printf("%d", item->get_id());
-			}
-		}
-		catch (exception&) {}
-		pISInterface->ExecuteCommand("DeleteVariable Effects");
-		
-		//printf("%s:", (LSIndex)IndexObject.Ptr);
-		
-	
+		wcscpy_s(path_w, _countof(path_w), Py_GetPythonHome());
 	}
+	catch (exception&) {}
+	char path[MAX_VARSTRING];
+	wcstombs_s(&chars_conv, path, _countof(path), path_w, _countof(path_w));
+	printf(path);
 	return 0;
 }
 
 int CMD_GetType(int argc, char *argv[])
 {
-	
+	LSOBJECT tlo_object;
+	if(pISInterface->IsTopLevelObject("Me")(0, nullptr, tlo_object))
+	{
+		LSOBJECT member_object;
+		pCharacterType->GetMemberEx(tlo_object.GetObjectData(), const_cast<char*>("ArcaneResist"), 0, nullptr, member_object);
+		try
+		{
+			printf("%d", member_object.GetObjectData().DWord);
+		}
+		catch(exception&) {}
+	}
 	return 0;
 }
 
@@ -102,7 +89,7 @@ int CMD_RunPythonScript(int argc, char *argv[])
 		exec_file(file_path, main_namespace, main_namespace);
 	}
 	catch (error_already_set&) {
-		PyErr_PrintEx(0);
+		PyErr_Print();
 		return 1;
 	}
 	return 0;

@@ -26,8 +26,53 @@ bool py_character::check_collision(const float& to_x, const float& to_y, const f
 	{
 		return this->get_member(member, argc, argv).get_bool_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return false;
+}
+
+int py_character::get_agility()
+{
+	char* const member = static_cast<char *>("Agility");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_arcane_resist()
+{
+	char* const member = static_cast<char *>("ArcaneResist");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_arcane_resist_percent()
+{
+	char* const member = static_cast<char *>("ArcaneResistPct");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
 }
 
 bool py_character::get_at_char_select()
@@ -37,7 +82,10 @@ bool py_character::get_at_char_select()
 	{
 		return this->get_member(member, 0, nullptr).get_bool_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return false;
 }
 
@@ -48,8 +96,144 @@ std::string py_character::get_archetype()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
+}
+
+float py_character::get_ascension_exp_bubble()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.AscensionExperienceBubble");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+int py_character::get_ascension_exp_current()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.AscensionExperience");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_ascension_exp_next_level()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.AscensionExperienceNextLevel");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_ascension_exp_percent()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.AscensionExperienceCurrent");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+int py_character::get_ascension_level()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.AscensionLevel");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_base_agility()
+{
+	char* const member = static_cast<char *>("BaseAgility");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_base_intelligence()
+{
+	char* const member = static_cast<char *>("BaseIntelligence");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_base_stamina()
+{
+	char* const member = static_cast<char *>("BaseStamina");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
 }
 
 int py_character::get_base_strength()
@@ -59,7 +243,24 @@ int py_character::get_base_strength()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_base_wisdom()
+{
+	char* const member = static_cast<char *>("BaseWisdom");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -70,7 +271,10 @@ float py_character::get_breath()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -81,7 +285,10 @@ std::string py_character::get_class()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -92,7 +299,10 @@ int py_character::get_copper()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -103,7 +313,10 @@ int64_t py_character::get_current_health()
 	{
 		return this->get_member(member, 0, nullptr).get_int64_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT64_MAX;
 }
 
@@ -114,7 +327,52 @@ int py_character::get_current_power()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_dissipation()
+{
+	char* const member = static_cast<char *>("Dissipation");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_dissonance()
+{
+	char* const member = static_cast<char *>("Dissonance");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_dissonance_remaining()
+{
+	char* const member = static_cast<char *>("DissonanceRemaining");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -125,8 +383,39 @@ int py_character::get_effective_level()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
+}
+
+int py_character::get_elemental_resist()
+{
+	char* const member = static_cast<char *>("ElementalResist");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_elemental_resist_percent()
+{
+	char* const member = static_cast<char *>("ElementalResistPct");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
 }
 
 float py_character::get_exp_bubble()
@@ -139,7 +428,10 @@ float py_character::get_exp_bubble()
 		argv[0] = const_cast<char*>("Self.ExperienceBubble");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -155,7 +447,10 @@ int py_character::get_exp_current()
 		boost::erase_all(result, ",");
 		return boost::lexical_cast<int>(result);
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -169,10 +464,12 @@ float py_character::get_exp_debt_current()
 		argv[0] = const_cast<char*>("Self.ExperienceDebtCurrent");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
-
 
 int py_character::get_exp_next_level()
 {
@@ -186,7 +483,10 @@ int py_character::get_exp_next_level()
 		boost::erase_all(result, ",");
 		return boost::lexical_cast<int>(result);
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -200,7 +500,10 @@ float py_character::get_exp_percent()
 		argv[0] = const_cast<char*>("Self.ExperienceCurrent");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -211,7 +514,10 @@ std::string py_character::get_gender()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -222,10 +528,64 @@ int py_character::get_gold()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
+int py_character::get_group(boost::python::list& group_member_list)
+{
+	char* const group_count_string = static_cast<char *>("GroupCount");
+	char* const group_string = static_cast<char *>("Group");
+	try
+	{
+		const int group_count = this->get_member(group_count_string, 0, nullptr).get_int_from_lso();
+		for (int i = 1; i <= group_count; i++)
+		{
+			const int argc = 1;
+			char* argv[argc];
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), "%d", i);
+			argv[0] = const_cast<char*>(buffer);
+			group_member_list.append(py_group_member(this->get_member(group_string, argc, argv).get_lso()));
+		}
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return len(group_member_list);
+}
+
+int py_character::get_group_count()
+{
+	char* const member = static_cast<char *>("GroupCount");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+bool py_character::get_grouped()
+{
+	char* const member = static_cast<char *>("Grouped");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
 
 float py_character::get_heading()
 {
@@ -234,7 +594,10 @@ float py_character::get_heading()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -245,7 +608,10 @@ int py_character::get_health_regen()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -256,7 +622,38 @@ bool py_character::get_in_game_world()
 	{
 		return this->get_member(member, 0, nullptr).get_bool_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
+int py_character::get_intelligence()
+{
+	char* const member = static_cast<char *>("Intelligence");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+bool py_character::get_is_group_leader()
+{
+	char* const member = static_cast<char *>("IsGroupLeader");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return false;
 }
 
@@ -267,7 +664,10 @@ bool py_character::get_is_moving()
 	{
 		return this->get_member(member, 0, nullptr).get_bool_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return false;
 }
 
@@ -278,7 +678,10 @@ int py_character::get_level()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -286,15 +689,22 @@ int py_character::get_maintained(boost::python::list& maintained_list)
 {
 	char* const count_maintained_string = static_cast<char *>("CountMaintained");
 	char* const maintained_string = static_cast<char *>("Maintained");
-	const int count_maintained = this->get_member(count_maintained_string, 0, nullptr).get_int_from_lso();
-	for(int i = 1; i <= count_maintained; i++)
+	try
 	{
-		const int argc = 1;
-		char* argv[argc];
-		char buffer[MAX_VARSTRING];
-		sprintf_s(buffer, _countof(buffer), "%d", i);
-		argv[0] = const_cast<char*>(buffer);
-		maintained_list.append(py_maintained(this->get_member(maintained_string, argc, argv).get_lso()));
+		const int count_maintained = this->get_member(count_maintained_string, 0, nullptr).get_int_from_lso();
+		for (int i = 1; i <= count_maintained; i++)
+		{
+			const int argc = 1;
+			char* argv[argc];
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), "%d", i);
+			argv[0] = const_cast<char*>(buffer);
+			maintained_list.append(py_maintained(this->get_member(maintained_string, argc, argv).get_lso()));
+		}
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
 	}
 	return len(maintained_list);
 }
@@ -306,7 +716,24 @@ int py_character::get_max_conc()
 	{
 		return this->get_member(member, 0, nullptr).get_byte_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_max_dissonance()
+{
+	char* const member = static_cast<char *>("MaxDissonance");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -317,7 +744,10 @@ int64_t py_character::get_max_health()
 	{
 		return this->get_member(member, 0, nullptr).get_int64_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT64_MAX;
 }
 
@@ -328,7 +758,10 @@ int py_character::get_max_power()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -339,8 +772,39 @@ std::string py_character::get_name()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
+}
+
+int py_character::get_noxious_resist()
+{
+	char* const member = static_cast<char *>("NoxiousResist");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_noxious_resist_percent()
+{
+	char* const member = static_cast<char *>("NoxiousResistPct");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_float_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
 }
 
 int py_character::get_platinum()
@@ -350,7 +814,10 @@ int py_character::get_platinum()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -361,7 +828,10 @@ int py_character::get_power_regen()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -372,7 +842,10 @@ std::string py_character::get_race()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -383,7 +856,24 @@ int py_character::get_silver()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_stamina()
+{
+	char* const member = static_cast<char *>("Stamina");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -394,8 +884,100 @@ int py_character::get_strength()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
+}
+
+float py_character::get_tithe_exp_bubble()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TitheExperienceBubble");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+int py_character::get_tithe_exp_current()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TitheExperience");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_tithe_exp_next_level()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TitheExperienceNextLevel");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_tithe_exp_percent()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TitheExperienceCurrent");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+float py_character::get_tithe_vitality_overflow_marker()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TitheVitalityOverflowMarker");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
 }
 
 std::string py_character::get_subclass()
@@ -406,7 +988,10 @@ std::string py_character::get_subclass()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -417,7 +1002,10 @@ std::string py_character::get_ts_archetype()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -428,8 +1016,100 @@ std::string py_character::get_ts_class()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
+}
+
+float py_character::get_ts_exp_bubble()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TradeskillExperienceBubble");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+int py_character::get_ts_exp_current()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TradeskillExperience");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_ts_exp_debt_current()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TSExperienceDebtCurrent");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
+}
+
+int py_character::get_ts_exp_next_level()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TradeskillExperienceNextLevel");
+		std::string result = py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+		boost::erase_all(result, ",");
+		return boost::lexical_cast<int>(result);
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+float py_character::get_ts_exp_percent()
+{
+	char* const member = static_cast<char *>("GetGameData");
+	try
+	{
+		const int argc = 1;
+		char* argv[argc];
+		argv[0] = const_cast<char*>("Self.TradeskillExperienceCurrent");
+		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return FLT_MAX;
 }
 
 int py_character::get_ts_level()
@@ -439,7 +1119,10 @@ int py_character::get_ts_level()
 	{
 		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -450,7 +1133,10 @@ std::string py_character::get_ts_subclass()
 	{
 		return this->get_member(member, 0, nullptr).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }
 
@@ -464,7 +1150,10 @@ float py_character::get_ts_vitality()
 		argv[0] = const_cast<char*>("Self.TSVitality");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -478,7 +1167,10 @@ float py_character::get_ts_vitality_lower_marker()
 		argv[0] = const_cast<char*>("Self.TSVitalityLowerMarker");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -492,7 +1184,10 @@ float py_character::get_ts_vitality_overflow_marker()
 		argv[0] = const_cast<char*>("Self.TSVitalityOverflowMarker");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -517,7 +1212,10 @@ int py_character::get_used_conc()
 	{
 		return this->get_member(member, 0, nullptr).get_byte_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return INT_MAX;
 }
 
@@ -531,7 +1229,10 @@ float py_character::get_vitality()
 		argv[0] = const_cast<char*>("Self.Vitality");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -545,7 +1246,10 @@ float py_character::get_vitality_lower_marker()
 		argv[0] = const_cast<char*>("Self.VitalityLowerMarker");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -559,7 +1263,10 @@ float py_character::get_vitality_overflow_marker()
 		argv[0] = const_cast<char*>("Self.VitalityOverflowMarker");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -573,7 +1280,10 @@ float py_character::get_vitality_upper_marker()
 		argv[0] = const_cast<char*>("Self.VitalityUpperMarker");
 		return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -584,8 +1294,25 @@ float py_character::get_water_depth()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
+}
+
+int py_character::get_wisdom()
+{
+	char* const member = static_cast<char *>("Wisdom");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
 }
 
 float py_character::get_x()
@@ -596,7 +1323,10 @@ float py_character::get_x()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -607,7 +1337,10 @@ float py_character::get_y()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -618,7 +1351,10 @@ float py_character::get_z()
 	{
 		return this->get_member(member, 0, nullptr).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
 
@@ -640,10 +1376,12 @@ float py_character::heading_to(const float& to_x, const float& to_y, const float
 	{
 		return this->get_member(member, argc, argv).get_float_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return FLT_MAX;
 }
-
 
 std::string py_character::heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
 {
@@ -664,6 +1402,9 @@ std::string py_character::heading_to_as_compass_bearing(const float& to_x, const
 	{
 		return this->get_member(member, argc, argv).get_string_from_lso();
 	}
-	catch (exception &) {}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
 	return std::string("Error");
 }

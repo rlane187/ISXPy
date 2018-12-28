@@ -68,9 +68,6 @@
     <ClCompile Include="ISXPyPCH.cpp">
       <Filter>Source Files\PCH</Filter>
     </ClCompile>
-    <ClCompile Include="Extensions.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
     <ClCompile Include="py_actor_effect.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
@@ -102,6 +99,12 @@
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
     <ClCompile Include="py_point3f.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="extensions.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_group_member.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,9 +139,6 @@
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Extensions.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
     <ClInclude Include="py_actor_effect.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
@@ -172,8 +172,11 @@
     <ClInclude Include="py_point3f.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="extensions.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_group_member.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

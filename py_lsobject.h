@@ -1,37 +1,43 @@
 #pragma once
 
-struct OutputHandler
+struct output_handler
 {
-	void write(std::string msg)
+	void write(const std::string& msg) const
 	{
-		if(!msg.empty())
+		char message_buffer[MAX_VARSTRING];
+		strcpy_s(message_buffer, _countof(message_buffer), msg.c_str());
+		if (message_buffer[strlen(message_buffer) - 1] == '\n')
 		{
-			if(msg.size() == 1 && msg.c_str()[msg.size() - 1] == '\n')
+			message_buffer[strlen(message_buffer) - 1] = '\0';
+			if (strlen(message_buffer) == 0)
 				return;
-			char buffer[2048];
-			strcpy_s(buffer, _countof(buffer), "[Python] ");
-			strcat_s(buffer, _countof(buffer), msg.c_str());
-			printf(buffer);
-		}		
+		}			
+		char buffer[MAX_VARSTRING];
+		strcpy_s(buffer, _countof(buffer), "[Python] ");
+		strcat_s(buffer, _countof(buffer), message_buffer);
+		printf(buffer);		
 	}
 
-	void flush() { }
+	void flush() {}
 
 };
 
-struct ErrorHandler
+struct error_handler
 {
-	void write(std::string msg)
+	void write(const std::string& msg) const
 	{
-		if (!msg.empty())
+		char message_buffer[MAX_VARSTRING];
+		strcpy_s(message_buffer, _countof(message_buffer), msg.c_str());
+		if (message_buffer[strlen(message_buffer) - 1] == '\n')
 		{
-			if (msg.size() == 1 && msg.c_str()[msg.size() - 1] == '\n')
+			message_buffer[strlen(message_buffer) - 1] = '\0';
+			if (strlen(message_buffer) == 0)
 				return;
-			char buffer[2048];
-			strcpy_s(buffer, _countof(buffer), "[PythonError] ");
-			strcat_s(buffer, _countof(buffer), msg.c_str());
-			printf(buffer);
 		}
+		char buffer[MAX_VARSTRING];
+		strcpy_s(buffer, _countof(buffer), "[PythonError] ");
+		strcat_s(buffer, _countof(buffer), message_buffer);
+		printf(buffer);
 	}
 
 	void flush() { }

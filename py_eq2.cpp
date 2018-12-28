@@ -16,3 +16,17 @@ std::string py_eq2::get_server_name()
 	catch (exception &) {}
 	return std::string("Error");
 }
+
+int py_eq2::get_zoning()
+{
+	char* const member = static_cast<char *>("Zoning");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}

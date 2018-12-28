@@ -90,7 +90,7 @@ py_actor py_maintained::get_target()
 	char* const member = static_cast<char *>("Target");
 	try
 	{
-		actor = py_actor(this->get_member(member, 0, nullptr).get_lso());
+		actor = this->get_member(member, 0, nullptr).get_lso();
 	}
 	catch (exception &) {}
 	return actor;
