@@ -45,6 +45,12 @@
     <Filter Include="Header Files\PythonExtensions">
       <UniqueIdentifier>{1ee53b61-d846-4a23-bc41-2354cd6c1a6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Stackless">
+      <UniqueIdentifier>{2dc7bb49-94f0-41b4-a809-cba72db8507b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stackless">
+      <UniqueIdentifier>{0fa4304f-4324-43c5-a592-fe980d43097e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ISXPy.cpp">
@@ -106,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="py_group_member.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="stackless_tasklet.cpp">
+      <Filter>Source Files\Stackless</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +186,15 @@
     </ClInclude>
     <ClInclude Include="py_group_member.h">
       <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="stackless_module.h">
+      <Filter>Header Files\Stackless</Filter>
+    </ClInclude>
+    <ClInclude Include="stackless_tasklet.h">
+      <Filter>Header Files\Stackless</Filter>
+    </ClInclude>
+    <ClInclude Include="stackless_main_tasklet.h">
+      <Filter>Header Files\Stackless</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

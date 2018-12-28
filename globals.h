@@ -13,3 +13,5 @@ EXTERN_C char PythonLib[MAX_PATH];
 EXTERN_C wchar_t PythonLibW[MAX_PATH];
 EXTERN_C char PythonDLLs[MAX_PATH];
 EXTERN_C wchar_t PythonDLLsW[MAX_PATH];
+
+EXTERN_C unsigned int FrameCount;

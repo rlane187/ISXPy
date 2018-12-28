@@ -6,6 +6,7 @@
 #undef Py_DEBUG
 #endif
 #include <Python.h>
+#include "stackless_api.h"
 #define BOOST_PYTHON_STATIC_LIB
 #include <boost/python.hpp>
 #include <boost/algorithm/string.hpp>

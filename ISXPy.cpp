@@ -24,6 +24,8 @@ wchar_t PythonLibW[MAX_PATH] = { 0 };
 char PythonDLLs[MAX_PATH] = { 0 };
 wchar_t PythonDLLsW[MAX_PATH] = { 0 };
 
+unsigned int FrameCount = 0;
+
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
 // This sets up a "ModulePath" variable which contains the path to this module in case we want it,
@@ -405,13 +407,16 @@ void ISXPy::UnRegisterServices()
 void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 {
 	if (MSG==PULSE_PULSE)
-	{
+	{		
 		/*
 		 * "OnPulse"
 		 * This message is received by the extension before each frame is
 		 * displayed by the game.  This is the place to put any repeating
 		 * tasks.
 		 */
+		FrameCount += 1;
+		if (FrameCount % 1000 == 0)
+			printf("Ping");
 	}
 }
 

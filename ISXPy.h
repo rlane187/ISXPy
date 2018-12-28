@@ -110,7 +110,9 @@ extern char Py_Version[];
 #include "TopLevelObjects.h"
 #include "Services.h"
 
-
+#include "stackless_tasklet.h"
+#include "stackless_main_tasklet.h"
+#include "stackless_module.h"
 #include "py_lsobject.h"
 
 #include "py_point3f.h"
