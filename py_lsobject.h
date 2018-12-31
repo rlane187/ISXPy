@@ -76,3 +76,4 @@ void Initialize_Module_ISXPy();
 void Shutdown_Module_ISXPy();
 void Redirect_Output_to_Console();
 bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc, PCHAR tlo_argv[], PCHAR member_name, int argc, PCHAR argv[], LSOBJECT& dest);
+void AdjustPath();

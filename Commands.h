@@ -10,6 +10,7 @@ COMMAND("Py",CMD_Py,true,false);
 COMMAND("RunPySub", CMD_RunPythonScriptSubprocess, true, false);
 COMMAND("RunPy", CMD_RunPythonScript, true, false);
 COMMAND("GetType", CMD_GetType, true, false);
+COMMAND("GetPythonPath", CMD_GetPythonPath, true, false);
 
 
 

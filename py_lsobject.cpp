@@ -16,6 +16,37 @@ BOOST_PYTHON_MODULE(isxpy)
 void Initialize_Module_ISXPy()
 {
 	PyImport_AppendInittab("isxpy", PyInit_isxpy);
+	srand(unsigned int(time(nullptr)));
+	size_t chars_converted = 0;
+	// Set DllPath and DllPathW
+	GetModuleFileName(HINSTANCE(&__ImageBase), DllPath, _countof(DllPath));
+	mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
+	pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
+	strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
+
+	pISInterface->GetExtensionsPath(PythonPath, _countof(PythonPath));
+	strcat_s(PythonPath, _countof(PythonPath), "\\ISXDK35\\python");
+	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));
+
+	pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
+	strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
+	mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
+
+	pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
+	strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
+	mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
+}
+
+void AdjustPath()
+{
+	wcscpy_s(PythonPathW, _countof(PythonPathW), Py_DecodeLocale(PythonScriptPath, nullptr));
+	wcscat_s(PythonPathW, _countof(PythonPathW), L";");
+	wcscat_s(PythonPathW, _countof(PythonPathW), Py_GetPath());
+
+	Py_SetPath(PythonPathW);
+	object sys_module = import("sys");
+	object path_object = sys_module.attr("path");
+	path_object.attr("insert")(0, PythonScriptPath);
 }
 
 void Shutdown_Module_ISXPy()

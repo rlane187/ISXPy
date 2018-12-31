@@ -17,14 +17,18 @@
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
 char PythonScriptPath[MAX_PATH] = { 0 };
-char PythonPath[MAX_PATH] = { 0 };
-wchar_t PythonPathW[MAX_PATH] = { 0 };
-char PythonLib[MAX_PATH] = { 0 };
-wchar_t PythonLibW[MAX_PATH] = { 0 };
-char PythonDLLs[MAX_PATH] = { 0 };
-wchar_t PythonDLLsW[MAX_PATH] = { 0 };
+char PythonPath[MAX_VARSTRING] = { 0 };
+wchar_t PythonPathW[MAX_VARSTRING] = { 0 };
+char PythonLib[MAX_VARSTRING] = { 0 };
+wchar_t PythonLibW[MAX_VARSTRING] = { 0 };
+char PythonDLLs[MAX_VARSTRING] = { 0 };
+wchar_t PythonDLLsW[MAX_VARSTRING] = { 0 };
 
 unsigned int FrameCount = 0;
+
+tasklet* p_Main_Tasklet = nullptr;
+
+std::map<PCHAR, tasklet*> tasklet_map = {};
 
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
@@ -155,39 +159,14 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 
 		printf("ISXPy version %s Loaded",Py_Version);
 
-		srand(unsigned int(time(nullptr)));
-		size_t chars_converted = 0;
-		// Set DllPath and DllPathW
-		GetModuleFileName(HINSTANCE(&__ImageBase), DllPath, _countof(DllPath));		
-		mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
-		pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
-		strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
-
-		pISInterface->GetExtensionsPath(PythonPath, _countof(PythonPath));
-		strcat_s(PythonPath, _countof(PythonPath), "\\ISXDK35\\python");
-		mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonPath, _countof(PythonPath));
-
-		pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
-		strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
-		mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
-
-		pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
-		strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
-		mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
-
-		//Py_SetPath(PythonPathW);
-		//Py_SetPythonHome(PythonLibW);
-
 		Initialize_Module_ISXPy();
 		Initialize_Module_PyISXEQ2();
-
+		Py_SetProgramName(nullptr);
 		Py_Initialize();
+		AdjustPath();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
 		Redirect_Output_to_Console();	
-		
-		return true;
-	}
-
+	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
 	// are suspected of causing user crashes.  This will help users report the crash and hopefully
 	// enable the extension developer to locate and fix the crash condition.
@@ -196,6 +175,9 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		TerminateProcess(GetCurrentProcess(),0);
 		return 0;
 	}
+	
+	return true;
+	
 	/* 
 	 * EzCrashFilter takes printf-style formatting after the first parameter.  The above
 	 * could look something like this:
@@ -415,8 +397,18 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 * tasks.
 		 */
 		FrameCount += 1;
-		if (FrameCount % 1000 == 0)
-			printf("Ping");
+		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
+		{
+			try
+			{
+				stackless_module::on_pulse();
+			}
+			catch(boost::python::error_already_set&)
+			{
+				PyErr_Print();
+			}
+			
+		}
 	}
 }
 

@@ -32,7 +32,7 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(PYTHON_DEV)\Include\Stackless;$(PYTHON_DEV)\Include\Stackless\core;$(IncludePath)</IncludePath>
     <LibraryPath>$(PYTHON_DEV)\libs;$(BOOST_ROOT)\stage\lib;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,6 +68,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="channel.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DataTypes.cpp" />
     <ClCompile Include="extensions.cpp" />
@@ -87,10 +88,12 @@
     <ClCompile Include="py_point3f.cpp" />
     <ClCompile Include="py_actor_effect.cpp" />
     <ClCompile Include="Services.cpp" />
-    <ClCompile Include="stackless_tasklet.cpp" />
+    <ClCompile Include="stackless_module.cpp" />
+    <ClCompile Include="tasklet.cpp" />
     <ClCompile Include="TopLevelObjects.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="channel.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DataTypeList.h" />
     <ClInclude Include="DataTypes.h" />
@@ -113,9 +116,8 @@
     <ClInclude Include="py_maintained.h" />
     <ClInclude Include="py_point3f.h" />
     <ClInclude Include="Services.h" />
-    <ClInclude Include="stackless_main_tasklet.h" />
     <ClInclude Include="stackless_module.h" />
-    <ClInclude Include="stackless_tasklet.h" />
+    <ClInclude Include="tasklet.h" />
     <ClInclude Include="TopLevelObjects.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
