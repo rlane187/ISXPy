@@ -124,7 +124,6 @@ extern char Py_Version[];
 #include "py_actor.h"
 #include "py_maintained.h"
 #include "py_eq2.h"
-#include "py_character.h"
 #include "py_group_member.h"
-
+#include "py_character.h"
 #include "extensions.h"

@@ -23,18 +23,8 @@ void Initialize_Module_ISXPy()
 	mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
 	pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 	strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
-
-	pISInterface->GetExtensionsPath(PythonPath, _countof(PythonPath));
-	strcat_s(PythonPath, _countof(PythonPath), "\\ISXDK35\\python");
 	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));
 
-	pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
-	strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
-	mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
-
-	pISInterface->GetExtensionsPath(PythonLib, _countof(PythonLib));
-	strcat_s(PythonLib, _countof(PythonLib), "\\ISXDK35\\python\\Lib");
-	mbstowcs_s(&chars_converted, PythonLibW, _countof(PythonLibW), PythonLib, _countof(PythonLib));
 }
 
 void AdjustPath()
@@ -47,6 +37,14 @@ void AdjustPath()
 	object sys_module = import("sys");
 	object path_object = sys_module.attr("path");
 	path_object.attr("insert")(0, PythonScriptPath);
+	import("isxpy");
+	
+}
+
+int QuitScript()
+{
+	PyErr_SetInterrupt();
+	return -1;
 }
 
 void Shutdown_Module_ISXPy()

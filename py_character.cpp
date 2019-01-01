@@ -1408,3 +1408,26 @@ std::string py_character::heading_to_as_compass_bearing(const float& to_x, const
 	}
 	return std::string("Error");
 }
+
+py_group_member& py_character::get_group_member(const unsigned int& member_or_id, const std::string& name)
+{
+	py_group_member group_member;
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	if (name.empty())
+		sprintf_s(buffer, _countof(buffer), "%u", member_or_id);
+	else
+		strcpy_s(buffer, _countof(buffer), name.c_str());
+	argv[0] = buffer;
+	char* const member = static_cast<char*>("Group");
+	try
+	{
+		group_member = py_group_member(this->get_member(member, argc, argv).get_lso());
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+	return group_member;
+}

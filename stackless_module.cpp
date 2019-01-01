@@ -76,7 +76,7 @@ bool stackless_module::call_method_main(const boost::python::object& py_object, 
 bool stackless_module::on_pulse()
 {
 	boost::python::object tasklet_object;
-	run_watchdog_ex(10, PY_WATCHDOG_TOTALTIMEOUT, tasklet_object);
+	run_watchdog_ex(100, PY_WATCHDOG_TOTALTIMEOUT, tasklet_object);
 	if (tasklet_object.is_none())
 		return true;
 	if(tasklet_object.ptr() != nullptr)

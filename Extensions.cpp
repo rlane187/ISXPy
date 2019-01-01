@@ -236,6 +236,7 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.add_property("gender", &py_character::get_gender)
 		.add_property("gold", &py_character::get_gold)
 		.add_property("grouped", &py_character::get_grouped)
+		.add_property("group_count", &py_character::get_group_count)
 		.add_property("heading", &py_character::get_heading)
 		.add_property("health_regen", &py_character::get_health_regen)
 		.add_property("in_game_world", &py_character::get_in_game_world)
@@ -290,7 +291,8 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.def("get_maintained", &py_character::get_maintained)
 		.def("heading_to", &py_character::heading_to)
 		.def("heading_to_as_compass_bearing", &py_character::heading_to_as_compass_bearing)
-		.def("get_group", &py_character::get_group);
+		.def("get_group", &py_character::get_group)
+		.def("get_group_member", &py_character::get_group_member, py_character::get_group_member_overloads(args("member_or_actor_id", "name")));
 
 	class_<py_point3f, bases<py_lsobject>>("point3f")
 		.add_property("x", &py_point3f::get_x)

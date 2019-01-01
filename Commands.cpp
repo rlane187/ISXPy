@@ -26,11 +26,13 @@ int CMD_Py(int argc, char *argv[])
 
 int CMD_GetType(int argc, char *argv[])
 {
-	printf("%d", stackless_module::get_run_count());
+	for (auto& it : tasklet_map)
+	printf("%s - %d", it.first.c_str(), it.second->is_scheduled());
+	printf("%d", tasklet_map.size());
 	return 0;
 }
 
-int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
+int CMD_RunPythonScript(int argc, char *argv[])
 {	
 	using namespace boost::python;
 	if (argc < 2)
@@ -49,12 +51,12 @@ int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
 	strcpy_s(file_path, _countof(file_path), PythonScriptPath);
 	strcat_s(file_path, _countof(file_path), "\\");
 	strcat_s(file_path, _countof(file_path), argv[1]);
-	char map_id[MAX_VARSTRING];
-	strcpy_s(map_id, _countof(map_id), module_name);
-	strcat_s(map_id, _countof(map_id), "_");
-	strcat_s(map_id, _countof(map_id), callable_name);
-	printf("%s", map_id);
-	const std::map<PCHAR, tasklet*>::iterator it = tasklet_map.find(map_id);
+	char buffer_map_id[MAX_VARSTRING];
+	strcpy_s(buffer_map_id, _countof(buffer_map_id), module_name);
+	strcat_s(buffer_map_id, _countof(buffer_map_id), "_");
+	strcat_s(buffer_map_id, _countof(buffer_map_id), callable_name);
+	const std::string map_id(buffer_map_id);
+	const std::map<std::string, tasklet*>::iterator it = tasklet_map.find(map_id);
 	if (it != tasklet_map.end())
 	{
 		printf("Callable %s from module %s already found running. Trying to kill tasklet and restart.", callable_name, module_name);
@@ -92,26 +94,19 @@ int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
 			printf("Callable %s cannot be found in module %s.", callable_name, module_name);
 			return 1;
 		}
-		
-		tasklet* t = new tasklet(func);
+
+		auto* t = new tasklet();
 		if (!t->get_ptr())
 		{
 			printf("Failed to initialize tasklet for callable %s in module %s.", callable_name, module_name);
 			return 1;
 		}
-		t->setup();
-		/*if(!t->bind_ex(func))
+		if(t->bind_ex(func))
 		{
-			printf("Failed to tasklet and args/kwargs to callable %s in module %s.", callable_name, module_name);
-			return 1;
-		}
-
-		if(!t->insert())
-		{
-			printf("Failed to insert tasklet for callable %s in module %s into scheduler.", callable_name, module_name);
-			return 1;
-		}*/
-		tasklet_map[map_id] = t;
+			
+			if(t->insert())
+				tasklet_map[map_id] = t;
+		}			
 	}
 	catch (error_already_set&) {
 		PyErr_Print();
@@ -120,7 +115,7 @@ int CMD_RunPythonScriptSubprocess(int argc, char *argv[])
 	return 0;
 }
 
-int CMD_RunPythonScript(int argc, char *argv[])
+int CMD_RunPythonScriptUnsafe(int argc, char *argv[])
 {
 	if (argc <= 1)
 	{
@@ -163,5 +158,48 @@ int CMD_GetPythonPath(int argc, char *argv[])
 	if (strlen(buffer) == 0)
 		printf("Python path not found.");
 	printf("Python path is: %s", buffer);
+	return 0;
+}
+
+int CMD_EndPythonScript(int argc, char *argv[])
+{
+	if(argc < 2)
+	{
+		printf("Format:endpyscript *|module_name");
+	}
+	char buffer_module_name[MAX_VARSTRING];
+	strcpy_s(buffer_module_name, _countof(buffer_module_name), argv[1]);
+	const std::string module_name(buffer_module_name);
+	std::map<std::string, tasklet*>::iterator it;	
+	for (it = tasklet_map.begin(); it != tasklet_map.end(); ++it)
+	{
+		if (!strcmp(argv[1], "*"))
+		{
+			if (it->second->kill())
+			{
+				delete it->second;
+				tasklet_map.erase(it);
+			}
+		}
+		else
+		{
+			if (boost::algorithm::starts_with(it->first, module_name))
+			{
+				if (it->second->kill())
+				{
+					delete it->second;
+					tasklet_map.erase(it);
+				}
+			}
+		}		
+	}
+	
+
+	return 0;
+}
+
+int CMD_EndPythonScriptUnsafe(int argc, char *argv[])
+{
+	QuitScript();
 	return 0;
 }

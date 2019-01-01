@@ -32,7 +32,7 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\Include;$(PYTHON_DEV)\Include\Stackless;$(PYTHON_DEV)\Include\Stackless\core;$(IncludePath)</IncludePath>
+    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\include;$(PYTHON_DEV)\include\Stackless;$(PYTHON_DEV)\include\Stackless\core;$(IncludePath)</IncludePath>
     <LibraryPath>$(PYTHON_DEV)\libs;$(BOOST_ROOT)\stage\lib;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

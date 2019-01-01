@@ -95,4 +95,6 @@ public:
 	int query_effects(boost::python::list& effect_list, const std::string& query = std::string());
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(query_effects_overloads, query_effects, 1, 2)
 	int get_group(boost::python::list& group_member_list);
+	py_group_member& get_group_member(const unsigned int& member_or_id = 0, const std::string& name = std::string());
+	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(get_group_member_overloads, get_group_member, 1, 1)
 };

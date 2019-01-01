@@ -17,18 +17,11 @@
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
 char PythonScriptPath[MAX_PATH] = { 0 };
-char PythonPath[MAX_VARSTRING] = { 0 };
 wchar_t PythonPathW[MAX_VARSTRING] = { 0 };
-char PythonLib[MAX_VARSTRING] = { 0 };
-wchar_t PythonLibW[MAX_VARSTRING] = { 0 };
-char PythonDLLs[MAX_VARSTRING] = { 0 };
-wchar_t PythonDLLsW[MAX_VARSTRING] = { 0 };
 
 unsigned int FrameCount = 0;
 
-tasklet* p_Main_Tasklet = nullptr;
-
-std::map<PCHAR, tasklet*> tasklet_map = {};
+std::map<std::string, tasklet*> tasklet_map = {};
 
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
@@ -165,7 +158,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		Py_Initialize();
 		AdjustPath();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
-		Redirect_Output_to_Console();	
+		Redirect_Output_to_Console();
 	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
 	// are suspected of causing user crashes.  This will help users report the crash and hopefully
@@ -398,7 +391,7 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 */
 		FrameCount += 1;
 		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
-		{
+		{			
 			try
 			{
 				stackless_module::on_pulse();
@@ -406,8 +399,7 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 			catch(boost::python::error_already_set&)
 			{
 				PyErr_Print();
-			}
-			
+			}			
 		}
 	}
 }
