@@ -121,3 +121,8 @@ int channel::get_balance() const
 {
 	return PyChannel_GetBalance(reinterpret_cast<PyChannelObject*>(this->channel_object_.ptr()));
 }
+
+boost::python::object channel::get_channel_object() const
+{
+	return this->channel_object_;
+}

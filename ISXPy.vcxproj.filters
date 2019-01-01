@@ -122,6 +122,12 @@
     <ClCompile Include="stackless_module.cpp">
       <Filter>Source Files\Stackless</Filter>
     </ClCompile>
+    <ClCompile Include="py_item.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_recipe.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -201,6 +207,12 @@
     </ClInclude>
     <ClInclude Include="channel.h">
       <Filter>Header Files\Stackless</Filter>
+    </ClInclude>
+    <ClInclude Include="py_item.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_recipe.h">
+      <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -34,18 +34,18 @@ std::string py_group_member::get_class()
 	return std::string("Error");
 }
 
-int py_group_member::get_current_hit_points()
+int64_t py_group_member::get_current_health()
 {
-	char* const member = static_cast<char *>("CurrentHitPoints");
+	char* const member = static_cast<char *>("HitPoints");
 	try
 	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
+		return this->get_member(member, 0, nullptr).get_int64_from_lso();
 	}
 	catch (boost::python::error_already_set &)
 	{
 		PyErr_Print();
 	}
-	return INT_MAX;
+	return INT64_MAX;
 }
 
 int py_group_member::get_current_power()
@@ -104,18 +104,18 @@ int py_group_member::get_elemental()
 	return INT_MAX;
 }
 
-unsigned int py_group_member::get_id()
+int py_group_member::get_id()
 {
 	char* const member = static_cast<char *>("ID");
 	try
 	{
-		return this->get_member(member, 0, nullptr).get_uint_from_lso();
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
 	catch (boost::python::error_already_set &)
 	{
 		PyErr_Print();
 	}
-	return UINT_MAX;
+	return INT_MAX;
 }
 
 int py_group_member::get_level()
@@ -132,12 +132,12 @@ int py_group_member::get_level()
 	return INT_MAX;
 }
 
-int py_group_member::get_max_hit_points()
+int64_t py_group_member::get_max_health()
 {
 	char* const member = static_cast<char *>("MaxHitPoints");
 	try
 	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
+		return this->get_member(member, 0, nullptr).get_int64_from_lso();
 	}
 	catch (boost::python::error_already_set &)
 	{
@@ -216,18 +216,18 @@ bool py_group_member::get_is_afflicted()
 	return false;
 }
 
-unsigned int py_group_member::get_pet_id()
+int py_group_member::get_pet_id()
 {
 	char* const member = static_cast<char *>("PetID");
 	try
 	{
-		return this->get_member(member, 0, nullptr).get_uint_from_lso();
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
 	}
 	catch (boost::python::error_already_set &)
 	{
 		PyErr_Print();
 	}
-	return UINT_MAX;
+	return INT_MAX;
 }
 
 std::string py_group_member::get_race()

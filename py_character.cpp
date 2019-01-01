@@ -542,7 +542,7 @@ int py_character::get_group(boost::python::list& group_member_list)
 	try
 	{
 		const int group_count = this->get_member(group_count_string, 0, nullptr).get_int_from_lso();
-		for (int i = 1; i <= group_count; i++)
+		for (int i = 1; i < group_count; i++)
 		{
 			const int argc = 1;
 			char* argv[argc];
@@ -643,6 +643,34 @@ int py_character::get_intelligence()
 	return INT_MAX;
 }
 
+bool py_character::get_is_auto_attack_on()
+{
+	char* const member = static_cast<char *>("AutoAttackOn");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
+bool py_character::get_is_casting_spell()
+{
+	char* const member = static_cast<char *>("CastingSpell");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
 bool py_character::get_is_group_leader()
 {
 	char* const member = static_cast<char *>("IsGroupLeader");
@@ -657,9 +685,65 @@ bool py_character::get_is_group_leader()
 	return false;
 }
 
+bool py_character::get_is_in_combat()
+{
+	char* const member = static_cast<char *>("InCombat");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
+bool py_character::get_is_in_first_person_view()
+{
+	char* const member = static_cast<char *>("In1stPersonView");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
+bool py_character::get_is_in_third_person_view()
+{
+	char* const member = static_cast<char *>("In3rdPersonView");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
 bool py_character::get_is_moving()
 {
 	char* const member = static_cast<char *>("IsMoving");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return false;
+}
+
+bool py_character::get_is_ranged_auto_attack_on()
+{
+	char* const member = static_cast<char *>("RangedAutoAttackOn");
 	try
 	{
 		return this->get_member(member, 0, nullptr).get_bool_from_lso();
@@ -847,6 +931,66 @@ std::string py_character::get_race()
 		PyErr_Print();
 	}
 	return std::string("Error");
+}
+
+int py_character::get_raid(boost::python::list& raid_member_list)
+{
+	const int max_raid_size = 24;
+	const int current_raid_size = get_raid_count();
+	int raid_members_found = 0;
+	char* const member = static_cast<char *>("Raid");
+	try
+	{		
+		for (int i = 1; i <= max_raid_size; i++)
+		{
+			const int argc = 1;
+			char* argv[argc];
+			char buffer[MAX_VARSTRING] = { 0 };
+			sprintf_s(buffer, _countof(buffer), "%d", i);
+			argv[0] = buffer;
+			LSOBJECT ls_object = this->get_member(member, argc, argv).get_lso();
+			if(ls_object.GetObjectData().Ptr != nullptr)
+			{
+				raid_members_found++;
+				raid_member_list.append(py_group_member(ls_object));
+			}
+			if (raid_members_found == current_raid_size)
+				break;
+		}
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+	return len(raid_member_list);
+}
+
+int py_character::get_raid_count()
+{
+	char* const member = static_cast<char *>("RaidCount");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
+}
+
+int py_character::get_raid_group_num()
+{
+	char* const member = static_cast<char *>("RaidGroupNum");
+	try
+	{
+		return this->get_member(member, 0, nullptr).get_int_from_lso();
+	}
+	catch (boost::python::error_already_set &)
+	{
+		PyErr_Print();
+	}
+	return INT_MAX;
 }
 
 int py_character::get_silver()
@@ -1409,21 +1553,73 @@ std::string py_character::heading_to_as_compass_bearing(const float& to_x, const
 	return std::string("Error");
 }
 
-py_group_member& py_character::get_group_member(const unsigned int& member_or_id, const std::string& name)
+py_group_member py_character::get_group_member(const int& member_or_id, const std::string& name)
 {
 	py_group_member group_member;
 	const int argc = 1;
+	const int argc_by_id = 2;
 	char* argv[argc];
+	char* argv_by_id[argc_by_id];
 	char buffer[MAX_VARSTRING];
-	if (name.empty())
-		sprintf_s(buffer, _countof(buffer), "%u", member_or_id);
+	char buffer_by_id[MAX_VARSTRING];
+	strcpy_s(buffer_by_id, _countof(buffer_by_id), "id");
+	if (member_or_id != -1)
+		sprintf_s(buffer, _countof(buffer), "%d", member_or_id);
 	else
 		strcpy_s(buffer, _countof(buffer), name.c_str());
 	argv[0] = buffer;
+	argv_by_id[0] = buffer_by_id;
+	argv_by_id[1] = buffer;
 	char* const member = static_cast<char*>("Group");
 	try
 	{
-		group_member = py_group_member(this->get_member(member, argc, argv).get_lso());
+		if (member_or_id <= 5)
+			group_member = py_group_member(this->get_member(member, argc, argv).get_lso());
+		else
+			group_member = py_group_member(this->get_member(member, argc_by_id, argv_by_id).get_lso());
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+	return group_member;
+}
+
+py_group_member py_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
+{
+	py_group_member group_member;
+	const int argc = 1;
+	const int argc_by_id = 2;
+	const int argc_by_group = 2;
+	char* argv[argc];
+	char* argv_by_id[argc_by_id];
+	char* argv_by_group[argc_by_group];
+	char buffer[MAX_VARSTRING];
+	char buffer_by_id[MAX_VARSTRING];
+	char buffer_by_group[MAX_VARSTRING];
+	strcpy_s(buffer_by_id, _countof(buffer_by_id), "id");
+	sprintf_s(buffer_by_group, _countof(buffer_by_group), "%d", group_num);
+	if (member_or_id != -1)
+		sprintf_s(buffer, _countof(buffer), "%d", member_or_id);
+	else
+		strcpy_s(buffer, _countof(buffer), name.c_str());
+	argv[0] = buffer;
+	argv_by_id[0] = buffer_by_id;
+	argv_by_id[1] = buffer;
+	argv_by_group[0] = buffer_by_group;
+	argv_by_group[1] = buffer;
+	char* const member = static_cast<char*>("Raid");
+	try
+	{
+		// Search by id.
+		if (member_or_id > 24)
+			group_member = py_group_member(this->get_member(member, argc_by_id, argv_by_id).get_lso());
+		// Search by group and member number.
+		else if (member_or_id > 0 && member_or_id <= 6 && group_num > 0)
+			group_member = py_group_member(this->get_member(member, argc_by_group, argv_by_group).get_lso());
+		// Search by name or member number
+		else
+			group_member = py_group_member(this->get_member(member, argc, argv).get_lso());
 	}
 	catch (error_already_set&)
 	{

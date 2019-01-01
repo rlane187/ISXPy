@@ -11,6 +11,8 @@ BOOST_PYTHON_MODULE(isxpy)
 	class_<error_handler>("error_handler")
 		.def("write", &error_handler::write)
 		.def("flush", &error_handler::flush);
+
+	//def("pulse_channel", &get_pulse_channel);
 }
 
 void Initialize_Module_ISXPy()
@@ -24,7 +26,6 @@ void Initialize_Module_ISXPy()
 	pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 	strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
 	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));
-
 }
 
 void AdjustPath()
@@ -36,7 +37,7 @@ void AdjustPath()
 	Py_SetPath(PythonPathW);
 	object sys_module = import("sys");
 	object path_object = sys_module.attr("path");
-	path_object.attr("insert")(0, PythonScriptPath);
+	object result = path_object.attr("insert")(0, PythonScriptPath);
 	import("isxpy");
 	
 }
@@ -75,6 +76,11 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 	}
 	return false;
 }
+
+//boost::python::object get_pulse_channel()
+//{
+//	return pulse_channel.get_channel_object();
+//}
 
 py_lsobject::py_lsobject(LSOBJECT& ls_object)
 {	
@@ -290,10 +296,26 @@ int py_lsobject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHA
 
 int py_character::query_effects(boost::python::list& effect_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_effect>(static_cast<char *>("QueryEffects"), static_cast<char *>("effect"), const_cast<char *>(query.c_str()), effect_list);
+	return this->get_list_from_index_method<py_effect>(static_cast<char *>("QueryEffects"),
+	                                                   static_cast<char *>("effect"), const_cast<char *>(query.c_str()),
+	                                                   effect_list);
 }
 
 int py_eq2::query_actors(boost::python::list& actor_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"), const_cast<char *>(query.c_str()), actor_list);
+	return this->get_list_from_index_method<py_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"),
+	                                                  const_cast<char *>(query.c_str()), actor_list);
+}
+
+int py_character::query_inventory(boost::python::list& item_list, const std::string& query)
+{
+	return this->get_list_from_index_method<py_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
+	                                                 const_cast<char *>(query.c_str()), item_list);
+}
+
+int py_character::query_recipes(boost::python::list& recipe_list, const std::string& query)
+{
+	return this->get_list_from_index_method<py_recipe>(static_cast<char *>("QueryRecipes"),
+	                                                   static_cast<char *>("recipe"), const_cast<char *>(query.c_str()),
+	                                                   recipe_list);
 }

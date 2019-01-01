@@ -1,6 +1,4 @@
 #pragma once
-#include <winnt.h>
-#include <minwindef.h>
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -12,3 +10,5 @@ EXTERN_C wchar_t PythonPathW[MAX_VARSTRING];
 EXTERN_C unsigned int FrameCount;
 
 EXTERN_C std::map<std::string, tasklet*> tasklet_map;
+
+//EXTERN_C channel pulse_channel;

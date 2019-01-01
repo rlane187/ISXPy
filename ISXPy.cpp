@@ -23,6 +23,8 @@ unsigned int FrameCount = 0;
 
 std::map<std::string, tasklet*> tasklet_map = {};
 
+//channel pulse_channel;
+
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
 // This sets up a "ModulePath" variable which contains the path to this module in case we want it,
@@ -156,9 +158,10 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		Initialize_Module_PyISXEQ2();
 		Py_SetProgramName(nullptr);
 		Py_Initialize();
-		AdjustPath();		
+		//AdjustPath();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
 		Redirect_Output_to_Console();
+		
 	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
 	// are suspected of causing user crashes.  This will help users report the crash and hopefully
@@ -389,7 +392,7 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 * displayed by the game.  This is the place to put any repeating
 		 * tasks.
 		 */
-		FrameCount += 1;
+/*		FrameCount += 1;
 		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
 		{			
 			try
@@ -400,7 +403,7 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 			{
 				PyErr_Print();
 			}			
-		}
+		}*/			
 	}
 }
 

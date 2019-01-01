@@ -21,6 +21,7 @@ public:
 	bool get_schedule_all() const;
 	void set_schedule_all(const bool& schedule_all) const;
 	int get_balance() const;
+	boost::python::object get_channel_object() const;
 	channel& operator=(channel&& other) noexcept;
 	channel& operator=(const channel& other);
 private:
