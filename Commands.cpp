@@ -204,3 +204,40 @@ int CMD_EndPythonScriptUnsafe(int argc, char *argv[])
 	QuitScript();
 	return 0;
 }
+
+int CMD_GetPulseChannelBalance(int argc, char *argv[])
+{
+	using namespace boost::python;
+	printf("%.08x", pulse_channel.ptr());
+	printf("%d", pulse_channel.is_none());
+	if(pulse_channel.ptr())
+	{
+		try
+		{
+			channel c(reinterpret_cast<PyChannelObject*>(pulse_channel.ptr()));
+			printf("Balance for pulse channel is %d.", c.get_balance());
+		}
+		catch (error_already_set&)
+		{
+			PyErr_Print();
+		}
+	}
+	
+	return 0;
+}
+
+int CMD_GetTaskletRunCount(int argc, char *argv[])
+{
+	using namespace boost::python;
+
+	try
+	{
+		printf("Tasklet run count is %d", stackless_module::get_run_count());	
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+
+	return 0;
+}

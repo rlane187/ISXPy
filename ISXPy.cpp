@@ -29,12 +29,23 @@ boost::python::object pulse_channel;
 
 void set_pulse_channel()
 {
-	boost::python::object main_module = boost::python::import("__main__");
-	const boost::python::dict main_namespace = boost::python::extract<boost::python::dict>(main_module.attr("__dict__"));
-	boost::python::scope main_scope(main_module);
-	boost::python::object isxpy = boost::python::import("isxpy");
-	boost::python::object stackless = boost::python::import("stackless");
-	pulse_channel = stackless.attr("channel")();
+	using namespace boost::python;
+	object main_module = import("__main__");
+	const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
+	object isxpy_module = import("isxpy");
+	const dict isxpy_namespace = boost::python::extract<dict>(isxpy_module.attr("__dict__"));
+	object stackless_module = import("stackless");
+	scope main_scope(main_module);
+	try
+	{
+		exec("import isxpy", main_namespace, main_namespace);
+		exec("import stackless", main_namespace, main_namespace);
+		exec("isxpy.pulse_channel = stackless.channel()", main_namespace, main_namespace);
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
 }
 
 #pragma comment(lib,"isxdk.lib")
@@ -170,7 +181,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		Initialize_Module_PyISXEQ2();
 		Py_SetProgramName(nullptr);
 		Py_Initialize();
-		//AdjustPath();		
+		AdjustPath();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
 		Redirect_Output_to_Console();
 		set_pulse_channel();
@@ -418,8 +429,22 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		}
 		if (FrameCount % 300 == 0 && Py_IsInitialized())
 		{
-			channel c(reinterpret_cast<PyChannelObject*>(pulse_channel.ptr()));
-			//c.send();
+			char file_path[MAX_VARSTRING];
+			strcpy_s(file_path, _countof(file_path), PythonScriptPath);
+			strcat_s(file_path, _countof(file_path), "\\");
+			strcat_s(file_path, _countof(file_path), "frame_pulse.py");
+			//channel c(reinterpret_cast<PyChannelObject*>(pulse_channel.ptr()));
+			using namespace boost::python;
+			object main_module = import("__main__");
+			const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
+			try
+			{
+				exec_file(file_path, main_namespace, main_namespace);
+			}
+			catch (error_already_set&)
+			{
+				PyErr_Print();
+			}
 		}
 	}
 }

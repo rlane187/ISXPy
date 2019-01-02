@@ -79,3 +79,4 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 void AdjustPath();
 int QuitScript();
 boost::python::object get_pulse_channel();
+int get_frame_count();

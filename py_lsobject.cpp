@@ -4,6 +4,9 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(isxpy)
 {
+	scope().attr("pulse_channel") = pulse_channel;
+	def("frame_count", &get_frame_count);
+
 	class_<output_handler>("output_handler")
 		.def("write", &output_handler::write)
 		.def("flush", &output_handler::flush);
@@ -11,8 +14,6 @@ BOOST_PYTHON_MODULE(isxpy)
 	class_<error_handler>("error_handler")
 		.def("write", &error_handler::write)
 		.def("flush", &error_handler::flush);
-
-	def("pulse_channel", &get_pulse_channel);
 }
 
 void Initialize_Module_ISXPy()
@@ -80,6 +81,16 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 object get_pulse_channel()
 {
 	return pulse_channel;
+}
+
+void set_pulse_channel(object& channel)
+{
+	pulse_channel = channel;
+}
+
+int get_frame_count()
+{
+	return FrameCount;
 }
 
 py_lsobject::py_lsobject(LSOBJECT& ls_object)
