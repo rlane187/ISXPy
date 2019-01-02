@@ -102,6 +102,8 @@ extern LSType *pIndexType;
 
 extern char Py_Version[];
 
+extern void set_pulse_channel();
+
 #include "tasklet.h"
 #include "channel.h"
 #include "stackless_module.h"

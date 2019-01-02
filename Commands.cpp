@@ -133,6 +133,7 @@ int CMD_RunPythonScriptUnsafe(int argc, char *argv[])
 		const dict main_namespace = extract<dict>(main_module.attr("__dict__"));
 		object isxpy = import("isxpy");
 		object isxeq2 = import("pyisxeq2");
+		object stackless = import("stackless");
 		exec_file(file_path, main_namespace, main_namespace);
 	}
 	catch (error_already_set&) {

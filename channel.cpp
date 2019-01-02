@@ -39,7 +39,7 @@ channel& channel::operator=(const channel& other)
 	return *this;
 }
 
-bool channel::send(const boost::python::object& arg) const
+bool channel::send(const boost::python::tuple& arg) const
 {
 	return bool(PyChannel_Send(reinterpret_cast<PyChannelObject*>(this->channel_object_.ptr()), arg.ptr()));
 }

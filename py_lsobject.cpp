@@ -12,7 +12,7 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def("write", &error_handler::write)
 		.def("flush", &error_handler::flush);
 
-	//def("pulse_channel", &get_pulse_channel);
+	def("pulse_channel", &get_pulse_channel);
 }
 
 void Initialize_Module_ISXPy()
@@ -25,7 +25,7 @@ void Initialize_Module_ISXPy()
 	mbstowcs_s(&chars_converted, DllPathW, _countof(DllPathW), DllPath, _countof(DllPath));
 	pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 	strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
-	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));
+	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));	
 }
 
 void AdjustPath()
@@ -77,10 +77,10 @@ bool GetLSObjectFromTLO(LSTypeDefinition* pTypeDef, PCHAR tlo_name, int tlo_argc
 	return false;
 }
 
-//boost::python::object get_pulse_channel()
-//{
-//	return pulse_channel.get_channel_object();
-//}
+object get_pulse_channel()
+{
+	return pulse_channel;
+}
 
 py_lsobject::py_lsobject(LSOBJECT& ls_object)
 {	
