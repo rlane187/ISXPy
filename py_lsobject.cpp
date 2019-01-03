@@ -4,7 +4,7 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(isxpy)
 {
-	scope().attr("pulse_channel") = pulse_channel;
+	scope().attr("pulse_channel");
 	def("frame_count", &get_frame_count);
 
 	class_<output_handler>("output_handler")

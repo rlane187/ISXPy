@@ -41,6 +41,8 @@ void set_pulse_channel()
 		exec("import isxpy", main_namespace, main_namespace);
 		exec("import stackless", main_namespace, main_namespace);
 		exec("isxpy.pulse_channel = stackless.channel()", main_namespace, main_namespace);
+		//exec("isxpy.pulse_channel.preference = 1", main_namespace, main_namespace);
+		pulse_channel = isxpy_module.attr("pulse_channel");
 	}
 	catch (error_already_set&)
 	{
@@ -407,6 +409,7 @@ void ISXPy::UnRegisterServices()
 
 void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 {
+	using namespace boost::python;
 	if (MSG==PULSE_PULSE)
 	{		
 		/*
@@ -416,36 +419,43 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 * tasks.
 		 */
 		FrameCount += 1;
-		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
-		{			
-			try
-			{
-				stackless_module::on_pulse();
-			}
-			catch(boost::python::error_already_set&)
-			{
-				PyErr_Print();
-			}			
-		}
-		if (FrameCount % 300 == 0 && Py_IsInitialized())
+		channel c(pulse_channel);
+		int balance = c.get_balance();
+		if (Py_IsInitialized() && balance < 0)
 		{
-			char file_path[MAX_VARSTRING];
-			strcpy_s(file_path, _countof(file_path), PythonScriptPath);
-			strcat_s(file_path, _countof(file_path), "\\");
-			strcat_s(file_path, _countof(file_path), "frame_pulse.py");
-			//channel c(reinterpret_cast<PyChannelObject*>(pulse_channel.ptr()));
-			using namespace boost::python;
-			object main_module = import("__main__");
-			const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
+
 			try
 			{
-				exec_file(file_path, main_namespace, main_namespace);
+				const int max_iterations = 100;
+				int current_iteration = 1;
+				while (current_iteration < max_iterations && balance < 0)
+				{
+					tasklet t;
+					boost::python::list args_list;
+					args_list.append(FrameCount);
+					boost::python::tuple args(args_list);
+					if (t.bind_ex(pulse_channel.attr("send"), args))
+						t.insert();
+					balance++;
+					current_iteration++;
+				}
 			}
 			catch (error_already_set&)
 			{
 				PyErr_Print();
 			}
 		}
+		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
+		{			
+			try
+			{
+				stackless_module::on_pulse();
+			}
+			catch(error_already_set&)
+			{
+				PyErr_Print();
+			}			
+		}		
 	}
 }
 

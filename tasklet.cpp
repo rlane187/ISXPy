@@ -54,7 +54,7 @@ bool tasklet::setup(const boost::python::tuple& args, const boost::python::objec
 }
 
 bool tasklet::bind_ex(const boost::python::object& func, const boost::python::tuple& args,
-                      const boost::python::object& kwargs) const
+                      const boost::python::dict& kwargs) const
 {
 	return PyTasklet_BindEx(reinterpret_cast<PyTaskletObject*>(this->tasklet_object_.ptr()), func.ptr(), args.ptr(),
 	                        kwargs.ptr()) == 0;

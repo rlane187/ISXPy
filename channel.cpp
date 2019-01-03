@@ -21,6 +21,13 @@ channel::channel(channel&& other) noexcept : channel_object_(nullptr)
 	this->channel_object_ = other.channel_object_;
 }
 
+channel::channel(boost::python::object& channel_object)
+{
+	this->channel_object_ = channel_object;
+}
+
+channel::~channel() = default;
+
 channel& channel::operator=(channel&& other) noexcept
 {
 	if (this != &other)

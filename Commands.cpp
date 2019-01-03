@@ -214,8 +214,9 @@ int CMD_GetPulseChannelBalance(int argc, char *argv[])
 	{
 		try
 		{
-			channel c(reinterpret_cast<PyChannelObject*>(pulse_channel.ptr()));
-			printf("Balance for pulse channel is %d.", c.get_balance());
+			channel c(pulse_channel);
+			const int balance = c.get_balance();
+			printf("Balance for pulse channel is %d.", balance);
 		}
 		catch (error_already_set&)
 		{

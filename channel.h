@@ -7,6 +7,8 @@ public:
 	channel(const channel& other);
 	channel(channel&& other) noexcept;
 	explicit channel(PyChannelObject* p_channel_object);
+	explicit channel(boost::python::object& channel_object);
+	~channel();
 	bool send(const boost::python::tuple& arg = boost::python::tuple()) const;
 	int send_nr(const boost::python::object& arg) const;
 	bool receive(boost::python::object& arg) const;

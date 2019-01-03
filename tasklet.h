@@ -9,7 +9,7 @@ public:
 	explicit tasklet(PyTaskletObject* p_tasklet_object);
 	explicit tasklet(const boost::python::object& func);
 	bool setup(const boost::python::tuple& args = boost::python::tuple(), const boost::python::object& kwargs = boost::python::object()) const;
-	bool bind_ex(const boost::python::object& func, const boost::python::tuple& args = boost::python::tuple(), const boost::python::object& kwargs = boost::python::object()) const;
+	bool bind_ex(const boost::python::object& func, const boost::python::tuple& args = boost::python::tuple(), const boost::python::dict& kwargs = boost::python::dict()) const;
 	bool run() const;
 	int run_nr() const;
 	bool switch_task() const;
