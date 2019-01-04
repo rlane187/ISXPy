@@ -72,6 +72,7 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pPoint3fType = 0;
 LSType *pGroupMemberType = 0;
 LSType *pActorEffectType = 0;
 LSType *pEffectInfoType = 0;
@@ -146,6 +147,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pPoint3fType = pISInterface->FindLSType("point3f");
 		pGroupMemberType = pISInterface->FindLSType("groupmember");
 		pActorEffectType = pISInterface->FindLSType("actoreffect");
 		pEffectInfoType = pISInterface->FindLSType("effectinfo");

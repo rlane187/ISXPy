@@ -14,13 +14,13 @@ py_actor py_actor::from_id(const unsigned int& actor_id)
 	char buffer_id[MAX_VARSTRING];
 	sprintf_s(buffer_id, _countof(buffer_id), "%u", actor_id);
 	argv_id[0] = buffer_id;
-	try
+	if(!pISInterface->IsTopLevelObject("Actor")(argc_id, argv_id, ls_object))
+		PyErr_SetString(PyExc_NameError, "\'Actor\' TLO not found. ISXEQ2 is probably not loaded.");
+	if(ls_object.ObjectType && !(ls_object.ObjectType == pActorType))
 	{
-		pISInterface->IsTopLevelObject("Actor")(argc_id, argv_id, ls_object);
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'actor' expected. LS Type is '%s'.)", ls_object.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
 	}
 	return ls_object;
 }
@@ -34,13 +34,13 @@ py_actor py_actor::from_query(const std::string& query)
 	strcpy_s(buffer_query, _countof(buffer_query), query.c_str());
 	argv_query[0] = const_cast<char *>("Query");
 	argv_query[1] = buffer_query;
-	try
+	if(!pISInterface->IsTopLevelObject("Actor")(argc_query, argv_query, ls_object))
+		PyErr_SetString(PyExc_NameError, "\'Actor\' TLO not found. ISXEQ2 is probably not loaded.");
+	if (ls_object.ObjectType && !(ls_object.ObjectType == pActorType))
 	{
-		pISInterface->IsTopLevelObject("Actor")(argc_query, argv_query, ls_object);
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'actor' expected. LS Type is '%s'.)", ls_object.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
 	}
 	return ls_object;
 }
@@ -48,15 +48,7 @@ py_actor py_actor::from_query(const std::string& query)
 std::string py_actor::get_aura()
 {
 	char* const member = static_cast<char *>("Aura");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 bool py_actor::check_collision(const float& to_x, const float& to_y, const float& to_z)
@@ -73,73 +65,33 @@ bool py_actor::check_collision(const float& to_x, const float& to_y, const float
 	argv[1] = buffer_y;
 	argv[2] = buffer_z;
 	char* const member = static_cast<char *>("CheckCollision");
-	try
-	{
-		if (to_x == NULL || to_y == NULL || to_z == NULL)
-			return this->get_member(member, 0, nullptr).get_bool_from_lso();
-		return this->get_member(member, argc, argv).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	if (to_x == NULL || to_y == NULL || to_z == NULL)
+		return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	return this->get_member(member, argc, argv).get_bool_from_lso();
 }
 
 bool py_actor::get_can_turn()
 {
 	char* const member = static_cast<char *>("CanTurn");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 std::string py_actor::get_class()
 {
 	char* const member = static_cast<char *>("Class");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 float py_actor::get_collision_radius()
 {
 	char* const member = static_cast<char *>("CollisionRadius");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 float py_actor::get_collision_scale()
 {
 	char* const member = static_cast<char *>("CollisionScale");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 std::string py_actor::get_con_color(const bool& as_rgb)
@@ -148,95 +100,47 @@ std::string py_actor::get_con_color(const bool& as_rgb)
 	char* argv[argc];
 	argv[0] = const_cast<char*>("raw");
 	char* const member = static_cast<char *>("ConColor");
-	try
-	{
-		if(as_rgb)
-			return this->get_member(member, argc, argv).get_string_from_lso();
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	if (as_rgb)
+		return this->get_member(member, argc, argv).get_string_from_lso();
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 std::string py_actor::get_current_animation()
 {
 	char* const member = static_cast<char *>("CurrentAnimation");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 int py_actor::get_difficulty()
 {
 	char* const member = static_cast<char *>("Difficulty");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 float py_actor::get_distance()
 {
 	char* const member = static_cast<char *>("Distance");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 float py_actor::get_distance2d()
 {
 	char* const member = static_cast<char *>("Distance2D");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 int py_actor::get_effects(boost::python::list& effect_list)
 {
-	char* const count_effect_string = static_cast<char *>("NumEffects");
 	char* const effect_string = static_cast<char *>("Effect");
-	try
+	const int count_effects = this->get_num_effects();
+	for (int i = 1; i <= count_effects; i++)
 	{
-		const int count_effects = this->get_member(count_effect_string, 0, nullptr).get_int_from_lso();
-		for (int i = 1; i <= count_effects; i++)
-		{
-			const int argc = 1;
-			char* argv[argc];
-			char buffer[MAX_VARSTRING];
-			sprintf_s(buffer, _countof(buffer), "%d", i);
-			argv[0] = const_cast<char*>(buffer);
-			effect_list.append(py_actor_effect(this->get_member(effect_string, argc, argv).get_lso()));
-		}
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
+		const int argc = 1;
+		char* argv[argc];
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), "%d", i);
+		argv[0] = const_cast<char*>(buffer);
+		effect_list.append(py_actor_effect(this->get_member(effect_string, argc, argv).get_lso()));
 	}
 	return len(effect_list);
 }
@@ -244,127 +148,55 @@ int py_actor::get_effects(boost::python::list& effect_list)
 int py_actor::get_effective_level()
 {
 	char* const member = static_cast<char *>("EffectiveLevel");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 int py_actor::get_encounter_size()
 {
 	char* const member = static_cast<char *>("EncounterSize");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 int py_actor::get_faction()
 {
 	char* const member = static_cast<char *>("Faction");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 std::string py_actor::get_faction_standing()
 {
 	char* const member = static_cast<char *>("FactionStanding");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 bool py_actor::get_flying_using_mount()
 {
 	char* const member = static_cast<char *>("FlyingUsingMount");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 std::string py_actor::get_gender()
 {
 	char* const member = static_cast<char *>("Gender");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 std::string py_actor::get_guild()
 {
 	char* const member = static_cast<char *>("Guild");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 float py_actor::get_heading()
 {
 	char* const member = static_cast<char *>("Heading");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 float py_actor::get_heading_to()
 {
 	char* const member = static_cast<char *>("HeadingTo");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_float_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return FLT_MAX;
+	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
 std::string py_actor::get_heading_to_as_compass_bearing()
@@ -373,323 +205,139 @@ std::string py_actor::get_heading_to_as_compass_bearing()
 	char* argv[argc];
 	argv[0] = const_cast<char*>("AsString");
 	char* const member = static_cast<char *>("HeadingTo");
-	try
-	{
-		return this->get_member(member, argc, argv).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, argc, argv).get_string_from_lso();
 }
 
 int py_actor::get_health()
 {
 	char* const member = static_cast<char *>("Health");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 unsigned int py_actor::get_id()
 {
 	char* const member = static_cast<char *>("ID");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_uint_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return UINT_MAX;
+	return this->get_member(member, 0, nullptr).get_uint_from_lso();
 }
 
 bool py_actor::get_in_combat_mode()
 {
 	char* const member = static_cast<char *>("InCombatMode");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_in_my_group()
 {
 	char* const member = static_cast<char *>("InMyGroup");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_interactable()
 {
 	char* const member = static_cast<char *>("Interactable");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_afk()
 {
 	char* const member = static_cast<char *>("IsAFK");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_aggro()
 {
 	char* const member = static_cast<char *>("IsAggro");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_a_pet()
  {
 	 char* const member = static_cast<char *>("IsAPet");
-	 try
-	 {
-		 return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	 }
-	 catch (boost::python::error_already_set &)
-	 {
-		 PyErr_Print();
-	 }
-	 return false;
+	 return this->get_member(member, 0, nullptr).get_bool_from_lso();
  }
 
 bool py_actor::get_is_backing_up()
 {
 	char* const member = static_cast<char *>("IsBackingUp");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_banker()
  {
 	 char* const member = static_cast<char *>("IsBanker");
-	 try
-	 {
-		 return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	 }
-	 catch (boost::python::error_already_set &)
-	 {
-		 PyErr_Print();
-	 }
-	 return false;
+	 return this->get_member(member, 0, nullptr).get_bool_from_lso();
  }
  
 bool py_actor::get_is_camping()
 {
 	char* const member = static_cast<char *>("IsCamping");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_chest()
 {
 	char* const member = static_cast<char *>("IsChest");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_climbing()
 {
 	char* const member = static_cast<char *>("IsClimbing");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_crouching()
 {
 	char* const member = static_cast<char *>("IsCrouching");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_dead()
 {
 	char* const member = static_cast<char *>("IsDead");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_encounter_broken()
 {
 	char* const member = static_cast<char *>("IsEncounterBroken");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_epic()
 {
 	char* const member = static_cast<char *>("IsEpic");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_falling()
 {
 	char* const member = static_cast<char *>("IsFalling");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_fd()
 {
 	char* const member = static_cast<char *>("IsFD");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_heroic()
 {
 	char* const member = static_cast<char *>("IsHeroic");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_idle()
 {
 	char* const member = static_cast<char *>("IsIdle");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_invis()
 {
 	char* const member = static_cast<char *>("IsInvis");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_in_same_encounter(const unsigned int& actor_id)
@@ -700,409 +348,193 @@ bool py_actor::get_is_in_same_encounter(const unsigned int& actor_id)
 	sprintf_s(buffer, _countof(buffer), "%u", actor_id);
 	argv[0] = buffer;	
 	char* const member = static_cast<char *>("IsInSameEncounter");
-	try
-	{
-		return this->get_member(member, argc, argv).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, argc, argv).get_bool_from_lso();
 }
 
 bool py_actor::get_is_jumping()
 {
 	char* const member = static_cast<char *>("IsJumping");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_lfg()
 {
 	char* const member = static_cast<char *>("IsLFG");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_lfw()
 {
 	char* const member = static_cast<char *>("IsLFW");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_linkdead()
 {
 	char* const member = static_cast<char *>("IsLinkdead");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_locked()
 {
 	char* const member = static_cast<char *>("IsLocked");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_merchant()
 {
 	char* const member = static_cast<char *>("IsMerchant");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_my_pet()
 {
 	char* const member = static_cast<char *>("IsMyPet");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_named()
 {
 	char* const member = static_cast<char *>("IsNamed");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_on_carpet()
 {
 	char* const member = static_cast<char *>("IsOnCarpet");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_on_horse()
 {
 	char* const member = static_cast<char *>("IsOnHorse");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_on_griffin()
 {
 	char* const member = static_cast<char *>("IsOnGriffin");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_rooted()
 {
 	char* const member = static_cast<char *>("IsRooted");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_running()
 {
 	char* const member = static_cast<char *>("IsRunning");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_sitting()
 {
 	char* const member = static_cast<char *>("IsSitting");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_solo()
 {
 	char* const member = static_cast<char *>("IsSolo");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_sprinting()
 {
 	char* const member = static_cast<char *>("IsSprinting");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_strafing_left()
 {
 	char* const member = static_cast<char *>("IsStrafingLeft");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_strafing_right()
 {
 	char* const member = static_cast<char *>("IsStrafingRight");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_swimming()
 {
 	char* const member = static_cast<char *>("IsSwimming");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 bool py_actor::get_is_walking()
 {
 	char* const member = static_cast<char *>("IsWalking");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 std::string py_actor::get_last_name()
 {
 	char* const member = static_cast<char *>("LastName");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 int py_actor::get_level()
 {
 	char* const member = static_cast<char *>("Level");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 py_point3f py_actor::get_loc()
 {
-	py_point3f loc;
 	char* const member = static_cast<char *>("Loc");
-	try
+	const LSOBJECT loc_object = this->get_member(member, 0, nullptr).get_lso();
+	if (!loc_object.ObjectType)
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+	if (loc_object.ObjectType != pPoint3fType)
 	{
-		loc = py_point3f(this->get_member(member, 0, nullptr).get_lso());
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'point3f' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
 	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return loc;
+	return loc_object;
 }
 
 py_actor py_actor::get_pet()
 {
-	py_actor pet;
 	char* const member = static_cast<char *>("Pet");
-	try
+	const LSOBJECT pet_object = this->get_member(member, 0, nullptr).get_lso();
+	if (!pet_object.ObjectType)
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+	if (pet_object.ObjectType != pActorType)
 	{
-		pet = py_actor(this->get_member(member, 0, nullptr).get_lso());
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'actor' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
 	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return pet;
+	return pet_object;
 }
 
 std::string py_actor::get_mood()
 {
 	char* const member = static_cast<char *>("Mood");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 std::string py_actor::get_name()
 {
 	char* const member = static_cast<char *>("Name");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_string_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return std::string("Error");
+	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
 int py_actor::get_num_effects()
 {
 	char* const member = static_cast<char *>("NumEffects");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_int_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return INT_MAX;
+	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
 bool py_actor::get_on_flying_mount()
 {
 	char* const member = static_cast<char *>("OnFlyingMount");
-	try
-	{
-		return this->get_member(member, 0, nullptr).get_bool_from_lso();
-	}
-	catch (boost::python::error_already_set &)
-	{
-		PyErr_Print();
-	}
-	return false;
+	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
 std::string py_actor::get_overlay()

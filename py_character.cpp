@@ -852,22 +852,15 @@ py_group_member py_character::get_raid_member(const int& member_or_id, const int
 	argv_by_group[0] = buffer_by_group;
 	argv_by_group[1] = buffer;
 	char* const member = static_cast<char*>("Raid");
-	try
-	{
-		// Search by id.
-		if (member_or_id > 24)
-			group_member = py_group_member(this->get_member(member, argc_by_id, argv_by_id).get_lso());
-		// Search by group and member number.
-		else if (member_or_id > 0 && member_or_id <= 6 && group_num > 0)
-			group_member = py_group_member(this->get_member(member, argc_by_group, argv_by_group).get_lso());
-		// Search by name or member number
-		else
-			group_member = py_group_member(this->get_member(member, argc, argv).get_lso());
-	}
-	catch (error_already_set&)
-	{
-		PyErr_Print();
-	}
+	// Search by id.
+	if (member_or_id > 24)
+		group_member = this->get_member(member, argc_by_id, argv_by_id).get_lso();
+	// Search by group and member number.
+	else if (member_or_id > 0 && member_or_id <= 6 && group_num > 0)
+		group_member = this->get_member(member, argc_by_group, argv_by_group).get_lso();
+	// Search by name or member number
+	else
+		group_member = this->get_member(member, argc, argv).get_lso();
 	return group_member;
 }
 

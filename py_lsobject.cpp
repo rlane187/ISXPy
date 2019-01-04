@@ -104,6 +104,19 @@ void py_lsobject::execute_method(PCHAR method, int argc, char* argv[])
 		this->ls_object_.ObjectType->GetMethodEx(this->ls_object_.GetObjectData(), method, argc, argv);
 	else if (this->ls_object_.ObjectType && this->has_inherited_method(method))
 		this->ls_object_.ObjectType->GetInheritedMethod(this->ls_object_.GetObjectData(), method, argc, argv);
+	else
+	{
+		if (this->ls_object_.ObjectType)
+		{
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), R"(LS Object of type '%s' does not have a method '%s'.)",
+				this->ls_object_.ObjectType->GetName(), method);
+			PyErr_SetString(PyExc_NameError, buffer);
+		}
+		else
+			PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+	}
+		
 }
 
 py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
@@ -113,7 +126,19 @@ py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, dest);
 	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, dest);
-	return static_cast<py_lsobject>(dest);
+	else
+	{
+		if (this->ls_object_.ObjectType)
+		{
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), R"(Object of type '%s' does not have a member '%s'.)",
+				this->ls_object_.ObjectType->GetName(), member);
+			PyErr_SetString(PyExc_NameError, buffer);
+		}
+		else
+			PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+	}
+	return dest;
 }
 
 void py_lsobject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_object)
@@ -122,6 +147,18 @@ void py_lsobject::get_member(PCHAR member, int argc, char* argv[], LSOBJECT& ls_
 		this->ls_object_.ObjectType->GetMemberEx(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
 	else if (this->ls_object_.ObjectType && this->has_inherited_member(member))
 		this->ls_object_.ObjectType->GetInheritedMember(this->ls_object_.GetObjectData(), member, argc, argv, ls_object);
+	else
+	{
+		if (ls_object.ObjectType)
+		{
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), R"(Object of type '%s' does not have a member '%s'.)",
+				ls_object.ObjectType->GetName(), member);
+			PyErr_SetString(PyExc_NameError, buffer);
+		}
+		else
+			PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+	}
 }
 
 bool py_lsobject::has_inherited_member(PCHAR member) const
@@ -131,6 +168,8 @@ bool py_lsobject::has_inherited_member(PCHAR member) const
 		if (this->ls_object_.ObjectType->InheritedMember(member))
 			return true;
 	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -141,6 +180,8 @@ bool py_lsobject::has_inherited_method(PCHAR method) const
 		if (this->ls_object_.ObjectType->InheritedMethod(method))
 			return true;
 	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -151,6 +192,8 @@ bool py_lsobject::has_member(PCHAR member) const
 		if (this->ls_object_.ObjectType->FindMember(member))
 			return true;
 	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -161,6 +204,8 @@ bool py_lsobject::has_method(PCHAR method) const
 		if (this->ls_object_.ObjectType->FindMethod(method))
 			return true;
 	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -174,6 +219,14 @@ bool py_lsobject::get_bool_from_lso()
 	{
 		return bool(*(this->ls_object_.GetObjectData().DWordPtr));
 	}
+	if (this->ls_object_.ObjectType)
+	{
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'bool' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
+	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -187,6 +240,14 @@ int py_lsobject::get_byte_from_lso()
 	{
 		return int(*(this->ls_object_.GetObjectData().DWordPtr));
 	}
+	if (this->ls_object_.ObjectType)
+	{
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'byte' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
+	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return false;
 }
 
@@ -200,6 +261,14 @@ float py_lsobject::get_float_from_lso()
 	{
 		return float(*reinterpret_cast<float*>(this->ls_object_.GetObjectData().DWordPtr));
 	}
+	if (this->ls_object_.ObjectType)
+	{
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'float' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
+	}
+	else
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	return FLT_MAX;
 }
 
@@ -225,6 +294,16 @@ int64_t py_lsobject::get_int64_from_lso()
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pInt64PtrType)
 	{
 		return int64_t(*(this->ls_object_.GetObjectData().Int64Ptr));
+	}
+	if (this->ls_object_.ObjectType)
+	{
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'int64' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
+	}
+	else
+	{
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	}
 	return INT64_MAX;
 }
@@ -253,7 +332,17 @@ std::string py_lsobject::get_string_from_lso()
 		{
 			wcstombs_s(&characters_converted, buffer, _countof(buffer), this->ls_object_.GetObjectData().ConstWCharPtr, _countof(buffer));
 			return std::string(buffer);
-		}			
+		}
+		if (this->ls_object_.ObjectType)
+		{
+			char buffer[MAX_VARSTRING];
+			sprintf_s(buffer, _countof(buffer), R"(LS Type 'string' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+			PyErr_SetString(PyExc_TypeError, buffer);
+		}
+		else
+		{
+			PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
+		}
 	}
 	return std::string("Error");
 }
@@ -263,6 +352,16 @@ unsigned int py_lsobject::get_uint_from_lso()
 	if (this->ls_object_.ObjectType && this->ls_object_.ObjectType == pUintType)
 	{
 		return unsigned int(this->ls_object_.GetObjectData().DWord);
+	}
+	if (this->ls_object_.ObjectType)
+	{
+		char buffer[MAX_VARSTRING];
+		sprintf_s(buffer, _countof(buffer), R"(LS Type 'uint' expected. LS Type is '%s'.)", this->ls_object_.ObjectType->GetName());
+		PyErr_SetString(PyExc_TypeError, buffer);
+	}
+	else
+	{
+		PyErr_SetString(PyExc_TypeError, "LS Object did not have a valid LS Type.");
 	}
 	return UINT_MAX;
 }

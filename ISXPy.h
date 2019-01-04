@@ -85,9 +85,9 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pPoint3fType;
 extern LSType *pGroupMemberType;
 extern LSType *pActorEffectType;
-extern LSType *pPoint3f;
 extern LSType *pEffectInfoType;
 extern LSType *pEffectType;
 extern LSType *pMaintainedType;
