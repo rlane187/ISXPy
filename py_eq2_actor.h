@@ -1,13 +1,20 @@
 #pragma once
 
-class py_actor : public py_lsobject
+class py_eq2_actor : public py_lsobject
 {
 public:
-	py_actor() = default;
-	py_actor(const LSOBJECT&);
-	std::string get_aura();
-	bool check_collision(const float& to_x = NULL, const float& to_y = NULL, const float& to_z = NULL);
+	py_eq2_actor();
+	~py_eq2_actor();
+	explicit py_eq2_actor(const unsigned int& actor_id);
+	explicit py_eq2_actor(const std::string& query);
+	py_eq2_actor(const py_eq2_actor& other);
+	py_eq2_actor(py_eq2_actor&& other) noexcept;	
+	py_eq2_actor(const LSOBJECT& other);
+	py_eq2_actor& operator=(const py_eq2_actor& other);
+	py_eq2_actor& operator=(py_eq2_actor&& other) noexcept;
+	virtual bool check_collision(const float& to_x = NULL, const float& to_y = NULL, const float& to_z = NULL);
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(check_collision_overloads, check_collision, 0, 3)
+	std::string get_aura();	
 	bool get_can_turn();
 	std::string get_class();
 	float get_collision_radius();
@@ -79,7 +86,7 @@ public:
 	int get_num_effects();
 	bool get_on_flying_mount();
 	std::string get_overlay();
-	py_actor get_pet();
+	py_eq2_actor get_pet();
 	int get_power();
 	std::string get_race();
 	int get_raid_size();
@@ -88,7 +95,7 @@ public:
 	float get_swimming_speed_mod();
 	std::string get_tag_target_icon();
 	std::string get_tag_target_number();
-	py_actor get_target();
+	py_eq2_actor get_target();
 	float get_target_ring_radius();
 	int get_threat_to_me();
 	int get_threat_to_pet();
@@ -110,6 +117,6 @@ public:
 	void location(const bool& add_location = true, const std::string& notes = std::string());
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(location_overloads, location, 0, 2)
 	void request_effects_info();
-	static py_actor from_id(const unsigned int& actor_id);
-	static py_actor from_query(const std::string& query);
+	static py_eq2_actor from_id(const unsigned int& actor_id);
+	static py_eq2_actor from_query(const std::string& query);
 };

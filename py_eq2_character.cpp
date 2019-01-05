@@ -3,13 +3,40 @@
 
 using namespace boost::python;
 
-py_character::py_character()
+py_eq2_character::py_eq2_character()
 {
-	if (!pISInterface->IsTopLevelObject("Me")(0, nullptr, *reinterpret_cast<LSOBJECT*>(this)))
-		PyErr_SetString(PyExc_NameError, "\'Me\' TLO not found. ISXEQ2 is probably not loaded.");
+	pISInterface->IsTopLevelObject("Me")(0, nullptr, this->lsobject_);
 }
 
-bool py_character::check_collision(const float& to_x, const float& to_y, const float& to_z)
+py_eq2_character::~py_eq2_character() = default;
+
+py_eq2_character::py_eq2_character(const py_eq2_character& other) = default;
+
+py_eq2_character::py_eq2_character(py_eq2_character&& other) noexcept
+{
+	this->lsobject_ = other.lsobject_;
+}
+
+py_eq2_character::py_eq2_character(const LSOBJECT& other)
+{
+	this->lsobject_ = other;
+}
+
+py_eq2_character& py_eq2_character::operator=(const py_eq2_character& other)
+{
+	if (this != &other)
+		this->lsobject_ = other.lsobject_;
+	return *this;
+}
+
+py_eq2_character& py_eq2_character::operator=(py_eq2_character&& other) noexcept
+{
+	if (this != &other)
+		this->lsobject_ = other.lsobject_;
+	return *this;
+}
+
+bool py_eq2_character::check_collision(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
@@ -26,37 +53,37 @@ bool py_character::check_collision(const float& to_x, const float& to_y, const f
 	return this->get_member(member, argc, argv).get_bool_from_lso();
 }
 
-int py_character::get_agility()
+int py_eq2_character::get_agility()
 {
 	char* const member = static_cast<char *>("Agility");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_arcane_resist()
+int py_eq2_character::get_arcane_resist()
 {
 	char* const member = static_cast<char *>("ArcaneResist");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_arcane_resist_percent()
+float py_eq2_character::get_arcane_resist_percent()
 {
 	char* const member = static_cast<char *>("ArcaneResistPct");
 	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
-bool py_character::get_at_char_select()
+bool py_eq2_character::get_at_char_select()
 {
 	char* const member = static_cast<char *>("AtCharSelect");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-std::string py_character::get_archetype()
+std::string py_eq2_character::get_archetype()
 {
 	char* const member = static_cast<char *>("Archetype");
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-float py_character::get_ascension_exp_bubble()
+float py_eq2_character::get_ascension_exp_bubble()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -65,7 +92,7 @@ float py_character::get_ascension_exp_bubble()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_ascension_exp_current()
+int py_eq2_character::get_ascension_exp_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -76,7 +103,7 @@ int py_character::get_ascension_exp_current()
 	return boost::lexical_cast<int>(result);
 }
 
-int py_character::get_ascension_exp_next_level()
+int py_eq2_character::get_ascension_exp_next_level()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -87,7 +114,7 @@ int py_character::get_ascension_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_ascension_exp_percent()
+float py_eq2_character::get_ascension_exp_percent()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -96,7 +123,7 @@ float py_character::get_ascension_exp_percent()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_ascension_level()
+int py_eq2_character::get_ascension_level()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -107,109 +134,97 @@ int py_character::get_ascension_level()
 	return boost::lexical_cast<int>(result);
 }
 
-int py_character::get_base_agility()
+int py_eq2_character::get_base_agility()
 {
 	char* const member = static_cast<char *>("BaseAgility");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_base_intelligence()
+int py_eq2_character::get_base_intelligence()
 {
 	char* const member = static_cast<char *>("BaseIntelligence");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_base_stamina()
+int py_eq2_character::get_base_stamina()
 {
 	char* const member = static_cast<char *>("BaseStamina");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_base_strength()
+int py_eq2_character::get_base_strength()
 {
 	char* const member = static_cast<char *>("BaseStrength");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_base_wisdom()
+int py_eq2_character::get_base_wisdom()
 {
 	char* const member = static_cast<char *>("BaseWisdom");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_breath()
+float py_eq2_character::get_breath()
 {
 	char* const member = static_cast<char *>("Breath");
 	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
-std::string py_character::get_class()
-{
-	char* const member = static_cast<char *>("Class");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
-}
-
-int py_character::get_copper()
+int py_eq2_character::get_copper()
 {
 	char* const member = static_cast<char *>("Copper");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_count_maintained()
+int py_eq2_character::get_count_maintained()
 {
 	char* const member = static_cast<char *>("CountMaintained");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int64_t py_character::get_current_health()
+int64_t py_eq2_character::get_current_health()
 {
 	char* const member = static_cast<char *>("CurrentHealth");
 	return this->get_member(member, 0, nullptr).get_int64_from_lso();
 }
 
-int py_character::get_current_power()
+int py_eq2_character::get_current_power()
 {
 	char* const member = static_cast<char *>("CurrentPower");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_dissipation()
+int py_eq2_character::get_dissipation()
 {
 	char* const member = static_cast<char *>("Dissipation");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_dissonance()
+int py_eq2_character::get_dissonance()
 {
 	char* const member = static_cast<char *>("Dissonance");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_dissonance_remaining()
+int py_eq2_character::get_dissonance_remaining()
 {
 	char* const member = static_cast<char *>("DissonanceRemaining");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_effective_level()
-{
-	char* const member = static_cast<char *>("EffectiveLevel");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
-}
-
-int py_character::get_elemental_resist()
+int py_eq2_character::get_elemental_resist()
 {
 	char* const member = static_cast<char *>("ElementalResist");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_elemental_resist_percent()
+float py_eq2_character::get_elemental_resist_percent()
 {
 	char* const member = static_cast<char *>("ElementalResistPct");
 	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
-float py_character::get_exp_bubble()
+float py_eq2_character::get_exp_bubble()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -218,7 +233,7 @@ float py_character::get_exp_bubble()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_exp_current()
+int py_eq2_character::get_exp_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -229,7 +244,7 @@ int py_character::get_exp_current()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_exp_debt_current()
+float py_eq2_character::get_exp_debt_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -238,7 +253,7 @@ float py_character::get_exp_debt_current()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_exp_next_level()
+int py_eq2_character::get_exp_next_level()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -249,7 +264,7 @@ int py_character::get_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_exp_percent()
+float py_eq2_character::get_exp_percent()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -258,19 +273,13 @@ float py_character::get_exp_percent()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-std::string py_character::get_gender()
-{
-	char* const member = static_cast<char *>("Gender");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
-}
-
-int py_character::get_gold()
+int py_eq2_character::get_gold()
 {
 	char* const member = static_cast<char *>("Gold");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_group(boost::python::list& group_member_list)
+int py_eq2_character::get_group(boost::python::list& group_member_list)
 {
 	char* const group_string = static_cast<char *>("Group");
 	const int group_count = this->get_group_count();
@@ -286,121 +295,109 @@ int py_character::get_group(boost::python::list& group_member_list)
 	return len(group_member_list);
 }
 
-int py_character::get_group_count()
+int py_eq2_character::get_group_count()
 {
 	char* const member = static_cast<char *>("GroupCount");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-bool py_character::get_grouped()
+bool py_eq2_character::get_grouped()
 {
 	char* const member = static_cast<char *>("Grouped");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-float py_character::get_heading()
-{
-	char* const member = static_cast<char *>("Heading");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
-}
-
-int py_character::get_health_regen()
+int py_eq2_character::get_health_regen()
 {
 	char* const member = static_cast<char *>("HealthRegen");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-bool py_character::get_in_game_world()
+bool py_eq2_character::get_in_game_world()
 {
 	char* const member = static_cast<char *>("InGameWorld");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_raid()
+bool py_eq2_character::get_is_in_raid()
 {
 	char* const member = static_cast<char *>("InRaid");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_water()
+bool py_eq2_character::get_is_in_water()
 {
 	char* const member = static_cast<char *>("InWater");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-int py_character::get_intelligence()
+int py_eq2_character::get_intelligence()
 {
 	char* const member = static_cast<char *>("Intelligence");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-bool py_character::get_is_auto_attack_on()
+bool py_eq2_character::get_is_auto_attack_on()
 {
 	char* const member = static_cast<char *>("AutoAttackOn");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_casting_spell()
+bool py_eq2_character::get_is_casting_spell()
 {
 	char* const member = static_cast<char *>("CastingSpell");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_group_leader()
+bool py_eq2_character::get_is_group_leader()
 {
 	char* const member = static_cast<char *>("IsGroupLeader");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_hated()
+bool py_eq2_character::get_is_hated()
 {
 	char* const member = static_cast<char *>("IsHated");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_combat()
+bool py_eq2_character::get_is_in_combat()
 {
 	char* const member = static_cast<char *>("InCombat");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_first_person_view()
+bool py_eq2_character::get_is_in_first_person_view()
 {
 	char* const member = static_cast<char *>("In1stPersonView");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_pvp()
+bool py_eq2_character::get_is_in_pvp()
 {
 	char* const member = static_cast<char *>("IsInPVP");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_in_third_person_view()
+bool py_eq2_character::get_is_in_third_person_view()
 {
 	char* const member = static_cast<char *>("In3rdPersonView");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_moving()
+bool py_eq2_character::get_is_moving()
 {
 	char* const member = static_cast<char *>("IsMoving");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-bool py_character::get_is_ranged_auto_attack_on()
+bool py_eq2_character::get_is_ranged_auto_attack_on()
 {
 	char* const member = static_cast<char *>("RangedAutoAttackOn");
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
-int py_character::get_level()
-{
-	char* const member = static_cast<char *>("Level");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
-}
-
-int py_character::get_maintained(boost::python::list& maintained_list)
+int py_eq2_character::get_maintained(boost::python::list& maintained_list)
 {
 	char* const maintained_string = static_cast<char *>("Maintained");
 	const int count_maintained = this->get_count_maintained();
@@ -416,67 +413,55 @@ int py_character::get_maintained(boost::python::list& maintained_list)
 	return len(maintained_list);
 }
 
-int py_character::get_max_conc()
+int py_eq2_character::get_max_conc()
 {
 	char* const member = static_cast<char *>("MaxConc");
 	return this->get_member(member, 0, nullptr).get_byte_from_lso();
 }
 
-int py_character::get_max_dissonance()
+int py_eq2_character::get_max_dissonance()
 {
 	char* const member = static_cast<char *>("MaxDissonance");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int64_t py_character::get_max_health()
+int64_t py_eq2_character::get_max_health()
 {
 	char* const member = static_cast<char *>("MaxHealth");
 	return this->get_member(member, 0, nullptr).get_int64_from_lso();
 }
 
-int py_character::get_max_power()
+int py_eq2_character::get_max_power()
 {
 	char* const member = static_cast<char *>("MaxPower");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-std::string py_character::get_name()
-{
-	char* const member = static_cast<char *>("Name");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
-}
-
-int py_character::get_noxious_resist()
+int py_eq2_character::get_noxious_resist()
 {
 	char* const member = static_cast<char *>("NoxiousResist");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_noxious_resist_percent()
+float py_eq2_character::get_noxious_resist_percent()
 {
 	char* const member = static_cast<char *>("NoxiousResistPct");
 	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
-int py_character::get_platinum()
+int py_eq2_character::get_platinum()
 {
 	char* const member = static_cast<char *>("Platinum");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_power_regen()
+int py_eq2_character::get_power_regen()
 {
 	char* const member = static_cast<char *>("PowerRegen");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-std::string py_character::get_race()
-{
-	char* const member = static_cast<char *>("Race");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
-}
-
-int py_character::get_raid(boost::python::list& raid_member_list)
+int py_eq2_character::get_raid(boost::python::list& raid_member_list)
 {
 	const int max_raid_size = 24;
 	const int current_raid_size = get_raid_count();
@@ -501,37 +486,37 @@ int py_character::get_raid(boost::python::list& raid_member_list)
 	return len(raid_member_list);
 }
 
-int py_character::get_raid_count()
+int py_eq2_character::get_raid_count()
 {
 	char* const member = static_cast<char *>("RaidCount");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_raid_group_num()
+int py_eq2_character::get_raid_group_num()
 {
 	char* const member = static_cast<char *>("RaidGroupNum");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_silver()
+int py_eq2_character::get_silver()
 {
 	char* const member = static_cast<char *>("Silver");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_stamina()
+int py_eq2_character::get_stamina()
 {
 	char* const member = static_cast<char *>("Stamina");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-int py_character::get_strength()
+int py_eq2_character::get_strength()
 {
 	char* const member = static_cast<char *>("Strength");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_tithe_exp_bubble()
+float py_eq2_character::get_tithe_exp_bubble()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -540,7 +525,7 @@ float py_character::get_tithe_exp_bubble()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_tithe_exp_current()
+int py_eq2_character::get_tithe_exp_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -551,7 +536,7 @@ int py_character::get_tithe_exp_current()
 	return boost::lexical_cast<int>(result);
 }
 
-int py_character::get_tithe_exp_next_level()
+int py_eq2_character::get_tithe_exp_next_level()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -562,7 +547,7 @@ int py_character::get_tithe_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_tithe_exp_percent()
+float py_eq2_character::get_tithe_exp_percent()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -571,7 +556,7 @@ float py_character::get_tithe_exp_percent()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_tithe_vitality_overflow_marker()
+float py_eq2_character::get_tithe_vitality_overflow_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -580,25 +565,25 @@ float py_character::get_tithe_vitality_overflow_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-std::string py_character::get_subclass()
+std::string py_eq2_character::get_subclass()
 {
 	char* const member = static_cast<char *>("SubClass");
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-std::string py_character::get_ts_archetype()
+std::string py_eq2_character::get_ts_archetype()
 {
 	char* const member = static_cast<char *>("TSArchetype");
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-std::string py_character::get_ts_class()
+std::string py_eq2_character::get_ts_class()
 {
 	char* const member = static_cast<char *>("TSClass");
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-float py_character::get_ts_exp_bubble()
+float py_eq2_character::get_ts_exp_bubble()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -607,7 +592,7 @@ float py_character::get_ts_exp_bubble()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_ts_exp_current()
+int py_eq2_character::get_ts_exp_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -618,7 +603,7 @@ int py_character::get_ts_exp_current()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_ts_exp_debt_current()
+float py_eq2_character::get_ts_exp_debt_current()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -627,7 +612,7 @@ float py_character::get_ts_exp_debt_current()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_ts_exp_next_level()
+int py_eq2_character::get_ts_exp_next_level()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -638,7 +623,7 @@ int py_character::get_ts_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float py_character::get_ts_exp_percent()
+float py_eq2_character::get_ts_exp_percent()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -647,19 +632,19 @@ float py_character::get_ts_exp_percent()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_ts_level()
+int py_eq2_character::get_ts_level()
 {
 	char* const member = static_cast<char *>("TSLevel");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-std::string py_character::get_ts_subclass()
+std::string py_eq2_character::get_ts_subclass()
 {
 	char* const member = static_cast<char *>("TSSubClass");
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-float py_character::get_ts_vitality()
+float py_eq2_character::get_ts_vitality()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -668,7 +653,7 @@ float py_character::get_ts_vitality()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_ts_vitality_lower_marker()
+float py_eq2_character::get_ts_vitality_lower_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -677,7 +662,7 @@ float py_character::get_ts_vitality_lower_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_ts_vitality_overflow_marker()
+float py_eq2_character::get_ts_vitality_overflow_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -686,7 +671,7 @@ float py_character::get_ts_vitality_overflow_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_ts_vitality_upper_marker()
+float py_eq2_character::get_ts_vitality_upper_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -695,13 +680,13 @@ float py_character::get_ts_vitality_upper_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-int py_character::get_used_conc()
+int py_eq2_character::get_used_conc()
 {
 	char* const member = static_cast<char *>("UsedConc");
 	return this->get_member(member, 0, nullptr).get_byte_from_lso();
 }
 
-float py_character::get_vitality()
+float py_eq2_character::get_vitality()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -710,7 +695,7 @@ float py_character::get_vitality()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_vitality_lower_marker()
+float py_eq2_character::get_vitality_lower_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -719,7 +704,7 @@ float py_character::get_vitality_lower_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_vitality_overflow_marker()
+float py_eq2_character::get_vitality_overflow_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -728,7 +713,7 @@ float py_character::get_vitality_overflow_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_vitality_upper_marker()
+float py_eq2_character::get_vitality_upper_marker()
 {
 	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
@@ -737,38 +722,19 @@ float py_character::get_vitality_upper_marker()
 	return py_eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
 }
 
-float py_character::get_water_depth()
+float py_eq2_character::get_water_depth()
 {
 	char* const member = static_cast<char *>("WaterDepth");
 	return this->get_member(member, 0, nullptr).get_float_from_lso();
 }
 
-int py_character::get_wisdom()
+int py_eq2_character::get_wisdom()
 {
 	char* const member = static_cast<char *>("Wisdom");
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-float py_character::get_x()
-{
-
-	char* const member = static_cast<char *>("X");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
-}
-
-float py_character::get_y()
-{
-	char* const member = static_cast<char *>("Y");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
-}
-
-float py_character::get_z()
-{
-	char* const member = static_cast<char *>("Z");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
-}
-
-float py_character::heading_to(const float& to_x, const float& to_y, const float& to_z)
+float py_eq2_character::get_heading_to(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
@@ -785,7 +751,7 @@ float py_character::heading_to(const float& to_x, const float& to_y, const float
 	return this->get_member(member, argc, argv).get_float_from_lso();
 }
 
-std::string py_character::heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
+std::string py_eq2_character::get_heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 4;
 	char* argv[argc];
@@ -803,7 +769,7 @@ std::string py_character::heading_to_as_compass_bearing(const float& to_x, const
 	return this->get_member(member, argc, argv).get_string_from_lso();
 }
 
-py_group_member py_character::get_group_member(const int& member_or_id, const std::string& name)
+py_group_member py_eq2_character::get_group_member(const int& member_or_id, const std::string& name)
 {
 	py_group_member group_member;
 	const int argc = 1;
@@ -828,7 +794,7 @@ py_group_member py_character::get_group_member(const int& member_or_id, const st
 	return group_member;
 }
 
-py_group_member py_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
+py_group_member py_eq2_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
 {
 	py_group_member group_member;
 	const int argc = 1;
@@ -864,7 +830,7 @@ py_group_member py_character::get_raid_member(const int& member_or_id, const int
 	return group_member;
 }
 
-py_maintained py_character::maintained(const int& number, const std::string& name)
+py_maintained py_eq2_character::maintained(const int& number, const std::string& name)
 {
 	const int argc = 1;
 	char* argv[argc];

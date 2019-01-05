@@ -3,7 +3,7 @@
 
 py_group_member::py_group_member(const LSOBJECT& ls_object)
 {
-	this->ls_object_ = ls_object;
+	this->lsobject_ = ls_object;
 }
 
 int py_group_member::get_arcane()

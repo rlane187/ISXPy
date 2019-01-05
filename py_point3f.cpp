@@ -3,7 +3,7 @@
 
 py_point3f::py_point3f(const LSOBJECT& ls_object)
 {
-	this->ls_object_ = ls_object;
+	this->lsobject_ = ls_object;
 }
 
 float py_point3f::get_x()

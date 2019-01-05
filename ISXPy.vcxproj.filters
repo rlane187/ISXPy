@@ -74,22 +74,7 @@
     <ClCompile Include="ISXPyPCH.cpp">
       <Filter>Source Files\PCH</Filter>
     </ClCompile>
-    <ClCompile Include="py_actor_effect.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
     <ClCompile Include="py_lsobject.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_actor.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_character.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_effect.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_effect_info.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2.cpp">
@@ -128,6 +113,24 @@
     <ClCompile Include="py_recipe.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
+    <ClCompile Include="isxpy_extensions.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_actor.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_character.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_actor_effect.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_effect_info.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_effect.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -160,22 +163,7 @@
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="py_actor_effect.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
     <ClInclude Include="py_lsobject.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_actor.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_character.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_effect.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_effect_info.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2.h">
@@ -212,6 +200,24 @@
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="py_recipe.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="isxpy_extensions.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_actor.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_character.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_actor_effect.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_effect_info.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_effect.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>

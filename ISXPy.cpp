@@ -41,7 +41,6 @@ void set_pulse_channel()
 		exec("import isxpy", main_namespace, main_namespace);
 		exec("import stackless", main_namespace, main_namespace);
 		exec("isxpy.pulse_channel = stackless.channel()", main_namespace, main_namespace);
-		//exec("isxpy.pulse_channel.preference = 1", main_namespace, main_namespace);
 		pulse_channel = isxpy_module.attr("pulse_channel");
 	}
 	catch (error_already_set&)
