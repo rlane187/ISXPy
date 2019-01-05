@@ -46,9 +46,9 @@ public:
 	int get_gold();
 	int get_group(boost::python::list& group_member_list);
 	int get_group_count();
-	py_group_member get_group_member(const int& member_or_id = -1, const std::string& name = std::string());
-	py_group_member get_group_member_1(const int& member_or_id) { return get_group_member(member_or_id); };
-	py_group_member get_group_member_2(const std::string& name) { return get_group_member(-1, name); };
+	py_eq2_group_member get_group_member(const int& member_or_id = -1, const std::string& name = std::string());
+	py_eq2_group_member get_group_member_1(const int& member_or_id) { return get_group_member(member_or_id); };
+	py_eq2_group_member get_group_member_2(const std::string& name) { return get_group_member(-1, name); };
 	bool get_grouped();
 	int get_health_regen();
 	bool get_in_game_world();
@@ -76,10 +76,10 @@ public:
 	int get_raid(boost::python::list& raid_member_list);
 	int get_raid_count();
 	int get_raid_group_num();
-	py_group_member get_raid_member(const int& member_or_id = -1, const int& group_num = -1, const std::string& name = std::string());
-	py_group_member get_raid_member_1(const int& member_or_id) { return get_raid_member(member_or_id); }
-	py_group_member get_raid_member_2(const int& member_or_id, const int& group_number) { return get_raid_member(member_or_id, group_number); }
-	py_group_member get_raid_member_3(const std::string& name) { return get_raid_member(-1, -1, name); }
+	py_eq2_group_member get_raid_member(const int& member_or_id = -1, const int& group_num = -1, const std::string& name = std::string());
+	py_eq2_group_member get_raid_member_1(const int& member_or_id) { return get_raid_member(member_or_id); }
+	py_eq2_group_member get_raid_member_2(const int& member_or_id, const int& group_number) { return get_raid_member(member_or_id, group_number); }
+	py_eq2_group_member get_raid_member_3(const std::string& name) { return get_raid_member(-1, -1, name); }
 	int get_silver();
 	std::string get_subclass();
 	int get_stamina();
@@ -111,9 +111,9 @@ public:
 	int get_wisdom();
 	float get_heading_to(const float& to_x, const float& to_y, const float& to_z);
 	std::string get_heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z);
-	py_maintained maintained(const int& number = 0, const std::string& name = std::string());
-	py_maintained maintained_1(const int& number) { return maintained(number); }
-	py_maintained maintained_2(const std::string& name) { return maintained(0, name); }
+	py_eq2_maintained maintained(const int& number = 0, const std::string& name = std::string());
+	py_eq2_maintained maintained_1(const int& number) { return maintained(number); }
+	py_eq2_maintained maintained_2(const std::string& name) { return maintained(0, name); }
 	int query_effects(boost::python::list& effect_list, const std::string& query = std::string());
 	int query_inventory(boost::python::list& item_list, const std::string& query = std::string());
 	int query_recipes(boost::python::list& recipe_list, const std::string& query = std::string());

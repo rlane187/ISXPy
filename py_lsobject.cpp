@@ -325,7 +325,7 @@ int py_eq2_character::query_effects(boost::python::list& effect_list, const std:
 
 int py_eq2_character::query_inventory(boost::python::list& item_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
+	return this->get_list_from_index_method<py_eq2_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
 	                                                 const_cast<char *>(query.c_str()), item_list);
 }
 

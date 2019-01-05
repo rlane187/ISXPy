@@ -290,7 +290,7 @@ int py_eq2_character::get_group(boost::python::list& group_member_list)
 		char buffer[MAX_VARSTRING];
 		sprintf_s(buffer, _countof(buffer), "%d", i);
 		argv[0] = const_cast<char*>(buffer);
-		group_member_list.append(py_group_member(this->get_member(group_string, argc, argv).get_lso()));
+		group_member_list.append(py_eq2_group_member(this->get_member(group_string, argc, argv).get_lso()));
 	}
 	return len(group_member_list);
 }
@@ -408,7 +408,7 @@ int py_eq2_character::get_maintained(boost::python::list& maintained_list)
 		char buffer[MAX_VARSTRING];
 		sprintf_s(buffer, _countof(buffer), "%d", i);
 		argv[0] = const_cast<char*>(buffer);
-		maintained_list.append(py_maintained(this->get_member(maintained_string, argc, argv).get_lso()));
+		maintained_list.append(py_eq2_maintained(this->get_member(maintained_string, argc, argv).get_lso()));
 	}
 	return len(maintained_list);
 }
@@ -478,7 +478,7 @@ int py_eq2_character::get_raid(boost::python::list& raid_member_list)
 		if (ls_object.GetObjectData().Ptr != nullptr)
 		{
 			raid_members_found++;
-			raid_member_list.append(py_group_member(ls_object));
+			raid_member_list.append(py_eq2_group_member(ls_object));
 		}
 		if (raid_members_found == current_raid_size)
 			break;
@@ -769,9 +769,9 @@ std::string py_eq2_character::get_heading_to_as_compass_bearing(const float& to_
 	return this->get_member(member, argc, argv).get_string_from_lso();
 }
 
-py_group_member py_eq2_character::get_group_member(const int& member_or_id, const std::string& name)
+py_eq2_group_member py_eq2_character::get_group_member(const int& member_or_id, const std::string& name)
 {
-	py_group_member group_member;
+	py_eq2_group_member group_member;
 	const int argc = 1;
 	const int argc_by_id = 2;
 	char* argv[argc];
@@ -794,9 +794,9 @@ py_group_member py_eq2_character::get_group_member(const int& member_or_id, cons
 	return group_member;
 }
 
-py_group_member py_eq2_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
+py_eq2_group_member py_eq2_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
 {
-	py_group_member group_member;
+	py_eq2_group_member group_member;
 	const int argc = 1;
 	const int argc_by_id = 2;
 	const int argc_by_group = 2;
@@ -830,7 +830,7 @@ py_group_member py_eq2_character::get_raid_member(const int& member_or_id, const
 	return group_member;
 }
 
-py_maintained py_eq2_character::maintained(const int& number, const std::string& name)
+py_eq2_maintained py_eq2_character::maintained(const int& number, const std::string& name)
 {
 	const int argc = 1;
 	char* argv[argc];

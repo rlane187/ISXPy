@@ -1,6 +1,10 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
+py_point3f::py_point3f() = default;
+
+
+
 py_point3f::py_point3f(const LSOBJECT& ls_object)
 {
 	this->lsobject_ = ls_object;

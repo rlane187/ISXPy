@@ -86,16 +86,7 @@
     <ClCompile Include="py_isxeq2.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
-    <ClCompile Include="py_maintained.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
     <ClCompile Include="py_point3f.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="extensions.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_group_member.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
     <ClCompile Include="tasklet.cpp">
@@ -106,9 +97,6 @@
     </ClCompile>
     <ClCompile Include="stackless_module.cpp">
       <Filter>Source Files\Stackless</Filter>
-    </ClCompile>
-    <ClCompile Include="py_item.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
     <ClCompile Include="py_recipe.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
@@ -129,6 +117,18 @@
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_effect.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="isxeq2_extensions.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_group_member.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_maintained.cpp">
+      <Filter>Source Files\PythonExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_item.cpp">
       <Filter>Source Files\PythonExtensions</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,16 +175,7 @@
     <ClInclude Include="py_isxeq2.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
-    <ClInclude Include="py_maintained.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
     <ClInclude Include="py_point3f.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="extensions.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_group_member.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="stackless_module.h">
@@ -195,9 +186,6 @@
     </ClInclude>
     <ClInclude Include="channel.h">
       <Filter>Header Files\Stackless</Filter>
-    </ClInclude>
-    <ClInclude Include="py_item.h">
-      <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="py_recipe.h">
       <Filter>Header Files\PythonExtensions</Filter>
@@ -218,6 +206,18 @@
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_effect.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="isxeq2_extensions.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_group_member.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_maintained.h">
+      <Filter>Header Files\PythonExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_item.h">
       <Filter>Header Files\PythonExtensions</Filter>
     </ClInclude>
   </ItemGroup>
