@@ -5,9 +5,6 @@ BOOST_PYTHON_MODULE(isxeq2)
 {
 	using namespace boost::python;
 
-	scope().attr("eq2_actor_spawned_channel");
-	scope().attr("eq2_actor_despawned_channel");
-
 	class_<LSOBJECT>("lsobject_base", no_init);
 
 	class_<py_lsobject>("lsobject", init<const LSOBJECT&>())

@@ -11,8 +11,6 @@ EXTERN_C unsigned int frame_count;
 
 EXTERN_C std::map<std::string, tasklet*> tasklet_map;
 
-//EXTERN_C channel pulse_channel;
-
 EXTERN_C boost::python::object pulse_channel;
 
 EXTERN_C boost::python::object eq2_actor_spawned_channel;

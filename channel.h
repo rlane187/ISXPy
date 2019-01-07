@@ -13,7 +13,7 @@ public:
 	int send_nr(const boost::python::object& arg) const;
 	bool receive(boost::python::object& arg) const;
 	int receive_nr(boost::python::object& arg) const;
-	bool send_exception(const boost::python::object& klass, const boost::python::object& value) const;
+	bool send_exception(const boost::python::object& klass, const boost::python::tuple& value = boost::python::tuple()) const;
 	bool get_queue(boost::python::object& tasklet) const;
 	void close() const;
 	void open() const;

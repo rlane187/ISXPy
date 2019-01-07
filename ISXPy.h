@@ -117,6 +117,11 @@ extern void set_pulse_channel();
 #include "Services.h"
 
 #include "py_lsobject.h"
+#include "py_int.h"
+#include "py_uint.h"
+#include "py_int64.h"
+#include "py_float.h"
+#include "py_string.h"
 #include "py_mutable_string.h"
 #include "py_point3_f.h"
 #include "py_eq2_effect_info.h"
@@ -138,5 +143,6 @@ extern void set_pulse_channel();
 
 #include "isxpy_extensions.h"
 #include "isxpy_module.h"
+#include "isxpy_events.h"
 #include "isxeq2_events.h"
 #include "isxeq2_module.h"

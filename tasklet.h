@@ -4,6 +4,7 @@ class tasklet
 {
 public:
 	tasklet();
+	~tasklet();
 	tasklet(const tasklet& other);
 	tasklet(tasklet&& other) noexcept;
 	explicit tasklet(PyTaskletObject* p_tasklet_object);

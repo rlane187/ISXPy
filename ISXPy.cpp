@@ -23,32 +23,6 @@ unsigned int frame_count = 0;
 
 std::map<std::string, tasklet*> tasklet_map = {};
 
-//channel pulse_channel;
-
-boost::python::object pulse_channel;
-
-void set_pulse_channel()
-{
-	using namespace boost::python;
-	object main_module = import("__main__");
-	const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
-	object isxpy_module = import("isxpy");
-	const dict isxpy_namespace = boost::python::extract<dict>(isxpy_module.attr("__dict__"));
-	object stackless_module = import("stackless");
-	scope main_scope(main_module);
-	try
-	{
-		exec("import isxpy", main_namespace, main_namespace);
-		exec("import stackless", main_namespace, main_namespace);
-		exec("isxpy.pulse_channel = stackless.channel()", main_namespace, main_namespace);
-		pulse_channel = isxpy_module.attr("pulse_channel");
-	}
-	catch (error_already_set&)
-	{
-		PyErr_Print();
-	}
-}
-
 #pragma comment(lib,"isxdk.lib")
 // The mandatory pre-setup function.  Our name is "ISXPy", and the class is ISXPy.
 // This sets up a "ModulePath" variable which contains the path to this module in case we want it,
@@ -189,7 +163,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		adjust_path();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
 		redirect_output_to_console();
-		set_pulse_channel();
+		initialize_isxpy_events();
 		initialize_eq2_events();
 	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
@@ -238,8 +212,11 @@ void ISXPy::Shutdown()
 	UnRegisterDataTypes();
 	UnRegisterAliases();
 	UnRegisterCommands();
+	shutdown_eq2_events();
+	shutdown_isxpy_events();
 	shutdown_module_isxpy();
 	shutdown_module_isxeq2();
+	quit_script();
 	Py_Finalize();
 	printf("ISXPy Unloaded");
 }
@@ -422,43 +399,7 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 * displayed by the game.  This is the place to put any repeating
 		 * tasks.
 		 */
-		frame_count += 1;
-		channel c(pulse_channel);
-		int balance = c.get_balance();
-		if (Py_IsInitialized() && balance < 0)
-		{
-			try
-			{
-				const int max_iterations = 100;
-				int current_iteration = 1;
-				while (current_iteration < max_iterations && balance < 0)
-				{
-					tasklet t;
-					boost::python::list args_list;
-					args_list.append(frame_count);
-					boost::python::tuple args(args_list);
-					if (t.bind_ex(pulse_channel.attr("send"), args))
-						t.run();
-					balance++;
-					current_iteration++;
-				}
-			}
-			catch (error_already_set&)
-			{
-				PyErr_Print();
-			}
-		}
-		if(Py_IsInitialized() && stackless_module::get_run_count() > 0)
-		{			
-			try
-			{
-				stackless_module::on_pulse();
-			}
-			catch(error_already_set&)
-			{
-				PyErr_Print();
-			}			
-		}		
+		on_frame(0, nullptr, nullptr);
 	}
 }
 

@@ -86,3 +86,20 @@ bool stackless_module::on_pulse()
 	}
 	return false;
 }
+
+void stackless_module::kill_all()
+{
+	boost::python::object tasklet_object;
+	run_watchdog_ex(1, PY_WATCHDOG_TOTALTIMEOUT, tasklet_object);
+	const int max_iterations = 100;
+	int current_iteration = 1;
+	while (tasklet_object.ptr() != nullptr && current_iteration <= max_iterations)
+	{
+		tasklet t(reinterpret_cast<PyTaskletObject*>(tasklet_object.ptr()));
+		t.kill_ex();
+		run_watchdog_ex(1, PY_WATCHDOG_TOTALTIMEOUT, tasklet_object);
+		current_iteration++;
+		if (current_iteration >= max_iterations)
+			printf("stackless_module.kill_all() failed on max iterations.");
+	}
+}

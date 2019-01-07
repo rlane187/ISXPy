@@ -39,8 +39,7 @@ int get_frame_count()
 	return frame_count;
 }
 
-void setup_event(const char* module_name, const char* channel_name, boost::python::object& channel_object,
-                 const char* event_name, fLSEventTarget callback)
+void setup_channel(const char* module_name, const char* channel_name, boost::python::object& channel_object)
 {
 	object main_module = import("__main__");
 	const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
@@ -56,10 +55,45 @@ void setup_event(const char* module_name, const char* channel_name, boost::pytho
 		sprintf_s(buffer_channel_instantiation, _countof(buffer_channel_instantiation), "%s.%s = stackless.channel()", module_name, channel_name);
 		exec(buffer_channel_instantiation, main_namespace, main_namespace);
 		channel_object = channel_module.attr(channel_name);
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+}
+
+void stop_channel(object& channel_object)
+{
+	try
+	{
+		if(!channel_object.is_none())
+		{
+			channel c(channel_object);
+			c.close();
+		}
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
+	}
+}
+
+void setup_event(const char* module_name, const char* channel_name, boost::python::object& channel_object,
+                 const char* event_name, fLSEventTarget callback)
+{	
+	try
+	{
+		setup_channel(module_name, channel_name, channel_object);
 		pISInterface->AttachEventTarget(pISInterface->RegisterEvent(event_name), callback);
 	} 
 	catch (error_already_set&)
 	{
 		PyErr_Print();
 	}
+}
+
+void stop_event(object& channel_object, const char* event_name, fLSEventTarget callback)
+{
+	pISInterface->DetachEventTarget(pISInterface->RegisterEvent(event_name), callback);
+	stop_channel(channel_object);	
 }

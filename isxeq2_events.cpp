@@ -14,9 +14,9 @@ void initialize_eq2_events()
 
 void shutdown_eq2_events()
 {
-	pISInterface->DetachEventTarget(pISInterface->RegisterEvent("EQ2_ActorSpawned"), eq2_actor_spawned);
-	pISInterface->DetachEventTarget(pISInterface->RegisterEvent("EQ2_ActorDespawned"), eq2_actor_despawned);
-	pISInterface->DetachEventTarget(pISInterface->RegisterEvent("EQ2_onQuestOffered"), eq2_on_quest_offered);
+	stop_event(eq2_actor_spawned_channel, "EQ2_ActorSpawned", eq2_actor_spawned);
+	stop_event(eq2_actor_despawned_channel, "EQ2_ActorDespawned", eq2_actor_despawned);
+	stop_event(eq2_on_quest_offered_channel, "EQ2_onQuestOffered", eq2_on_quest_offered);
 }
 
 void eq2_actor_spawned(int argc, char* argv[], PLSOBJECT p_lsobject)

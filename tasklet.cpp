@@ -8,6 +8,8 @@ tasklet::tasklet()
 	this->tasklet_object_ = boost::python::object(object_handle);
 }
 
+tasklet::~tasklet() = default;
+
 tasklet::tasklet(PyTaskletObject* p_tasklet_object)
 {
 	const boost::python::handle<> object_handle(reinterpret_cast<PyObject*>(boost::python::borrowed(p_tasklet_object)));

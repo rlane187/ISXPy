@@ -76,9 +76,9 @@ int channel::receive_nr(boost::python::object& arg) const
 	return 0;
 }
 
-bool channel::send_exception(const boost::python::object& klass, const boost::python::object& value) const
+bool channel::send_exception(const boost::python::object& klass, const boost::python::tuple& args) const
 {
-	return PyChannel_SendException(reinterpret_cast<PyChannelObject*>(this->channel_object_.ptr()), klass.ptr(), value.ptr()) == 0;
+	return PyChannel_SendException(reinterpret_cast<PyChannelObject*>(this->channel_object_.ptr()), klass.ptr(), args.ptr()) == 0;
 }
 
 bool channel::get_queue(boost::python::object& tasklet) const

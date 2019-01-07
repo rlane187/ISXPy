@@ -15,4 +15,5 @@ public:
 	                      const boost::python::object& kwargs = boost::python::object());
 	static bool call_method_main(const boost::python::object& py_object, PCHAR name, PCHAR format);
 	static bool on_pulse();
+	static void kill_all();
 };

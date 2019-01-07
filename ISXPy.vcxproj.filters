@@ -179,6 +179,24 @@
     <ClCompile Include="py_point3_f.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
+    <ClCompile Include="isxpy_events.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY</Filter>
+    </ClCompile>
+    <ClCompile Include="py_int.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_float.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_string.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_uint.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_int64.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -285,6 +303,24 @@
     </ClInclude>
     <ClInclude Include="isxpy_module.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
+    </ClInclude>
+    <ClInclude Include="isxpy_events.h">
+      <Filter>Header Files\PythonExtensions\ISXPy</Filter>
+    </ClInclude>
+    <ClInclude Include="py_int.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_float.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_string.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_uint.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_int64.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

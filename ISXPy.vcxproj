@@ -78,11 +78,15 @@
     <ClCompile Include="isxeq2_module.cpp" />
     <ClCompile Include="ISXPy.cpp" />
     <ClCompile Include="ISXPyPCH.cpp" />
+    <ClCompile Include="isxpy_events.cpp" />
     <ClCompile Include="isxpy_extensions.cpp" />
     <ClCompile Include="isxpy_module.cpp" />
     <ClCompile Include="LGUIPyFrame.cpp" />
     <ClCompile Include="py_eq2_group_member.cpp" />
     <ClCompile Include="py_eq2_item.cpp" />
+    <ClCompile Include="py_float.cpp" />
+    <ClCompile Include="py_int.cpp" />
+    <ClCompile Include="py_int64.cpp" />
     <ClCompile Include="py_lsobject.cpp" />
     <ClCompile Include="py_eq2_actor.cpp" />
     <ClCompile Include="py_eq2_effect.cpp" />
@@ -96,6 +100,8 @@
     <ClCompile Include="py_point3_f.cpp" />
     <ClCompile Include="py_eq2_actor_effect.cpp" />
     <ClCompile Include="py_eq2_recipe.cpp" />
+    <ClCompile Include="py_string.cpp" />
+    <ClCompile Include="py_uint.cpp" />
     <ClCompile Include="Services.cpp" />
     <ClCompile Include="stackless_module.cpp" />
     <ClCompile Include="tasklet.cpp" />
@@ -109,9 +115,11 @@
     <ClInclude Include="eq2_actor_despawned_args.h" />
     <ClInclude Include="eq2_actor_spawned_args.h" />
     <ClInclude Include="eq2_on_quest_offered_args.h" />
+    <ClInclude Include="py_int64.h" />
     <ClInclude Include="isxeq2_events.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="isxeq2_module.h" />
+    <ClInclude Include="isxpy_events.h" />
     <ClInclude Include="isxpy_extensions.h" />
     <ClInclude Include="isxpy_module.h" />
     <ClInclude Include="py_eq2_actor.h" />
@@ -120,6 +128,8 @@
     <ClInclude Include="ISXPy.h" />
     <ClInclude Include="py_eq2_group_member.h" />
     <ClInclude Include="py_eq2_item.h" />
+    <ClInclude Include="py_float.h" />
+    <ClInclude Include="py_int.h" />
     <ClInclude Include="py_lsobject.h" />
     <ClInclude Include="ISXPyPCH.h" />
     <ClInclude Include="ISXPyServices.h" />
@@ -133,6 +143,8 @@
     <ClInclude Include="py_mutable_string.h" />
     <ClInclude Include="py_point3_f.h" />
     <ClInclude Include="py_eq2_recipe.h" />
+    <ClInclude Include="py_string.h" />
+    <ClInclude Include="py_uint.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="stackless_module.h" />
     <ClInclude Include="tasklet.h" />
