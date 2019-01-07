@@ -20,6 +20,7 @@ public:
 	const LSOBJECT& get_lso() const;
 	py_lsobject get_member(PCHAR member, int argc, char* argv[]);
 	std::string get_string_from_lso();
+	std::string get_mutable_string_from_lso();
 	unsigned int get_uint_from_lso();
 	template <class T>
 	int get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list);	

@@ -4,6 +4,13 @@ class py_isxeq2 : public py_lsobject
 {
 public:
 	py_isxeq2();
+	~py_isxeq2();
+	py_isxeq2(const py_isxeq2& other);
+	py_isxeq2(py_isxeq2&& other) noexcept;
+	// ReSharper disable once CppNonExplicitConvertingConstructor
+	py_isxeq2(const LSOBJECT& other);
+	py_isxeq2& operator=(const py_isxeq2& other);
+	py_isxeq2& operator=(py_isxeq2&& other) noexcept;
 	void add_loc(const std::string& label, const std::string& notes = std::string());
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(add_loc_overloads, add_loc, 1, 2)
 	void clear_abilities_cache();

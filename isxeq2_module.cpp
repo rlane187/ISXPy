@@ -1,9 +1,12 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-BOOST_PYTHON_MODULE(pyisxeq2)
+BOOST_PYTHON_MODULE(isxeq2)
 {
 	using namespace boost::python;
+
+	scope().attr("eq2_actor_spawned_channel");
+	scope().attr("eq2_actor_despawned_channel");
 
 	class_<LSOBJECT>("lsobject_base", no_init);
 
@@ -167,88 +170,6 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.add_property("effect_info", &py_eq2_actor_effect::get_effect_info)
 		.add_property("id", &py_eq2_actor_effect::get_id);
 
-	class_<py_eq2_dynamic_data, bases<py_lsobject>>("dynamic_data", init<const LSOBJECT&>())
-		.add_property("label", &py_eq2_dynamic_data::get_label)
-		.add_property("percent", &py_eq2_dynamic_data::get_percent);
-
-	class_<py_eq2_effect, bases<py_lsobject>>("effect", init<const LSOBJECT&>())
-		.add_property("back_drop_icon_id", &py_eq2_effect::get_back_drop_icon_id)
-		.add_property("current_increments", &py_eq2_effect::get_current_increments)
-		.add_property("duration", &py_eq2_effect::get_duration)
-		.add_property("effect_info", &py_eq2_effect::get_effect_info)
-		.add_property("id", &py_eq2_effect::get_id)
-		.add_property("is_effect_info_available", &py_eq2_effect::get_is_effect_info_available)
-		.add_property("main_icon_id", &py_eq2_effect::get_main_icon_id)
-		.add_property("max_duration", &py_eq2_effect::get_max_duration);
-
-	class_<py_eq2_effect_info, bases<py_lsobject>>("effect_info", init<const LSOBJECT&>())
-		.add_property("description", &py_eq2_effect_info::get_description)
-		.add_property("name", &py_eq2_effect_info::get_name)
-		.add_property("type", &py_eq2_effect_info::get_type);
-
-	class_<py_eq2_group_member, bases<py_eq2_actor>>("group_member")
-		.add_property("arcane", &py_eq2_group_member::get_arcane)
-		.add_property("current_health", &py_eq2_group_member::get_current_health)
-		.add_property("current_power", &py_eq2_group_member::get_current_power)
-		.add_property("cursed", &py_eq2_group_member::get_cursed)
-		.add_property("elemental", &py_eq2_group_member::get_elemental)
-		.add_property("max_health", &py_eq2_group_member::get_max_health)
-		.add_property("max_power", &py_eq2_group_member::get_max_power)
-		.add_property("noxious", &py_eq2_group_member::get_noxious)
-		.add_property("in_zone", &py_eq2_group_member::get_in_zone)
-		.add_property("is_afflicted", &py_eq2_group_member::get_is_afflicted)
-		.add_property("pet_id", &py_eq2_group_member::get_pet_id)
-		.add_property("raid_group_num", &py_eq2_group_member::get_raid_group_num)
-		.add_property("raid_role", &py_eq2_group_member::get_raid_role)
-		.add_property("trauma", &py_eq2_group_member::get_trauma)
-		.add_property("zone_name", &py_eq2_group_member::get_zone_name);
-
-	class_<py_eq2_item, bases<py_lsobject>>("item")
-		.add_property("name", &py_eq2_item::get_name);
-
-	class_<py_eq2_maintained, bases<py_lsobject>>("maintained")
-		.add_property("concentration_cost", &py_eq2_maintained::get_concentration_cost)
-		.add_property("current_increments", &py_eq2_maintained::get_current_increments)
-		.add_property("damage_remaining", &py_eq2_maintained::get_damage_remaining)
-		.add_property("duration", &py_eq2_maintained::get_duration)
-		.add_property("is_beneficial", &py_eq2_maintained::get_is_beneficial)
-		.add_property("max_duration", &py_eq2_maintained::get_max_duration)
-		.add_property("name", &py_eq2_maintained::get_name)
-		.add_property("target", &py_eq2_maintained::get_target)
-		.add_property("target_type", &py_eq2_maintained::get_target_type)
-		.add_property("uses_remaining", &py_eq2_maintained::get_uses_remaining);
-
-
-
-	class_<py_isxeq2, bases<py_lsobject>>("isxeq2")
-		.def("add_loc", &py_isxeq2::add_loc, py_isxeq2::add_loc_overloads(args("label", "notes")))
-		.add_property("affliction_events_on", &py_isxeq2::get_affliction_events_on)
-		.add_property("api_version", &py_isxeq2::get_api_version)
-		.def("clear_abilities_cache", &py_isxeq2::clear_abilities_cache)
-		.def("disable_affliction_events", &py_isxeq2::disable_affliction_events)
-		.def("disable_custom_zoning_text", &py_isxeq2::disable_custom_zoning_text)
-		.def("enable_affliction_events", &py_isxeq2::enable_affliction_events)
-		.def("enable_custom_zoning_text", &py_isxeq2::enable_custom_zoning_text)
-		.def("eq2locs_count", &py_isxeq2::get_eq2locs_count, py_isxeq2::get_eq2locs_count_overloads(args("all_zones")))
-		.add_property("is_ready", &py_isxeq2::get_is_ready)
-		.def("is_valid_eq2press_key", &py_isxeq2::get_is_valid_eq2press_key, args("key"))
-		.def("popup", &py_isxeq2::popup, py_isxeq2::popup_overloads(args("message", "title", "status")))
-		.def("reset_internal_vending_system", &py_isxeq2::reset_internal_vending_system)
-		.def("set_actor_events_range", &py_isxeq2::set_actor_events_range, args("range"))
-		.def("set_actor_events_time_interval", &py_isxeq2::set_actor_events_time_interval, args("time"))
-		.def("set_affliction_events_time_interval", &py_isxeq2::set_affliction_events_time_interval, args("time"))
-		.add_property("version", &py_isxeq2::get_version);
-
-	
-
-	
-
-	
-
-	
-
-	
-
 	class_<py_eq2_character, bases<py_eq2_actor>>("character")
 		.add_property("agility", &py_eq2_character::get_agility)
 		.add_property("arcane_resist", &py_eq2_character::get_arcane_resist)
@@ -259,7 +180,7 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.add_property("ascension_exp_next_level", &py_eq2_character::get_ascension_exp_next_level)
 		.add_property("ascension_exp_percent", &py_eq2_character::get_ascension_exp_percent)
 		.add_property("ascension_level", &py_eq2_character::get_ascension_level)
-		.add_property("at_char_select", &py_eq2_character::get_at_char_select)		
+		.add_property("at_char_select", &py_eq2_character::get_at_char_select)
 		.add_property("base_agility", &py_eq2_character::get_base_agility)
 		.add_property("base_intelligence", &py_eq2_character::get_base_intelligence)
 		.add_property("base_stamina", &py_eq2_character::get_base_stamina)
@@ -338,8 +259,8 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.add_property("vitality_lower_marker", &py_eq2_character::get_vitality_lower_marker)
 		.add_property("vitality_overflow_marker", &py_eq2_character::get_vitality_overflow_marker)
 		.add_property("vitality_upper_marker", &py_eq2_character::get_vitality_upper_marker)
-		.add_property("water_depth", &py_eq2_character::get_water_depth)		
-		.add_property("wisdom", &py_eq2_character::get_wisdom)		
+		.add_property("water_depth", &py_eq2_character::get_water_depth)
+		.add_property("wisdom", &py_eq2_character::get_wisdom)
 		.def("query_effects", &py_eq2_character::query_effects, py_eq2_character::query_effects_overloads(args("effect_list", "query")))
 		.def("query_inventory", &py_eq2_character::query_inventory, py_eq2_character::query_inventory_overloads(args("item_list", "query")))
 		.def("query_recipes", &py_eq2_character::query_recipes, py_eq2_character::query_recipes_overloads(args("recipe_list", "query")))
@@ -354,25 +275,106 @@ BOOST_PYTHON_MODULE(pyisxeq2)
 		.def("get_raid_member", &py_eq2_character::get_raid_member_2)
 		.def("get_raid_member", &py_eq2_character::get_raid_member_3);
 
-	class_<py_point3f, bases<py_lsobject>>("point3f")
-		.add_property("x", &py_point3f::get_x)
-		.add_property("y", &py_point3f::get_y)
-		.add_property("z", &py_point3f::get_z)
-		.def("xyz", &py_point3f::get_xyz, py_point3f::get_xyz_overloads(args("separator")));
+	class_<py_eq2_dynamic_data, bases<py_lsobject>>("dynamic_data", init<const LSOBJECT&>())
+		.add_property("label", &py_eq2_dynamic_data::get_label)
+		.add_property("percent", &py_eq2_dynamic_data::get_percent);
 
-	
+	class_<py_eq2_effect, bases<py_lsobject>>("effect", init<const LSOBJECT&>())
+		.add_property("back_drop_icon_id", &py_eq2_effect::get_back_drop_icon_id)
+		.add_property("current_increments", &py_eq2_effect::get_current_increments)
+		.add_property("duration", &py_eq2_effect::get_duration)
+		.add_property("effect_info", &py_eq2_effect::get_effect_info)
+		.add_property("id", &py_eq2_effect::get_id)
+		.add_property("is_effect_info_available", &py_eq2_effect::get_is_effect_info_available)
+		.add_property("main_icon_id", &py_eq2_effect::get_main_icon_id)
+		.add_property("max_duration", &py_eq2_effect::get_max_duration);
 
-	class_<py_recipe, bases<py_lsobject>>("recipe")
-		.add_property("name", &py_recipe::get_name);
+	class_<py_eq2_effect_info, bases<py_lsobject>>("effect_info", init<const LSOBJECT&>())
+		.add_property("description", &py_eq2_effect_info::get_description)
+		.add_property("name", &py_eq2_effect_info::get_name)
+		.add_property("type", &py_eq2_effect_info::get_type);
 
+	class_<py_eq2_group_member, bases<py_eq2_actor>>("group_member")
+		.add_property("arcane", &py_eq2_group_member::get_arcane)
+		.add_property("current_health", &py_eq2_group_member::get_current_health)
+		.add_property("current_power", &py_eq2_group_member::get_current_power)
+		.add_property("cursed", &py_eq2_group_member::get_cursed)
+		.add_property("elemental", &py_eq2_group_member::get_elemental)
+		.add_property("max_health", &py_eq2_group_member::get_max_health)
+		.add_property("max_power", &py_eq2_group_member::get_max_power)
+		.add_property("noxious", &py_eq2_group_member::get_noxious)
+		.add_property("in_zone", &py_eq2_group_member::get_in_zone)
+		.add_property("is_afflicted", &py_eq2_group_member::get_is_afflicted)
+		.add_property("pet_id", &py_eq2_group_member::get_pet_id)
+		.add_property("raid_group_num", &py_eq2_group_member::get_raid_group_num)
+		.add_property("raid_role", &py_eq2_group_member::get_raid_role)
+		.add_property("trauma", &py_eq2_group_member::get_trauma)
+		.add_property("zone_name", &py_eq2_group_member::get_zone_name);
+
+	class_<py_eq2_item, bases<py_lsobject>>("item")
+		.add_property("name", &py_eq2_item::get_name);
+
+	class_<py_eq2_maintained, bases<py_lsobject>>("maintained")
+		.add_property("concentration_cost", &py_eq2_maintained::get_concentration_cost)
+		.add_property("current_increments", &py_eq2_maintained::get_current_increments)
+		.add_property("damage_remaining", &py_eq2_maintained::get_damage_remaining)
+		.add_property("duration", &py_eq2_maintained::get_duration)
+		.add_property("is_beneficial", &py_eq2_maintained::get_is_beneficial)
+		.add_property("max_duration", &py_eq2_maintained::get_max_duration)
+		.add_property("name", &py_eq2_maintained::get_name)
+		.add_property("target", &py_eq2_maintained::get_target)
+		.add_property("target_type", &py_eq2_maintained::get_target_type)
+		.add_property("uses_remaining", &py_eq2_maintained::get_uses_remaining);
+
+	class_<py_isxeq2, bases<py_lsobject>>("isxeq2")
+		.def("add_loc", &py_isxeq2::add_loc, py_isxeq2::add_loc_overloads(args("label", "notes")))
+		.add_property("affliction_events_on", &py_isxeq2::get_affliction_events_on)
+		.add_property("api_version", &py_isxeq2::get_api_version)
+		.def("clear_abilities_cache", &py_isxeq2::clear_abilities_cache)
+		.def("disable_affliction_events", &py_isxeq2::disable_affliction_events)
+		.def("disable_custom_zoning_text", &py_isxeq2::disable_custom_zoning_text)
+		.def("enable_affliction_events", &py_isxeq2::enable_affliction_events)
+		.def("enable_custom_zoning_text", &py_isxeq2::enable_custom_zoning_text)
+		.def("eq2locs_count", &py_isxeq2::get_eq2locs_count, py_isxeq2::get_eq2locs_count_overloads(args("all_zones")))
+		.add_property("is_ready", &py_isxeq2::get_is_ready)
+		.def("is_valid_eq2press_key", &py_isxeq2::get_is_valid_eq2press_key, args("key"))
+		.def("popup", &py_isxeq2::popup, py_isxeq2::popup_overloads(args("message", "title", "status")))
+		.def("reset_internal_vending_system", &py_isxeq2::reset_internal_vending_system)
+		.def("set_actor_events_range", &py_isxeq2::set_actor_events_range, args("range"))
+		.def("set_actor_events_time_interval", &py_isxeq2::set_actor_events_time_interval, args("time"))
+		.def("set_affliction_events_time_interval", &py_isxeq2::set_affliction_events_time_interval, args("time"))
+		.add_property("version", &py_isxeq2::get_version);	
+
+	class_<py_point3_f, bases<py_lsobject>>("point3f")
+		.add_property("x", &py_point3_f::get_x)
+		.add_property("y", &py_point3_f::get_y)
+		.add_property("z", &py_point3_f::get_z)
+		.def("xyz", &py_point3_f::get_xyz, py_point3_f::get_xyz_overloads(args("separator")));
+
+	class_<py_eq2_recipe, bases<py_lsobject>>("recipe")
+		.add_property("name", &py_eq2_recipe::get_name);
+
+	class_<eq2_actor_despawned_args>("eq2_actor_despawned_args")
+		.add_property("id", &eq2_actor_despawned_args::get_id, &eq2_actor_despawned_args::set_id)
+		.add_property("name", &eq2_actor_despawned_args::get_name, &eq2_actor_despawned_args::set_name);
+
+	class_<eq2_actor_spawned_args, bases<eq2_actor_despawned_args>>("eq2_actor_spawned_args")
+		.add_property("level", &eq2_actor_spawned_args::get_level, &eq2_actor_spawned_args::set_level)
+		.add_property("type", &eq2_actor_spawned_args::get_type, &eq2_actor_spawned_args::set_type);
+
+	class_<eq2_on_quest_offered_args>("eq2_on_quest_offered_args")
+		.add_property("name", &eq2_on_quest_offered_args::get_name, &eq2_on_quest_offered_args::set_name)
+		.add_property("description", &eq2_on_quest_offered_args::get_description, &eq2_on_quest_offered_args::set_description)
+		.add_property("level", &eq2_on_quest_offered_args::get_level, &eq2_on_quest_offered_args::set_level)
+		.add_property("status_reward", &eq2_on_quest_offered_args::get_status_reward, &eq2_on_quest_offered_args::set_status_reward);
 }
 
-void Initialize_Module_PyISXEQ2()
+void initialize_module_isxeq2()
 {
-	PyImport_AppendInittab("pyisxeq2", PyInit_pyisxeq2);
+	PyImport_AppendInittab("isxeq2", PyInit_isxeq2);
 }
 
-void Shutdown_Module_PyISXEQ2()
+void shutdown_module_isxeq2()
 {
 
 }

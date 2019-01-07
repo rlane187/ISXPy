@@ -266,7 +266,9 @@ int py_eq2::get_persistent_zones(boost::python::list& zone_list)
 	size = static_cast<LSIndex*>(index_object.Ptr)->GetContainerUsed();
 	for (size_t i = 0; i < size; i++)
 	{
-		zone_list.append(reinterpret_cast<py_lsobject*>((*static_cast<LSIndex*>(index_object.Ptr)->GetIndex())[i])->get_string_from_lso());
+		//auto thing = py_lsobject(*(*static_cast<LSIndex*>(index_object.Ptr)->GetIndex())[i]);
+		//printf(thing.get_string_from_lso().c_str());
+		zone_list.append(py_lsobject(*(*static_cast<LSIndex*>(index_object.Ptr)->GetIndex())[i]).get_mutable_string_from_lso());
 	}
 	pISInterface->ExecuteCommand(delete_command);
 	return len(zone_list);

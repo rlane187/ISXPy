@@ -6,6 +6,31 @@ py_isxeq2::py_isxeq2()
 	pISInterface->IsTopLevelObject("ISXEQ2")(0, nullptr, *reinterpret_cast<LSOBJECT*>(this));
 }
 
+py_isxeq2::~py_isxeq2() = default;
+
+py_isxeq2::py_isxeq2(const py_isxeq2& other) = default;
+
+py_isxeq2::py_isxeq2(py_isxeq2&& other) noexcept = default;
+
+py_isxeq2::py_isxeq2(const LSOBJECT& other)
+{
+	this->lsobject_ = other;
+}
+
+py_isxeq2& py_isxeq2::operator=(const py_isxeq2& other)
+{
+	if (this != &other)
+		this->lsobject_ = other.lsobject_;
+	return *this;
+}
+
+py_isxeq2& py_isxeq2::operator=(py_isxeq2&& other) noexcept
+{
+	if (this != &other)
+		this->lsobject_ = other.lsobject_;
+	return *this;
+}
+
 void py_isxeq2::add_loc(const std::string& label, const std::string& notes)
 {
 	char* const method = static_cast<char *>("AddLoc");
@@ -116,7 +141,6 @@ int py_isxeq2::get_eq2locs_count(const bool& all_zones)
 	return count;
 }
 
-
 std::string py_isxeq2::get_version()
 {
 	char* const member = static_cast<char *>("Version");
@@ -153,7 +177,6 @@ bool py_isxeq2::get_is_valid_eq2press_key(const std::string& key_name)
 	return false;
 }
 
-
 void py_isxeq2::popup(const std::string& message, const std::string& title, const std::string& status)
 {
 	const int argc = 3;
@@ -178,7 +201,6 @@ void py_isxeq2::reset_internal_vending_system()
 	}
 	catch (exception &) {}
 }
-
 
 void py_isxeq2::set_actor_events_range(const float& range)
 {
@@ -225,4 +247,3 @@ void py_isxeq2::set_affliction_events_time_interval(const int& interval)
 	}
 	catch (exception&) {}
 }
-

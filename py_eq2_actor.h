@@ -80,7 +80,7 @@ public:
 	bool get_is_walking();
 	std::string get_last_name();
 	int get_level();
-	py_point3f get_loc();
+	py_point3_f get_loc();
 	std::string get_mood();
 	std::string get_name();
 	int get_num_effects();
@@ -102,7 +102,7 @@ public:
 	int get_threat_to_next();
 	unsigned int get_tint_flags();
 	std::string get_type();
-	py_point3f get_velocity();
+	py_point3_f get_velocity();
 	std::string get_visual_variant();
 	std::string get_who_following();
 	int get_who_following_id();

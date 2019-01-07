@@ -51,6 +51,36 @@
     <Filter Include="Source Files\Stackless">
       <UniqueIdentifier>{0fa4304f-4324-43c5-a592-fe980d43097e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PythonExtensions\EQ2">
+      <UniqueIdentifier>{4b113d8d-54fd-4e99-88d7-deca2bee3a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PythonExtensions\EQ2\Types">
+      <UniqueIdentifier>{6f9d8ef1-619c-47bf-8abe-7350663790c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PythonExtensions\EQ2\Events">
+      <UniqueIdentifier>{0d121884-5264-4726-bf61-8815c93dda9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions\EQ2">
+      <UniqueIdentifier>{8887db6b-c68f-4fa1-ae9d-0efdb3d80162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions\EQ2\Types">
+      <UniqueIdentifier>{e3a78638-6d61-4619-85e8-8875d5940c4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions\EQ2\Events">
+      <UniqueIdentifier>{4f93b419-e39e-421b-80d1-af9321361c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PythonExtensions\ISXPY">
+      <UniqueIdentifier>{86d3adb8-16c1-4f4c-9a6d-beb2b2595372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PythonExtensions\ISXPY\Types">
+      <UniqueIdentifier>{e0b182c3-ec83-402f-8cfe-885b0ccc0827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions\ISXPy">
+      <UniqueIdentifier>{d578498c-3e33-49f8-b42a-a9476b71a4b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PythonExtensions\ISXPy\Types">
+      <UniqueIdentifier>{5e031d29-1d96-4b99-8573-0691b8110f95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ISXPy.cpp">
@@ -74,21 +104,6 @@
     <ClCompile Include="ISXPyPCH.cpp">
       <Filter>Source Files\PCH</Filter>
     </ClCompile>
-    <ClCompile Include="py_lsobject.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_dynamic_data.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_isxeq2.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_point3f.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
     <ClCompile Include="tasklet.cpp">
       <Filter>Source Files\Stackless</Filter>
     </ClCompile>
@@ -98,38 +113,71 @@
     <ClCompile Include="stackless_module.cpp">
       <Filter>Source Files\Stackless</Filter>
     </ClCompile>
-    <ClCompile Include="py_recipe.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="isxpy_extensions.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+    <ClCompile Include="py_eq2.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_actor.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_character.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_actor_effect.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
-    <ClCompile Include="py_eq2_effect_info.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+    <ClCompile Include="py_eq2_character.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_dynamic_data.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_effect.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
-    <ClCompile Include="isxeq2_extensions.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+    <ClCompile Include="py_eq2_effect_info.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_group_member.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_maintained.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_item.cpp">
-      <Filter>Source Files\PythonExtensions</Filter>
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_maintained.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_eq2_recipe.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_isxeq2.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_actor_spawned_args.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_actor_despawned_args.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="isxeq2_module.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2</Filter>
+    </ClCompile>
+    <ClCompile Include="isxeq2_events.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_on_quest_offered_args.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="isxpy_module.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY</Filter>
+    </ClCompile>
+    <ClCompile Include="isxpy_extensions.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY</Filter>
+    </ClCompile>
+    <ClCompile Include="py_lsobject.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_mutable_string.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_point3_f.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,21 +211,6 @@
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="py_lsobject.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_dynamic_data.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_isxeq2.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_point3f.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
     <ClInclude Include="stackless_module.h">
       <Filter>Header Files\Stackless</Filter>
     </ClInclude>
@@ -187,38 +220,71 @@
     <ClInclude Include="channel.h">
       <Filter>Header Files\Stackless</Filter>
     </ClInclude>
-    <ClInclude Include="py_recipe.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="isxpy_extensions.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+    <ClInclude Include="py_eq2.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_actor.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_character.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_actor_effect.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
-    <ClInclude Include="py_eq2_effect_info.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+    <ClInclude Include="py_eq2_character.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_dynamic_data.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_effect.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
-    <ClInclude Include="isxeq2_extensions.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+    <ClInclude Include="py_eq2_effect_info.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_group_member.h">
-      <Filter>Header Files\PythonExtensions</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_maintained.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_item.h">
-      <Filter>Header Files\PythonExtensions</Filter>
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_maintained.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_eq2_recipe.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_isxeq2.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_actor_spawned_args.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_actor_despawned_args.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="isxeq2_module.h">
+      <Filter>Header Files\PythonExtensions\EQ2</Filter>
+    </ClInclude>
+    <ClInclude Include="isxeq2_events.h">
+      <Filter>Header Files\PythonExtensions\EQ2</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_on_quest_offered_args.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="isxpy_extensions.h">
+      <Filter>Header Files\PythonExtensions\ISXPy</Filter>
+    </ClInclude>
+    <ClInclude Include="py_lsobject.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_mutable_string.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_point3_f.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="isxpy_module.h">
+      <Filter>Header Files\PythonExtensions\ISXPy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

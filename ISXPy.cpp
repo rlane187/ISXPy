@@ -19,7 +19,7 @@ wchar_t DllPathW[MAX_PATH] = { 0 };
 char PythonScriptPath[MAX_PATH] = { 0 };
 wchar_t PythonPathW[MAX_VARSTRING] = { 0 };
 
-unsigned int FrameCount = 0;
+unsigned int frame_count = 0;
 
 std::map<std::string, tasklet*> tasklet_map = {};
 
@@ -71,6 +71,7 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pMutableStringType = 0;
 LSType *pPoint3fType = 0;
 LSType *pGroupMemberType = 0;
 LSType *pActorEffectType = 0;
@@ -146,6 +147,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pMutableStringType = pISInterface->FindLSType("mutablestring");
 		pPoint3fType = pISInterface->FindLSType("point3f");
 		pGroupMemberType = pISInterface->FindLSType("groupmember");
 		pActorEffectType = pISInterface->FindLSType("actoreffect");
@@ -176,18 +178,19 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		// Register any text triggers built into ISXPy
 		RegisterTriggers();
 
-		//Initialize_Module_ISXPy();
+		//initialize_module_isxpy();
 
 		printf("ISXPy version %s Loaded",Py_Version);
 
-		Initialize_Module_ISXPy();
-		Initialize_Module_PyISXEQ2();
+		initialize_module_isxpy();
+		initialize_module_isxeq2();
 		Py_SetProgramName(nullptr);
 		Py_Initialize();
-		AdjustPath();		
+		adjust_path();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
-		Redirect_Output_to_Console();
+		redirect_output_to_console();
 		set_pulse_channel();
+		initialize_eq2_events();
 	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
 	// are suspected of causing user crashes.  This will help users report the crash and hopefully
@@ -235,8 +238,8 @@ void ISXPy::Shutdown()
 	UnRegisterDataTypes();
 	UnRegisterAliases();
 	UnRegisterCommands();
-	Shutdown_Module_ISXPy();
-	Shutdown_Module_PyISXEQ2();
+	shutdown_module_isxpy();
+	shutdown_module_isxeq2();
 	Py_Finalize();
 	printf("ISXPy Unloaded");
 }
@@ -419,12 +422,11 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 		 * displayed by the game.  This is the place to put any repeating
 		 * tasks.
 		 */
-		FrameCount += 1;
+		frame_count += 1;
 		channel c(pulse_channel);
 		int balance = c.get_balance();
 		if (Py_IsInitialized() && balance < 0)
 		{
-
 			try
 			{
 				const int max_iterations = 100;
@@ -433,10 +435,10 @@ void __cdecl PulseService(bool Broadcast, unsigned int MSG, void *lpData)
 				{
 					tasklet t;
 					boost::python::list args_list;
-					args_list.append(FrameCount);
+					args_list.append(frame_count);
 					boost::python::tuple args(args_list);
 					if (t.bind_ex(pulse_channel.attr("send"), args))
-						t.insert();
+						t.run();
 					balance++;
 					current_iteration++;
 				}

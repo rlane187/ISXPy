@@ -516,7 +516,7 @@ int py_eq2_actor::get_level()
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-py_point3f py_eq2_actor::get_loc()
+py_point3_f py_eq2_actor::get_loc()
 {
 	char* const member = static_cast<char *>("Loc");
 	const LSOBJECT loc_object = this->get_member(member, 0, nullptr).get_lso();
@@ -659,7 +659,7 @@ std::string py_eq2_actor::get_type()
 
 
 // TODO: Find out why this member always returns 0.0, 0.0, 0.0
-py_point3f py_eq2_actor::get_velocity()
+py_point3_f py_eq2_actor::get_velocity()
 {
 	char* const member = static_cast<char *>("Velocity");
 	const LSOBJECT velocity_object = this->get_member(member, 0, nullptr).get_lso();

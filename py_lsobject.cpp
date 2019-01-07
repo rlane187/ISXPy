@@ -187,6 +187,17 @@ py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
 	return dest;
 }
 
+std::string py_lsobject::get_mutable_string_from_lso()
+{
+	if(this->lsobject_.ObjectType && this->lsobject_.ObjectType == pMutableStringType)
+	{
+		char* const member = static_cast<char *>("String");
+		return this->get_member(member, 0, nullptr).get_string_from_lso();
+	}
+	return std::string("NULL");
+}
+
+
 std::string py_lsobject::get_string_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pStringType)
@@ -215,6 +226,10 @@ std::string py_lsobject::get_string_from_lso()
 		}
 		else
 			PyErr_WarnEx(PyExc_RuntimeWarning, "LS Object did not have a valid LS Type.", 1);
+	}
+	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pMutableStringType)
+	{
+		return this->get_mutable_string_from_lso();
 	}
 	return std::string("NULL");
 }
@@ -331,7 +346,7 @@ int py_eq2_character::query_inventory(boost::python::list& item_list, const std:
 
 int py_eq2_character::query_recipes(boost::python::list& recipe_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_recipe>(static_cast<char *>("QueryRecipes"),
+	return this->get_list_from_index_method<py_eq2_recipe>(static_cast<char *>("QueryRecipes"),
 	                                                   static_cast<char *>("recipe"), const_cast<char *>(query.c_str()),
 	                                                   recipe_list);
 }

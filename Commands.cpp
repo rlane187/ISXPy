@@ -10,7 +10,7 @@ int CMD_Py(int argc, char *argv[])
 		const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
 		scope main_scope(main_module);
 		object isxpy = import("isxpy");
-		object isxeq2 = import("pyisxeq2");
+		object isxeq2 = import("isxeq2");
 		exec("import stackless", main_namespace, main_namespace);
 		exec("stackless.getcurrent().block_trap = True", main_namespace, main_namespace);
 		def("on_pulse", &stackless_module::on_pulse);
@@ -132,7 +132,7 @@ int CMD_RunPythonScriptUnsafe(int argc, char *argv[])
 		object main_module = import("__main__");
 		const dict main_namespace = extract<dict>(main_module.attr("__dict__"));
 		object isxpy = import("isxpy");
-		object isxeq2 = import("pyisxeq2");
+		object isxeq2 = import("isxeq2");
 		object stackless = import("stackless");
 		exec_file(file_path, main_namespace, main_namespace);
 	}
@@ -201,27 +201,23 @@ int CMD_EndPythonScript(int argc, char *argv[])
 
 int CMD_EndPythonScriptUnsafe(int argc, char *argv[])
 {
-	QuitScript();
+	quit_script();
 	return 0;
 }
 
-int CMD_GetPulseChannelBalance(int argc, char *argv[])
+int CMD_GetChannelBalances(int argc, char *argv[])
 {
 	using namespace boost::python;
-	printf("%.08x", pulse_channel.ptr());
-	printf("%d", pulse_channel.is_none());
-	if(pulse_channel.ptr())
+	try
 	{
-		try
-		{
-			channel c(pulse_channel);
-			const int balance = c.get_balance();
-			printf("Balance for pulse channel is %d.", balance);
-		}
-		catch (error_already_set&)
-		{
-			PyErr_Print();
-		}
+		if (!pulse_channel.is_none())
+			printf("isxpy.pulse_channel = %d.", channel(pulse_channel).get_balance());
+		if (!eq2_actor_spawned_channel.is_none())
+			printf("isxeq2.eq2_actor_spawned_channel = %d.", channel(eq2_actor_spawned_channel).get_balance());
+	}
+	catch (error_already_set&)
+	{
+		PyErr_Print();
 	}
 	
 	return 0;

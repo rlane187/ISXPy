@@ -85,6 +85,7 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pMutableStringType;
 extern LSType *pPoint3fType;
 extern LSType *pGroupMemberType;
 extern LSType *pActorEffectType;
@@ -107,6 +108,7 @@ extern void set_pulse_channel();
 #include "tasklet.h"
 #include "channel.h"
 #include "stackless_module.h"
+
 #include "globals.h"
 
 #include "Commands.h"
@@ -114,10 +116,9 @@ extern void set_pulse_channel();
 #include "TopLevelObjects.h"
 #include "Services.h"
 
-
 #include "py_lsobject.h"
-
-#include "py_point3f.h"
+#include "py_mutable_string.h"
+#include "py_point3_f.h"
 #include "py_eq2_effect_info.h"
 #include "py_eq2_actor_effect.h"
 #include "py_eq2_dynamic_data.h"
@@ -128,8 +129,14 @@ extern void set_pulse_channel();
 #include "py_eq2.h"
 #include "py_eq2_group_member.h"
 #include "py_eq2_item.h"
-#include "py_recipe.h"
+#include "py_eq2_recipe.h"
 #include "py_eq2_character.h"
 
+#include "eq2_actor_despawned_args.h"
+#include "eq2_actor_spawned_args.h"
+#include "eq2_on_quest_offered_args.h"
+
 #include "isxpy_extensions.h"
-#include "isxeq2_extensions.h"
+#include "isxpy_module.h"
+#include "isxeq2_events.h"
+#include "isxeq2_module.h"

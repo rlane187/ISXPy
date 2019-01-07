@@ -13,7 +13,7 @@ COMMAND("RunPyScriptUnsafe", CMD_RunPythonScriptUnsafe, true, false);
 COMMAND("EndPyScriptUnsafe", CMD_EndPythonScriptUnsafe, true, false);
 COMMAND("GetType", CMD_GetType, true, false);
 COMMAND("PythonPath", CMD_GetPythonPath, true, false);
-COMMAND("PulseBalance", CMD_GetPulseChannelBalance, true, false);
+COMMAND("ChannelBalances", CMD_GetChannelBalances, true, false);
 COMMAND("RunCount", CMD_GetTaskletRunCount, true, false);
 
 
