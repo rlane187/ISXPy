@@ -197,6 +197,15 @@
     <ClCompile Include="py_int64.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
+    <ClCompile Include="py_byte.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_float64.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="py_bool.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -320,6 +329,15 @@
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_int64.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_byte.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_float64.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_bool.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
   </ItemGroup>

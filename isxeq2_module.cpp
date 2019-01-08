@@ -4,18 +4,7 @@
 BOOST_PYTHON_MODULE(isxeq2)
 {
 	using namespace boost::python;
-
-	class_<LSOBJECT>("lsobject_base", no_init);
-
-	class_<py_lsobject>("lsobject", init<const LSOBJECT&>())
-		.add_property("to_bool", &py_lsobject::get_bool_from_lso)
-		.add_property("to_byte", &py_lsobject::get_byte_from_lso)
-		.add_property("to_float", &py_lsobject::get_float_from_lso)
-		.add_property("to_int", &py_lsobject::get_int_from_lso)
-		.add_property("to_int64", &py_lsobject::get_int64_from_lso)
-		.add_property("to_string", &py_lsobject::get_string_from_lso)
-		.add_property("to_uint", &py_lsobject::get_uint_from_lso)
-		.def("to_lso", &py_lsobject::get_lso, return_value_policy<reference_existing_object>());
+	import("isxpy");	
 
 	class_<py_eq2, bases<py_lsobject>>("eq2")
 		.def("accept_pending_quests", &py_eq2::accept_pending_quest)
@@ -157,7 +146,8 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("do_target", &py_eq2_actor::do_target)
 		.def("location", &py_eq2_actor::location, py_eq2_actor::location_overloads(args("add_location", "notes")))
 		.def("get_actor", &py_eq2_actor::from_id)
-		.def("get_actor", &py_eq2_actor::from_query);
+		.def("get_actor", &py_eq2_actor::from_query)
+		.add_property("name_lso", &py_eq2_actor::get_name_lso);
 
 	class_<py_eq2_actor_effect, bases<py_lsobject>>("actor_effect", init<const LSOBJECT&>())
 		.add_property("back_drop_icon_id", &py_eq2_actor_effect::get_back_drop_icon_id)

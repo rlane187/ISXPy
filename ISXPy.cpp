@@ -45,6 +45,8 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pFloat64Type = 0;
+LSType *pFloat64PtrType = 0;
 LSType *pMutableStringType = 0;
 LSType *pPoint3fType = 0;
 LSType *pGroupMemberType = 0;
@@ -121,6 +123,8 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pFloat64Type = pISInterface->FindLSType("float64");
+		pFloat64PtrType = pISInterface->FindLSType("float64ptr");
 		pMutableStringType = pISInterface->FindLSType("mutablestring");
 		pPoint3fType = pISInterface->FindLSType("point3f");
 		pGroupMemberType = pISInterface->FindLSType("groupmember");

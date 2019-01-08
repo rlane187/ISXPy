@@ -119,4 +119,5 @@ public:
 	void request_effects_info();
 	static py_eq2_actor from_id(const unsigned int& actor_id);
 	static py_eq2_actor from_query(const std::string& query);
+	py_string get_name_lso();
 };

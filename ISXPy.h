@@ -85,6 +85,8 @@ extern LSType *pBoolPtrType;
 extern LSType *pFloatPtrType;
 extern LSType *pBytePtrType;
 
+extern LSType *pFloat64Type;
+extern LSType *pFloat64PtrType;
 extern LSType *pMutableStringType;
 extern LSType *pPoint3fType;
 extern LSType *pGroupMemberType;
@@ -117,10 +119,13 @@ extern void set_pulse_channel();
 #include "Services.h"
 
 #include "py_lsobject.h"
+#include "py_bool.h"
+#include "py_byte.h"
 #include "py_int.h"
 #include "py_uint.h"
 #include "py_int64.h"
 #include "py_float.h"
+#include "py_float64.h"
 #include "py_string.h"
 #include "py_mutable_string.h"
 #include "py_point3_f.h"

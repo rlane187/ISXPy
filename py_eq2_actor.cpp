@@ -753,3 +753,9 @@ void py_eq2_actor::request_effects_info()
 	char* const method = static_cast<char *>("RequestEffectsInfo");
 	return this->execute_method(method, 0, nullptr);
 }
+
+py_string py_eq2_actor::get_name_lso()
+{
+	char* const member = static_cast<char *>("Name");
+	return py_string(this->get_member(member, 0, nullptr).get_lso());
+}

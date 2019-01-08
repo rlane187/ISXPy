@@ -2,6 +2,7 @@
 
 class py_int64 : public py_lsobject
 {
+public:
 	py_int64() = default;
 	~py_int64() = default;
 	py_int64(const py_int64& other) = default;

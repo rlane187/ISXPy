@@ -82,9 +82,12 @@
     <ClCompile Include="isxpy_extensions.cpp" />
     <ClCompile Include="isxpy_module.cpp" />
     <ClCompile Include="LGUIPyFrame.cpp" />
+    <ClCompile Include="py_bool.cpp" />
+    <ClCompile Include="py_byte.cpp" />
     <ClCompile Include="py_eq2_group_member.cpp" />
     <ClCompile Include="py_eq2_item.cpp" />
     <ClCompile Include="py_float.cpp" />
+    <ClCompile Include="py_float64.cpp" />
     <ClCompile Include="py_int.cpp" />
     <ClCompile Include="py_int64.cpp" />
     <ClCompile Include="py_lsobject.cpp" />
@@ -115,6 +118,9 @@
     <ClInclude Include="eq2_actor_despawned_args.h" />
     <ClInclude Include="eq2_actor_spawned_args.h" />
     <ClInclude Include="eq2_on_quest_offered_args.h" />
+    <ClInclude Include="py_bool.h" />
+    <ClInclude Include="py_byte.h" />
+    <ClInclude Include="py_float64.h" />
     <ClInclude Include="py_int64.h" />
     <ClInclude Include="isxeq2_events.h" />
     <ClInclude Include="globals.h" />

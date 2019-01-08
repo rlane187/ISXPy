@@ -1,16 +1,16 @@
 #pragma once
 
-class py_float : public py_lsobject
+class py_float64 : public py_lsobject
 {
 public:
-	py_float() = default;
-	~py_float() = default;
-	py_float(const py_float& other) = default;;
-	py_float(py_float&& other) noexcept = default;;
-	explicit py_float(const LSOBJECT& other);
-	py_float& operator=(const py_float& other);
-	py_float& operator=(py_float&& other) noexcept;
-	float get_value();
+	py_float64() = default;
+	~py_float64() = default;
+	py_float64(const py_float64& other) = default;;
+	py_float64(py_float64&& other) noexcept = default;;
+	explicit py_float64(const LSOBJECT& other);
+	py_float64& operator=(const py_float64& other);
+	py_float64& operator=(py_float64&& other) noexcept;
+	double get_value();
 	std::string get_deci();
 	std::string get_centi();
 	std::string get_milli();
