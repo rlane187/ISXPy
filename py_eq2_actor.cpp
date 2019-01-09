@@ -468,6 +468,12 @@ bool py_eq2_actor::get_is_sitting()
 	return this->get_member(member, 0, nullptr).get_bool_from_lso();
 }
 
+py_bool py_eq2_actor::get_is_sitting_lso()
+{
+	char* const member = static_cast<char *>("IsSitting");
+	return py_bool(this->get_member(member, 0, nullptr).get_lso());
+}
+
 bool py_eq2_actor::get_is_solo()
 {
 	char* const member = static_cast<char *>("IsSolo");

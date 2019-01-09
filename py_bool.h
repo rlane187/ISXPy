@@ -14,4 +14,19 @@ public:
 	bool get_value();
 	void toggle();
 	void set(const std::string& formula);
+	bool operator!();
+
+	// ReSharper disable once CppNonExplicitConversionOperator
+	operator bool() { return this->get_value(); }
+	// ReSharper disable once CppNonExplicitConversionOperator
+	operator int() { return int(this->get_value()); }
+	// ReSharper disable once CppNonExplicitConversionOperator
+	operator long() { return long(this->get_value()); }
+
+	friend	std::ostream& operator<<(std::ostream& s, const py_bool& b)
+	{
+		if (py_bool(b).get_value())
+			return s << "True";
+		return s << "False";
+	}
 };

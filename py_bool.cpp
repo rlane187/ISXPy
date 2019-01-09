@@ -57,3 +57,8 @@ void py_bool::set(const std::string& formula)
 	char* const method = static_cast<char *>("Set");
 	this->execute_method(method, argc, argv);
 }
+
+bool py_bool::operator!()
+{
+	return !this->get_value();
+}

@@ -1,6 +1,7 @@
 #pragma once
-#include <stdlib.h>
-#include <stdarg.h>
+#include <cstdlib>
+#include <cstdarg>
+#include <cmath>
 #include <pyconfig.h>
 #ifdef _DEBUG
 #undef Py_DEBUG

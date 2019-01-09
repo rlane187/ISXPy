@@ -111,3 +111,378 @@ void py_int::set(const std::string& formula)
 	char* const method = static_cast<char *>("Set");
 	this->execute_method(method, argc, argv);
 }
+
+int py_int::operator-()
+{
+	return -1 * int(*this);
+}
+
+int py_int::operator+(const int& other)
+{
+	return int(*this) + other;
+}
+
+double py_int::operator+(const double& other)
+{
+	return int(*this) + other;
+}
+
+int py_int::operator+(const py_int& other)
+{
+	return int(*this) + py_int(other).get_value();
+}
+
+int py_int::operator-(const int& other)
+{
+	return int(*this) - other;
+}
+
+double py_int::operator-(const double& other)
+{
+	return int(*this) - other;
+}
+
+int py_int::operator-(const py_int& other)
+{
+	return  int(*this) - py_int(other).get_value();
+}
+
+int py_int::operator*(const int& other)
+{
+	return int(*this) * other;
+}
+
+double py_int::operator*(const double& other)
+{
+	return int(*this) * other;
+}
+
+int py_int::operator*(const py_int& other)
+{
+	return int(*this) * py_int(other).get_value();
+}
+
+int py_int::operator/(const int& other)
+{
+	return int(*this) / other;
+}
+
+double py_int::operator/(const double& other)
+{
+	return int(*this) / other;
+}
+
+int py_int::operator/(const py_int& other)
+{
+	return int(*this) / py_int(other).get_value();
+}
+
+int py_int::operator%(const int& other)
+{
+	return int(*this) % other;
+}
+
+int py_int::operator%(const py_int& other)
+{
+	return int(*this) % py_int(other).get_value();
+}
+
+int py_int::operator>>(const int& other)
+{
+	return int(*this) >> other;
+}
+
+int py_int::operator>>(const py_int& other)
+{
+	return int(*this) >> py_int(other).get_value();
+}
+
+int py_int::operator<<(const int& other)
+{
+	return int(*this) << other;
+}
+
+int py_int::operator<<(const py_int& other)
+{
+	return int(*this) << py_int(other).get_value();
+}
+
+int py_int::operator&(const int& other)
+{
+	return int(*this) & other;
+}
+
+int py_int::operator&(const py_int& other)
+{
+	return int(*this) & py_int(other).get_value();
+}
+
+int py_int::operator^(const int& other)
+{
+	return int(*this) ^ other;
+}
+
+int py_int::operator^(const py_int& other)
+{
+	return int(*this) ^ py_int(other).get_value();
+}
+
+int py_int::operator|(const int& other)
+{
+	return int(*this) | other;
+}
+
+int py_int::operator|(const py_int& other)
+{
+	return int(*this) | py_int(other).get_value();
+}
+
+bool py_int::operator==(const int& other)
+{
+	return int(*this) == other;
+}
+
+bool py_int::operator==(const double& other)
+{
+	return int(*this) == other;
+}
+
+bool py_int::operator==(const py_int& other)
+{
+	return int(*this) == py_int(other).get_value();
+}
+
+bool py_int::operator!=(const int& other)
+{
+	return int(*this) != other;
+}
+
+bool py_int::operator!=(const double& other)
+{
+	return int(*this) != other;
+}
+
+bool py_int::operator!=(const py_int& other)
+{
+	return int(*this) != py_int(other).get_value();
+}
+
+bool py_int::operator<(const int& other)
+{
+	return int(*this) < other;
+}
+
+bool py_int::operator<(const double& other)
+{
+	return int(*this) < other;
+}
+
+bool py_int::operator<(const py_int& other)
+{
+	return int(*this) < py_int(other).get_value();
+}
+
+bool py_int::operator>(const int& other)
+{
+	return int(*this) > other;
+}
+
+bool py_int::operator>(const double& other)
+{
+	return int(*this) > other;
+}
+
+bool py_int::operator>(const py_int& other)
+{
+	return int(*this) > py_int(other).get_value();
+}
+
+bool py_int::operator<=(const int& other)
+{
+	return int(*this) <= other;
+}
+
+bool py_int::operator<=(const double& other)
+{
+	return int(*this) <= other;
+}
+
+bool py_int::operator<=(const py_int& other)
+{
+	return int(*this) <= py_int(other).get_value();
+}
+
+bool py_int::operator>=(const int& other)
+{
+	return int(*this) >= other;
+}
+
+bool py_int::operator>=(const double& other)
+{
+	return int(*this) >= other;
+}
+
+bool py_int::operator>=(const py_int& other)
+{
+	return int(*this) >= py_int(other).get_value();
+}
+
+int operator+(const int& lhs, const py_int& rhs)
+{
+	return lhs + py_int(rhs).get_value();
+}
+
+double operator+(const double& lhs, const py_int& rhs)
+{
+	return lhs + py_int(rhs).get_value();
+}
+
+int operator-(const int& lhs, const py_int& rhs)
+{
+	return lhs - py_int(rhs).get_value();
+}
+
+double operator-(const double& lhs, const py_int& rhs)
+{
+	return lhs - py_int(rhs).get_value();
+}
+
+int operator*(const int& lhs, const py_int& rhs)
+{
+	return lhs * py_int(rhs).get_value();
+}
+
+double operator*(const double& lhs, const py_int& rhs)
+{
+	return lhs * py_int(rhs).get_value();
+}
+
+int operator/(const int& lhs, const py_int& rhs)
+{
+	return lhs / py_int(rhs).get_value();
+}
+
+double operator/(const double& lhs, const py_int& rhs)
+{
+	return lhs / py_int(rhs).get_value();
+}
+
+int operator%(const int& lhs, const py_int& rhs)
+{
+	return lhs % py_int(rhs).get_value();
+}
+
+int operator>>(const int& lhs, const py_int& rhs)
+{
+	return lhs >> py_int(rhs).get_value();
+}
+
+int operator<<(const int& lhs, const py_int& rhs)
+{
+	return lhs << py_int(rhs).get_value();
+}
+
+int operator&(const int& lhs, const py_int& rhs)
+{
+	return lhs & py_int(rhs).get_value();
+}
+
+int operator^(const int& lhs, const py_int& rhs)
+{
+	return lhs ^ py_int(rhs).get_value();
+}
+
+int operator|(const int& lhs, const py_int& rhs)
+{
+	return lhs | py_int(rhs).get_value();
+}
+
+bool operator==(const int& lhs, const py_int& rhs)
+{
+	return lhs == py_int(rhs).get_value();
+}
+
+bool operator==(const double& lhs, const py_int& rhs)
+{
+	return lhs == py_int(rhs).get_value();
+}
+
+bool operator!=(const int& lhs, const py_int& rhs)
+{
+	return lhs != py_int(rhs).get_value();
+}
+
+bool operator!=(const double& lhs, const py_int& rhs)
+{
+	return lhs != py_int(rhs).get_value();
+}
+
+bool operator<(const int& lhs, const py_int& rhs)
+{
+	return lhs < py_int(rhs).get_value();
+}
+
+bool operator<(const double& lhs, const py_int& rhs)
+{
+	return lhs < py_int(rhs).get_value();
+}
+
+bool operator>(const int& lhs, const py_int& rhs)
+{
+	return lhs > py_int(rhs).get_value();
+}
+
+bool operator>(const double& lhs, const py_int& rhs)
+{
+	return lhs > py_int(rhs).get_value();
+}
+
+bool operator<=(const int& lhs, const py_int& rhs)
+{
+	return lhs <= py_int(rhs).get_value();
+}
+
+bool operator<=(const double& lhs, const py_int& rhs)
+{
+	return lhs <= py_int(rhs).get_value();
+}
+
+bool operator>=(const int& lhs, const py_int& rhs)
+{
+	return lhs >= py_int(rhs).get_value();
+}
+
+bool operator>=(const double& lhs, const py_int& rhs)
+{
+	return lhs >= py_int(rhs).get_value();
+}
+
+double pow(const int& lhs, const py_int& rhs)
+{
+	return pow(double(lhs), py_int(rhs).get_value());
+}
+
+double pow(const py_int& lhs, const py_int& rhs)
+{
+	return pow(double(py_int(lhs).get_value()), double(py_int(lhs).get_value()));
+}
+
+double pow(const double& lhs, const py_int& rhs)
+{
+	return pow(lhs, py_int(rhs).get_value());
+}
+
+float pow(const float& lhs, const py_int& rhs)
+{
+	return pow(lhs, py_int(rhs).get_value());
+}
+
+double pow(const py_int& lhs, const int& rhs)
+{
+	return pow(double(py_int(lhs).get_value()), rhs);
+}
+
+double pow(const py_int& lhs, const double& rhs)
+{
+	return pow(double(py_int(lhs).get_value()), rhs);
+}

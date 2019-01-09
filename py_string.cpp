@@ -120,3 +120,26 @@ std::string py_string::get_upper()
 	char* const member = static_cast<char*>("Upper");
 	return py_string(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
+
+int py_string::compare(const std::string& text)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), text.c_str());
+	argv[0] = buffer;
+	char* const member = static_cast<char*>("Compare");
+	return py_int(this->get_member(member, argc, argv).get_lso()).get_value();
+}
+
+int py_string::compare_cs(const std::string& text)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), text.c_str());
+	argv[0] = buffer;
+	char* const member = static_cast<char*>("CompareCS");
+	return py_int(this->get_member(member, argc, argv).get_lso()).get_value();
+}
+
