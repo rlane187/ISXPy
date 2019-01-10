@@ -62,3 +62,510 @@ bool py_bool::operator!()
 {
 	return !this->get_value();
 }
+
+bool py_bool::operator==(const bool& other)
+{
+	return bool(*this) == other;
+}
+
+bool py_bool::operator==(const py_bool& other)
+{
+	return bool(*this) == py_bool(other).get_value();
+}
+
+bool py_bool::operator==(const int& other)
+{
+	return bool(*this) == other;
+}
+
+bool py_bool::operator==(const py_int& other)
+{
+	return bool(*this) == py_int(other).get_value();
+}
+
+bool py_bool::operator==(const double& other)
+{
+	return bool(*this) == other;
+}
+
+bool py_bool::operator!=(const bool& other)
+{
+	return bool(*this) != other;
+}
+
+bool py_bool::operator!=(const py_bool& other)
+{
+	return bool(*this) != py_bool(other).get_value();
+}
+
+bool py_bool::operator!=(const int& other)
+{
+	return bool(*this) != other;
+}
+
+bool py_bool::operator!=(const py_int& other)
+{
+	return bool(*this) != py_int(other).get_value();
+}
+
+bool py_bool::operator!=(const double& other)
+{
+	return bool(*this) != other;
+}
+
+bool py_bool::operator&&(const bool& other)
+{
+	return bool(*this) && other;
+}
+
+bool py_bool::operator&&(const py_bool& other)
+{
+	return bool(*this) && py_bool(other).get_value();
+}
+
+bool py_bool::operator||(const bool& other)
+{
+	return bool(*this) || other;
+}
+
+bool py_bool::operator||(const py_bool& other)
+{
+	return bool(*this) || py_bool(other).get_value();
+}
+
+int py_bool::operator-()
+{
+	return -1 * bool(*this);
+}
+
+int py_bool::operator+(const int& other)
+{
+	return bool(*this) + other;
+}
+
+int py_bool::operator+(const py_int& other)
+{
+	return bool(*this) + py_int(other).get_value();
+}
+
+double py_bool::operator+(const double& other)
+{
+	return bool(*this) + other;
+}
+
+int py_bool::operator+(const py_bool& other)
+{
+	return bool(*this) + py_bool(other).get_value();
+}
+
+int py_bool::operator-(const int& other)
+{
+	return bool(*this) - other;
+}
+
+int py_bool::operator-(const py_int& other)
+{
+	return bool(*this) - py_int(other).get_value();
+}
+
+double py_bool::operator-(const double& other)
+{
+	return bool(*this) - other;
+}
+
+int py_bool::operator-(const py_bool& other)
+{
+	return  bool(*this) - py_bool(other).get_value();
+}
+
+int py_bool::operator*(const int& other)
+{
+	return bool(*this) * other;
+}
+
+int py_bool::operator*(const py_int& other)
+{
+	return bool(*this) * py_int(other).get_value();
+}
+
+double py_bool::operator*(const double& other)
+{
+	return bool(*this) * other;
+}
+
+int py_bool::operator*(const py_bool& other)
+{
+	return bool(*this) * py_bool(other).get_value();
+}
+
+int py_bool::operator/(const int& other)
+{
+	return bool(*this) / other;
+}
+
+int py_bool::operator/(const py_int& other)
+{
+	return bool(*this) / py_int(other).get_value();
+}
+
+double py_bool::operator/(const double& other)
+{
+	return bool(*this) / other;
+}
+
+int py_bool::operator/(const py_bool& other)
+{
+	return bool(*this) / py_bool(other).get_value();
+}
+
+int py_bool::operator%(const int& other)
+{
+	return bool(*this) % other;
+}
+
+int py_bool::operator%(const py_int& other)
+{
+	return bool(*this) % py_int(other).get_value();
+}
+
+int py_bool::operator%(const py_bool& other)
+{
+	return bool(*this) % py_bool(other).get_value();
+}
+
+int py_bool::operator>>(const int& other)
+{
+	return bool(*this) >> other;
+}
+
+int py_bool::operator>>(const py_int& other)
+{
+	return bool(*this) >> py_int(other).get_value();
+}
+
+int py_bool::operator>>(const py_bool& other)
+{
+	return bool(*this) >> py_bool(other).get_value();
+}
+
+int py_bool::operator<<(const int& other)
+{
+	return bool(*this) << other;
+}
+
+int py_bool::operator<<(const py_int& other)
+{
+	return bool(*this) << py_int(other).get_value();
+}
+
+int py_bool::operator<<(const py_bool& other)
+{
+	return bool(*this) << py_bool(other).get_value();
+}
+
+int py_bool::operator&(const int& other)
+{
+	return bool(*this) & other;
+}
+
+int py_bool::operator&(const py_int& other)
+{
+	return bool(*this) & py_int(other).get_value();
+}
+
+int py_bool::operator&(const py_bool& other)
+{
+	return bool(*this) & py_bool(other).get_value();
+}
+
+int py_bool::operator^(const int& other)
+{
+	return bool(*this) ^ other;
+}
+
+int py_bool::operator^(const py_int& other)
+{
+	return bool(*this) ^ py_int(other).get_value();
+}
+
+int py_bool::operator^(const py_bool& other)
+{
+	return bool(*this) ^ py_bool(other).get_value();
+}
+
+int py_bool::operator|(const int& other)
+{
+	return bool(*this) | other;
+}
+
+int py_bool::operator|(const py_int& other)
+{
+	return bool(*this) | py_int(other).get_value();
+}
+
+int py_bool::operator|(const py_bool& other)
+{
+	return bool(*this) | py_bool(other).get_value();
+}
+
+bool py_bool::operator<(const int& other)
+{
+	return bool(*this) < other;
+}
+
+bool py_bool::operator<(const py_int& other)
+{
+	return bool(*this) < py_int(other).get_value();
+}
+
+bool py_bool::operator<(const double& other)
+{
+	return bool(*this) < other;
+}
+
+bool py_bool::operator<(const py_bool& other)
+{
+	return bool(*this) < py_bool(other).get_value();
+}
+
+bool py_bool::operator>(const int& other)
+{
+	return bool(*this) > other;
+}
+
+bool py_bool::operator>(const py_int& other)
+{
+	return bool(*this) > py_int(other).get_value();
+}
+
+bool py_bool::operator>(const double& other)
+{
+	return bool(*this) > other;
+}
+
+bool py_bool::operator>(const py_bool& other)
+{
+	return bool(*this) > py_bool(other).get_value();
+}
+
+bool py_bool::operator<=(const int& other)
+{
+	return bool(*this) <= other;
+}
+
+bool py_bool::operator<=(const py_int& other)
+{
+	return bool(*this) <= py_int(other).get_value();
+}
+
+bool py_bool::operator<=(const double& other)
+{
+	return bool(*this) <= other;
+}
+
+bool py_bool::operator<=(const py_bool& other)
+{
+	return bool(*this) <= py_bool(other).get_value();
+}
+
+bool py_bool::operator>=(const int& other)
+{
+	return bool(*this) >= other;
+}
+
+bool py_bool::operator>=(const py_int& other)
+{
+	return bool(*this) >= py_int(other).get_value();
+}
+
+bool py_bool::operator>=(const double& other)
+{
+	return bool(*this) >= other;
+}
+
+bool py_bool::operator>=(const py_bool& other)
+{
+	return bool(*this) >= py_bool(other).get_value();
+}
+
+
+
+bool operator==(const bool& lhs, const py_bool& rhs)
+{
+	return lhs == py_bool(rhs).get_value();
+}
+
+bool operator!=(const bool& lhs, const py_bool& rhs)
+{
+	return lhs != py_bool(rhs).get_value();
+}
+
+bool operator&&(const bool& lhs, const py_bool& rhs)
+{
+	return lhs && py_bool(rhs).get_value();
+}
+
+bool operator||(const bool& lhs, const py_bool& rhs)
+{
+	return lhs || py_bool(rhs).get_value();
+}
+
+int operator+(const int& lhs, const py_bool& rhs)
+{
+	return lhs + py_bool(rhs).get_value();
+}
+
+double operator+(const double& lhs, const py_bool& rhs)
+{
+	return lhs + py_bool(rhs).get_value();
+}
+
+int operator-(const int& lhs, const py_bool& rhs)
+{
+	return lhs - py_bool(rhs).get_value();
+}
+
+double operator-(const double& lhs, const py_bool& rhs)
+{
+	return lhs - py_bool(rhs).get_value();
+}
+
+int operator*(const int& lhs, const py_bool& rhs)
+{
+	return lhs * py_bool(rhs).get_value();
+}
+
+double operator*(const double& lhs, const py_bool& rhs)
+{
+	return lhs * py_bool(rhs).get_value();
+}
+
+int operator/(const int& lhs, const py_bool& rhs)
+{
+	return lhs / py_bool(rhs).get_value();
+}
+
+double operator/(const double& lhs, const py_bool& rhs)
+{
+	return lhs / py_bool(rhs).get_value();
+}
+
+int operator%(const int& lhs, const py_bool& rhs)
+{
+	return lhs % py_bool(rhs).get_value();
+}
+
+int operator>>(const int& lhs, const py_bool& rhs)
+{
+	return lhs >> py_bool(rhs).get_value();
+}
+
+int operator<<(const int& lhs, const py_bool& rhs)
+{
+	return lhs << py_bool(rhs).get_value();
+}
+
+int operator&(const int& lhs, const py_bool& rhs)
+{
+	return lhs & py_bool(rhs).get_value();
+}
+
+int operator^(const int& lhs, const py_bool& rhs)
+{
+	return lhs ^ py_bool(rhs).get_value();
+}
+
+int operator|(const int& lhs, const py_bool& rhs)
+{
+	return lhs | py_bool(rhs).get_value();
+}
+
+bool operator==(const int& lhs, const py_bool& rhs)
+{
+	return lhs == py_bool(rhs).get_value();
+}
+
+bool operator==(const double& lhs, const py_bool& rhs)
+{
+	return lhs == py_bool(rhs).get_value();
+}
+
+bool operator!=(const int& lhs, const py_bool& rhs)
+{
+	return lhs != py_bool(rhs).get_value();
+}
+
+bool operator!=(const double& lhs, const py_bool& rhs)
+{
+	return lhs != py_bool(rhs).get_value();
+}
+
+bool operator<(const int& lhs, const py_bool& rhs)
+{
+	return lhs < py_bool(rhs).get_value();
+}
+
+bool operator<(const double& lhs, const py_bool& rhs)
+{
+	return lhs < py_bool(rhs).get_value();
+}
+
+bool operator>(const int& lhs, const py_bool& rhs)
+{
+	return lhs > py_bool(rhs).get_value();
+}
+
+bool operator>(const double& lhs, const py_bool& rhs)
+{
+	return lhs > py_bool(rhs).get_value();
+}
+
+bool operator<=(const int& lhs, const py_bool& rhs)
+{
+	return lhs <= py_bool(rhs).get_value();
+}
+
+bool operator<=(const double& lhs, const py_bool& rhs)
+{
+	return lhs <= py_bool(rhs).get_value();
+}
+
+bool operator>=(const int& lhs, const py_bool& rhs)
+{
+	return lhs >= py_bool(rhs).get_value();
+}
+
+bool operator>=(const double& lhs, const py_bool& rhs)
+{
+	return lhs >= py_bool(rhs).get_value();
+}
+
+double pow(const int& lhs, const py_bool& rhs)
+{
+	return pow(double(lhs), py_bool(rhs).get_value());
+}
+
+double pow(const py_bool& lhs, const py_bool& rhs)
+{
+	return pow(double(py_bool(lhs).get_value()), double(py_bool(lhs).get_value()));
+}
+
+double pow(const double& lhs, const py_bool& rhs)
+{
+	return pow(lhs, py_bool(rhs).get_value());
+}
+
+float pow(const float& lhs, const py_bool& rhs)
+{
+	return pow(lhs, py_bool(rhs).get_value());
+}
+
+double pow(const py_bool& lhs, const int& rhs)
+{
+	return pow(double(py_bool(lhs).get_value()), rhs);
+}
+
+double pow(const py_bool& lhs, const double& rhs)
+{
+	return pow(double(py_bool(lhs).get_value()), rhs);
+}
