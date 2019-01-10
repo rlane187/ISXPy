@@ -59,10 +59,10 @@ int py_eq2_character::get_agility()
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-ls_integer py_eq2_character::get_agility_lso()
+ls_int py_eq2_character::get_agility_lso()
 {
 	char* const member = static_cast<char *>("Agility");
-	return ls_integer(this->get_member(member, 0, nullptr).get_lso());
+	return ls_int(this->get_member(member, 0, nullptr).get_lso());
 }
 
 int py_eq2_character::get_arcane_resist()

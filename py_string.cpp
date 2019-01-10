@@ -100,13 +100,13 @@ int64_t py_string::find(const std::string& substring)
 	strcpy_s(buffer, _countof(buffer), substring.c_str());
 	argv[0] = buffer;
 	char* const member = static_cast<char*>("Find");
-	return py_int64(this->get_member(member, argc, argv).get_lso()).get_value();
+	return ls_int64(this->get_member(member, argc, argv).get_lso()).get_value();
 }
 
 int64_t py_string::get_length()
 {
 	char* const member = static_cast<char*>("Length");
-	return py_int64(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_int64(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 std::string py_string::get_lower()
@@ -129,7 +129,7 @@ int py_string::compare(const std::string& text)
 	strcpy_s(buffer, _countof(buffer), text.c_str());
 	argv[0] = buffer;
 	char* const member = static_cast<char*>("Compare");
-	return ls_integer(this->get_member(member, argc, argv).get_lso()).get_value();
+	return ls_int(this->get_member(member, argc, argv).get_lso()).get_value();
 }
 
 int py_string::compare_cs(const std::string& text)
@@ -140,6 +140,6 @@ int py_string::compare_cs(const std::string& text)
 	strcpy_s(buffer, _countof(buffer), text.c_str());
 	argv[0] = buffer;
 	char* const member = static_cast<char*>("CompareCS");
-	return ls_integer(this->get_member(member, argc, argv).get_lso()).get_value();
+	return ls_int(this->get_member(member, argc, argv).get_lso()).get_value();
 }
 

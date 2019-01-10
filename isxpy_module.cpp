@@ -25,167 +25,171 @@ BOOST_PYTHON_MODULE(isxpy)
 		.add_property("to_uint", &ls_object::get_uint_from_lso)
 		.def("to_lso", &ls_object::get_lso, return_value_policy<reference_existing_object>());
 
-	class_<ls_boolean, bases<ls_object>>("ls_boolean", init<const LSOBJECT&>())
-		.add_property("value", &ls_boolean::get_value)
+#pragma region ls_bool
+
+	class_<ls_bool, bases<ls_object>>("ls_bool", init<const LSOBJECT&>())
+		.add_property("value", &ls_bool::get_value)
 		.def(self_ns::str(self))
 		.def(int_(self))
-		.def("__bool__", &ls_boolean::get_value)
-		.def("__nonzero__", &ls_boolean::operator!)
+		.def("__bool__", &ls_bool::get_value)
+		.def("__nonzero__", &ls_bool::operator!)
 		.def(-self)
 
 		.def(self == bool())
 		.def(bool() == self)
-		.def(self == ls_boolean())		
+		.def(self == ls_bool())		
 		.def(self == int())
 		.def(int() == self)
-		.def(self == ls_integer())
-		// ls_integer == self
+		.def(self == ls_int())
+		// ls_int == self
 		.def(self == double())
 		.def(double() == self)
 
 		.def(self != bool())
 		.def(bool() != self)
-		.def(self != ls_boolean())
+		.def(self != ls_bool())
 		.def(self != int())
 		.def(int() != self)
-		.def(self != ls_integer())
-		// ls_integer == self
+		.def(self != ls_int())
+		// ls_int == self
 		.def(self != double())
 		.def(double() != self)
 		
 		.def(self + bool())
 		.def(bool() + self)
-		.def(self + ls_boolean())
+		.def(self + ls_bool())
 		.def(self + int())
 		.def(int() + self)
-		.def(self + ls_integer())
-		// ls_integer + self
+		.def(self + ls_int())
+		// ls_int + self
 		.def(self + double())
 		.def(double() + self)
 
 		.def(self - bool())
 		.def(bool() - self)
-		.def(self - ls_boolean())
+		.def(self - ls_bool())
 		.def(self - int())
 		.def(int() - self)
-		.def(self - ls_integer())
-		// ls_integer - self
+		.def(self - ls_int())
+		// ls_int - self
 		.def(self - double())
 		.def(double() - self)
 		
 		.def(self * bool())
 		.def(bool() * self)
-		.def(self * ls_boolean())
+		.def(self * ls_bool())
 		.def(self * int())
-		.def(self * ls_integer())
-		// ls_integer * self
+		.def(self * ls_int())
+		// ls_int * self
 		.def(int() * self)
 		.def(self * double())
 		.def(double() * self)
 
 		.def(self / bool())
 		.def(bool() / self)
-		.def(self / ls_boolean())
+		.def(self / ls_bool())
 		.def(self / int())
-		.def(self / ls_integer())
-		// ls_integer / self
+		.def(self / ls_int())
+		// ls_int / self
 		.def(int() / self)
 		.def(self / double())
 		.def(double() / self)
 
 		.def(self % bool())
 		.def(bool() % self)
-		.def(self % ls_boolean())
+		.def(self % ls_bool())
 		.def(self % int())
 		.def(int() % self)
-		.def(self % ls_integer())
-		// ls_integer % self
+		.def(self % ls_int())
+		// ls_int % self
 
 		.def(self >> bool())
 		.def(bool() >> self)
-		.def(self >> ls_boolean())
+		.def(self >> ls_bool())
 		.def(self >> int())
 		.def(int() >> self)
-		.def(self >> ls_integer())
-		// ls_integer >> self	
+		.def(self >> ls_int())
+		// ls_int >> self	
 		
 		.def(self << bool())
 		.def(bool() << self)
-		.def(self << ls_boolean())
+		.def(self << ls_bool())
 		.def(self << int())
 		.def(int() << self)
-		.def(self << ls_integer())
-		// ls_integer << self
+		.def(self << ls_int())
+		// ls_int << self
 		
 		.def(self & bool())
 		.def(bool() & self)
-		.def(self & ls_boolean())
+		.def(self & ls_bool())
 		.def(self & int())
 		.def(int() & self)
-		.def(self & ls_integer())
-		// ls_integer & self
+		.def(self & ls_int())
+		// ls_int & self
 
 		.def(self ^ bool())
 		.def(bool() ^ self)
-		.def(self ^ ls_boolean())
+		.def(self ^ ls_bool())
 		.def(self ^ int())
 		.def(int() ^ self)
-		.def(self ^ ls_integer())
-		// ls_integer ^ self		
+		.def(self ^ ls_int())
+		// ls_int ^ self		
 
 		.def(self | bool())
 		.def(bool() | self)
-		.def(self | ls_boolean())
+		.def(self | ls_bool())
 		.def(self | int())
 		.def(int() | self)
-		.def(self | ls_integer())
-		// ls_integer | self		
+		.def(self | ls_int())
+		// ls_int | self		
 
 		.def(self < bool())
 		.def(bool() < self)
-		.def(self < ls_boolean())
+		.def(self < ls_bool())
 		.def(self < int())
 		.def(int() < self)
-		.def(self < ls_integer())
-		// ls_integer < self		
+		.def(self < ls_int())
+		// ls_int < self		
 		.def(self < double())
 		.def(double() < self)	
 
 		.def(self > bool())
 		.def(bool() > self)
-		.def(self > ls_boolean())
+		.def(self > ls_bool())
 		.def(self > int())
 		.def(int() > self)
-		.def(self > ls_integer())
-		// ls_integer > self
+		.def(self > ls_int())
+		// ls_int > self
 		.def(self > double())
 		.def(double() > self)		
 
 		.def(self <= bool())
 		.def(bool() <= self)
-		.def(self <= ls_boolean())
+		.def(self <= ls_bool())
 		.def(self <= int())
 		.def(int() <= self)
-		.def(self <= ls_integer())
-		// ls_integer <= self
+		.def(self <= ls_int())
+		// ls_int <= self
 		.def(self <= double())
 		.def(double() <= self)
 
 		.def(self >= bool())
 		.def(bool() >= self)
-		.def(self >= ls_boolean())
+		.def(self >= ls_bool())
 		.def(self >= int())
 		.def(int() >= self)
-		.def(self >= ls_integer())
-		// ls_integer >= self
+		.def(self >= ls_int())
+		// ls_int >= self
 		.def(self >= double())
 		.def(double() >= self)		
 
 		.def(pow(int(), self))
 		.def(pow(double(), self))
-		.def(pow(self, ls_boolean()))
+		.def(pow(self, ls_bool()))
 		.def(pow(self, int()))
 		.def(pow(self, double()));
+
+#pragma endregion
 
 	class_<py_byte, bases<ls_object>>("lso_byte", init<const LSOBJECT&>())
 		.add_property("value", &py_byte::get_value)
@@ -193,8 +197,10 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def("inc", &py_byte::dec, py_byte::dec_overloads(args("formula")))
 		.def("set", &py_byte::set);
 
-	class_<ls_integer, bases<ls_object>>("ls_integer", init<const LSOBJECT&>())
-		.add_property("value", &ls_integer::get_value)
+#pragma region ls_int
+
+	class_<ls_int, bases<ls_object>>("ls_int", init<const LSOBJECT&>())
+		.add_property("value", &ls_int::get_value)
 		.def(self_ns::str(self))
 		.def(int_(self))
 		.def(float_(self))
@@ -202,125 +208,159 @@ BOOST_PYTHON_MODULE(isxpy)
 
 		.def(self + bool())
 		.def(bool() + self)
-		.def(self + ls_boolean())
-		// ls_boolean + self		
+		.def(self + ls_bool())
+		// ls_bool + self		
 		.def(self + int())
 		.def(int() + self)
-		.def(self + ls_integer())
+		.def(self + ls_int())
 		.def(self + double())
 		.def(double() + self)
 
 		.def(self - bool())
 		.def(bool() - self)
-		.def(self - ls_boolean())
-		// ls_boolean - self		
+		.def(self - ls_bool())
+		// ls_bool - self		
 		.def(self - int())
 		.def(int() - self)
-		.def(self - ls_integer())
+		.def(self - ls_int())
 		.def(self - double())
 		.def(double() - self)
 
 		.def(self * bool())
 		.def(bool() * self)
-		.def(self * ls_boolean())
-		// ls_boolean * self
+		.def(self * ls_bool())
+		// ls_bool * self
 		.def(self * int())
 		.def(int() * self)
-		.def(self * ls_integer())
+		.def(self * ls_int())
 		.def(self * double())
 		.def(double() * self)
 
 		.def(self / bool())
 		.def(bool() / self)
-		.def(self / ls_boolean())
-		// ls_boolean / self		
+		.def(self / ls_bool())
+		// ls_bool / self		
 		.def(self / int())
 		.def(int() / self)
-		.def(self / ls_integer())
+		.def(self / ls_int())
 		.def(self / double())
 		.def(double() / self)
 
 		.def(self % bool())
 		.def(bool() % self)
-		.def(self % ls_boolean())
-		// ls_boolean % self		
+		.def(self % ls_bool())
+		// ls_bool % self		
 		.def(self % int())
 		.def(int() % self)
-		.def(self % ls_integer())
+		.def(self % ls_int())
 
 		.def(self >> bool())
 		.def(bool() >> self)
-		.def(self >> ls_boolean())
-		// ls_boolean >> self
+		.def(self >> ls_bool())
+		// ls_bool >> self
 		.def(self >> int())
 		.def(int() >> self)
-		.def(self >> ls_integer())
+		.def(self >> ls_int())
 
 		.def(self << bool())
 		.def(bool() << self)
-		.def(self << ls_boolean())
-		// ls_boolean << self
+		.def(self << ls_bool())
+		// ls_bool << self
 		.def(self << int())
 		.def(int() << self)
-		.def(self << ls_integer())
+		.def(self << ls_int())
 
 		.def(self & bool())
 		.def(bool() & self)
-		.def(self & ls_boolean())
-		// ls_boolean & self
+		.def(self & ls_bool())
+		// ls_bool & self
 		.def(self & int())
 		.def(int() & self)
-		.def(self & ls_integer())
+		.def(self & ls_int())
 
+		.def(self ^ bool())
+		.def(bool() ^ self)
+		.def(self ^ ls_bool())
+		// ls_bool ^ self
 		.def(self ^ int())
 		.def(int() ^ self)
-		.def(self ^ ls_integer())
+		.def(self ^ ls_int())
 
+		.def(self | bool())
+		.def(bool() | self)
+		.def(self | ls_bool())
+		// ls_bool | self
 		.def(self | int())
 		.def(int() | self)
-		.def(self | ls_integer())
+		.def(self | ls_int())
 
+		.def(self == bool())
+		.def(bool() == self)
+		.def(self == ls_bool())
+		// ls_bool == self
 		.def(self == int())
 		.def(int() == self)
+		.def(self == ls_int())
 		.def(self == double())
-		.def(double() == self)
-		.def(self == ls_integer())
+		.def(double() == self)		
 
+		.def(self != bool())
+		.def(bool() != self)
+		.def(self != ls_bool())
+		// ls_bool != self
 		.def(self != int())
 		.def(int() != self)
+		.def(self != ls_int())
 		.def(self != double())
 		.def(double()!= self)
-		.def(self != ls_integer())
-
+		
+		.def(self < bool())
+		.def(bool() < self)
+		.def(self < ls_bool())
+		// ls_bool < self
 		.def(self < int())
 		.def(int() < self)
 		.def(self < double())
 		.def(double() < self)
-		.def(self < ls_integer())
+		.def(self < ls_int())
 
+		.def(self > bool())
+		.def(bool() > self)
+		.def(self > ls_bool())
+		// ls_bool > self
 		.def(self > int())
 		.def(int() > self)
+		.def(self > ls_int())
 		.def(self > double())
 		.def(double() > self)
-		.def(self > ls_integer())
-
+		
+		.def(self <= bool())
+		.def(bool() <= self)
+		.def(self <= ls_bool())
+		// ls_bool <= self
 		.def(self <= int())
 		.def(int() <= self)
+		.def(self <= ls_int())
 		.def(self <= double())
 		.def(double() <= self)
-		.def(self <= ls_integer())
-
+		
+		.def(self >= bool())
+		.def(bool() >= self)
+		.def(self >= ls_bool())
+		// ls_bool >= self
 		.def(self >= int())
 		.def(int() >= self)
+		.def(self >= ls_int())
 		.def(self >= double())
-		.def(double() >= self)
-		.def(self >= ls_integer())
+		.def(double() >= self)		
 
 		.def(pow(int(), self))
 		.def(pow(double(), self))
-		.def(pow(self, ls_integer()))
+		.def(pow(self, ls_int()))
 		.def(pow(self, int()))
 		.def(pow(self, double()));
+
+#pragma endregion
 
 	class_<py_uint, bases<ls_object>>("lso_uint", init<const LSOBJECT&>())
 		.add_property("value", &py_uint::get_value)
@@ -333,14 +373,18 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def("dec", &py_uint::dec, py_uint::dec_overloads(args("formula")))
 		.def("set", &py_uint::set);
 
-	class_<py_int64, bases<ls_object>>("lso_int64", init<const LSOBJECT&>())
-		.add_property("value", &py_int64::get_value)
-		.add_property("as_float", &py_int64::get_float)
-		.add_property("as_hex", &py_int64::get_hex)
-		.def("leading_zeros", &py_int64::leading_zeros)
-		.def("inc", &py_int64::inc, py_int64::inc_overloads(args("formula")))
-		.def("dec", &py_int64::dec, py_int64::dec_overloads(args("formula")))
-		.def("set", &py_int64::set);
+#pragma region ls_int64
+
+	class_<ls_int64, bases<ls_object>>("lso_int64", init<const LSOBJECT&>())
+		.add_property("value", &ls_int64::get_value)
+		.def(self_ns::str(self))
+		.def(int_(self))
+		.def(float_(self))
+		.def(-self)
+	;
+		
+
+#pragma endregion
 
 	class_<py_float, bases<ls_object>>("lso_float", init<const LSOBJECT&>())
 		.add_property("value", &py_float::get_value)

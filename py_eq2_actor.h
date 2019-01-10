@@ -72,7 +72,7 @@ public:
 	bool get_is_rooted();
 	bool get_is_running();
 	bool get_is_sitting();
-	ls_boolean get_is_sitting_lso();
+	ls_bool get_is_sitting_lso();
 	bool get_is_solo();
 	bool get_is_sprinting();
 	bool get_is_strafing_left();

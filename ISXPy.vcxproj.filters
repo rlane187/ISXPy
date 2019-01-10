@@ -170,9 +170,6 @@
     <ClCompile Include="isxpy_extensions.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY</Filter>
     </ClCompile>
-    <ClCompile Include="py_lsobject.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_mutable_string.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
@@ -191,19 +188,22 @@
     <ClCompile Include="py_uint.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
-    <ClCompile Include="py_int64.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_byte.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_float64.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
-    <ClCompile Include="ls_boolean.cpp">
+    <ClCompile Include="ls_object.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
-    <ClCompile Include="ls_integer.cpp">
+    <ClCompile Include="ls_bool.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_int.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_int64.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
   </ItemGroup>
@@ -322,13 +322,7 @@
     <ClInclude Include="py_uint.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
-    <ClInclude Include="py_int64.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
     <ClInclude Include="py_float64.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="ls_boolean.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="ls_object.h">
@@ -337,7 +331,13 @@
     <ClInclude Include="py_byte.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
-    <ClInclude Include="ls_integer.h">
+    <ClInclude Include="ls_bool.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_int.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_int64.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
   </ItemGroup>

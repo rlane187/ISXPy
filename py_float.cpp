@@ -62,7 +62,7 @@ std::string py_float::get_milli()
 int py_float::get_int()
 {
 	char* const member = static_cast<char *>("Int");
-	return ls_integer(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_int(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 std::string py_float::precision(const unsigned int& decimal_places)
@@ -79,13 +79,13 @@ std::string py_float::precision(const unsigned int& decimal_places)
 int py_float::get_ceil()
 {
 	char* const member = static_cast<char *>("Ceil");
-	return ls_integer(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_int(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 int py_float::get_round()
 {
 	char* const member = static_cast<char *>("Round");
-	return ls_integer(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_int(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 void py_float::inc(const std::string& formula)
