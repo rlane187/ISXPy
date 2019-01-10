@@ -24,9 +24,6 @@
     <Filter Include="Header Files\LavishScript Extensions\Lists">
       <UniqueIdentifier>{32799ee2-6faa-4dbc-a836-fceaf48a0e51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\LavishGUI Elements">
-      <UniqueIdentifier>{bff4d1d8-67f7-44ad-bb46-f87d5c8cae8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Services">
       <UniqueIdentifier>{a594a40b-febb-4d73-9bb8-8d5b94664a20}</UniqueIdentifier>
     </Filter>
@@ -80,6 +77,9 @@
     </Filter>
     <Filter Include="Header Files\PythonExtensions\ISXPy\Types">
       <UniqueIdentifier>{5e031d29-1d96-4b99-8573-0691b8110f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LavishScript Extensions\Lists\LavishGUI Elements">
+      <UniqueIdentifier>{bff4d1d8-67f7-44ad-bb46-f87d5c8cae8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +182,6 @@
     <ClCompile Include="isxpy_events.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY</Filter>
     </ClCompile>
-    <ClCompile Include="py_int.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_float.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
@@ -203,7 +200,10 @@
     <ClCompile Include="py_float64.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
-    <ClCompile Include="py_bool.cpp">
+    <ClCompile Include="ls_boolean.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_integer.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,7 +224,7 @@
       <Filter>Header Files\LavishScript Extensions\Lists</Filter>
     </ClInclude>
     <ClInclude Include="LGUIPyFrame.h">
-      <Filter>Header Files\LavishGUI Elements</Filter>
+      <Filter>Header Files\LavishScript Extensions\Lists\LavishGUI Elements</Filter>
     </ClInclude>
     <ClInclude Include="ISXPyServices.h">
       <Filter>Header Files\Services</Filter>
@@ -301,9 +301,6 @@
     <ClInclude Include="isxpy_extensions.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
     </ClInclude>
-    <ClInclude Include="py_lsobject.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
     <ClInclude Include="py_mutable_string.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
@@ -315,9 +312,6 @@
     </ClInclude>
     <ClInclude Include="isxpy_events.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
-    </ClInclude>
-    <ClInclude Include="py_int.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_float.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
@@ -331,13 +325,19 @@
     <ClInclude Include="py_int64.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
-    <ClInclude Include="py_byte.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
     <ClInclude Include="py_float64.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
-    <ClInclude Include="py_bool.h">
+    <ClInclude Include="ls_boolean.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_object.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="py_byte.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_integer.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
   </ItemGroup>

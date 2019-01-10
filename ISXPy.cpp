@@ -45,6 +45,7 @@ LSType *pBoolPtrType=0;
 LSType *pFloatPtrType=0;
 LSType *pBytePtrType=0;
 
+LSType *pUintPtrType = 0;
 LSType *pFloat64Type = 0;
 LSType *pFloat64PtrType = 0;
 LSType *pMutableStringType = 0;
@@ -123,6 +124,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		pFloatPtrType=pISInterface->FindLSType("floatptr");
 		pBytePtrType=pISInterface->FindLSType("byteptr");
 
+		pUintPtrType = pISInterface->FindLSType("uintptr");
 		pFloat64Type = pISInterface->FindLSType("float64");
 		pFloat64PtrType = pISInterface->FindLSType("float64ptr");
 		pMutableStringType = pISInterface->FindLSType("mutablestring");

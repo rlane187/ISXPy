@@ -1,40 +1,40 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
-py_lsobject::py_lsobject() = default;
+ls_object::ls_object() = default;
 
-py_lsobject::py_lsobject(const py_lsobject& other)
+ls_object::ls_object(const ls_object& other)
 {
 	this->lsobject_ = other.lsobject_;
 }
 
-py_lsobject::py_lsobject(py_lsobject&& other) noexcept
+ls_object::ls_object(ls_object&& other) noexcept
 {
 	this->lsobject_ = other.lsobject_;
 }
 
-py_lsobject::py_lsobject(const LSOBJECT& other)
+ls_object::ls_object(const LSOBJECT& other)
 {	
 	this->lsobject_ = other;
 }
 
-py_lsobject::~py_lsobject() = default;
+ls_object::~ls_object() = default;
 
-py_lsobject& py_lsobject::operator=(const py_lsobject& other)
+ls_object& ls_object::operator=(const ls_object& other)
 {
 	if (this != &other)
 		this->lsobject_ = other.lsobject_;
 	return *this;
 }
 
-py_lsobject& py_lsobject::operator=(py_lsobject&& other) noexcept
+ls_object& ls_object::operator=(ls_object&& other) noexcept
 {
 	if (this != &other)
 		this->lsobject_ = other.lsobject_;
 	return *this;
 }
 
-void py_lsobject::execute_method(PCHAR method, int argc, char* argv[])
+void ls_object::execute_method(PCHAR method, int argc, char* argv[])
 {
 	if (this->lsobject_.ObjectType && this->has_method(method))
 		this->lsobject_.ObjectType->GetMethodEx(this->lsobject_.GetObjectData(), method, argc, argv);
@@ -55,7 +55,7 @@ void py_lsobject::execute_method(PCHAR method, int argc, char* argv[])
 		
 }
 
-bool py_lsobject::get_bool_from_lso()
+bool ls_object::get_bool_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pBoolType)
 	{
@@ -76,7 +76,7 @@ bool py_lsobject::get_bool_from_lso()
 	return false;
 }
 
-int py_lsobject::get_byte_from_lso()
+int ls_object::get_byte_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pByteType)
 	{
@@ -97,7 +97,7 @@ int py_lsobject::get_byte_from_lso()
 	return -1;
 }
 
-float py_lsobject::get_float_from_lso()
+float ls_object::get_float_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pFloatType)
 	{
@@ -118,7 +118,7 @@ float py_lsobject::get_float_from_lso()
 	return -1.0f;
 }
 
-int py_lsobject::get_int_from_lso()
+int ls_object::get_int_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pIntType)
 	{
@@ -139,7 +139,7 @@ int py_lsobject::get_int_from_lso()
 	return -1;
 }
 
-int64_t py_lsobject::get_int64_from_lso()
+int64_t ls_object::get_int64_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pInt64Type)
 	{
@@ -160,12 +160,12 @@ int64_t py_lsobject::get_int64_from_lso()
 	return -1;
 }
 
-const LSOBJECT& py_lsobject::get_lso() const
+const LSOBJECT& ls_object::get_lso() const
 {
 	return this->lsobject_;
 }
 
-py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
+ls_object ls_object::get_member(PCHAR member, int argc, char* argv[])
 {
 	LSOBJECT dest;
 	if(this->lsobject_.ObjectType && this->has_member(member))
@@ -187,7 +187,7 @@ py_lsobject py_lsobject::get_member(PCHAR member, int argc, char* argv[])
 	return dest;
 }
 
-std::string py_lsobject::get_mutable_string_from_lso()
+std::string ls_object::get_mutable_string_from_lso()
 {
 	if(this->lsobject_.ObjectType && this->lsobject_.ObjectType == pMutableStringType)
 	{
@@ -198,7 +198,7 @@ std::string py_lsobject::get_mutable_string_from_lso()
 }
 
 
-std::string py_lsobject::get_string_from_lso()
+std::string ls_object::get_string_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pStringType)
 	{
@@ -234,7 +234,7 @@ std::string py_lsobject::get_string_from_lso()
 	return std::string("NULL");
 }
 
-unsigned int py_lsobject::get_uint_from_lso()
+unsigned int ls_object::get_uint_from_lso()
 {
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pUintType)
 	{
@@ -251,7 +251,7 @@ unsigned int py_lsobject::get_uint_from_lso()
 	return UINT_MAX;
 }
 
-bool py_lsobject::has_inherited_member(PCHAR member) const
+bool ls_object::has_inherited_member(PCHAR member) const
 {
 	if (this->lsobject_.ObjectType)
 	{
@@ -261,7 +261,7 @@ bool py_lsobject::has_inherited_member(PCHAR member) const
 	return false;
 }
 
-bool py_lsobject::has_inherited_method(PCHAR method) const
+bool ls_object::has_inherited_method(PCHAR method) const
 {
 	if (this->lsobject_.ObjectType)
 	{
@@ -271,7 +271,7 @@ bool py_lsobject::has_inherited_method(PCHAR method) const
 	return false;
 }
 
-bool py_lsobject::has_member(PCHAR member) const
+bool ls_object::has_member(PCHAR member) const
 {
 	if(this->lsobject_.ObjectType)
 	{
@@ -281,7 +281,7 @@ bool py_lsobject::has_member(PCHAR member) const
 	return false;
 }
 
-bool py_lsobject::has_method(PCHAR method) const
+bool ls_object::has_method(PCHAR method) const
 {
 	if(this->lsobject_.ObjectType)
 	{
@@ -292,7 +292,7 @@ bool py_lsobject::has_method(PCHAR method) const
 }
 
 template <class T>
-int py_lsobject::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
+int ls_object::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
 {
 	LSOBJECT index_object;
 	size_t size = 0;

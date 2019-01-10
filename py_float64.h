@@ -1,6 +1,6 @@
 #pragma once
 
-class py_float64 : public py_lsobject
+class py_float64 : public ls_object
 {
 public:
 	py_float64() = default;

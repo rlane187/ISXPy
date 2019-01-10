@@ -1,6 +1,6 @@
 #pragma once
 
-class py_uint : public py_lsobject
+class py_uint : public ls_object
 {
 public:
 	py_uint() = default;

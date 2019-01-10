@@ -1,6 +1,6 @@
 #pragma once
 
-class py_eq2_dynamic_data : public py_lsobject
+class py_eq2_dynamic_data : public ls_object
 {
 public:
 	py_eq2_dynamic_data();

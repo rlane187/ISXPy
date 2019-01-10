@@ -1,6 +1,6 @@
 #pragma once
 
-class py_byte : public py_lsobject
+class py_byte : public ls_object
 {
 public:
 	py_byte() = default;

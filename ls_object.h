@@ -1,16 +1,16 @@
 #pragma once
 
-class py_lsobject
+class ls_object
 {
 public:
-	py_lsobject();
-	py_lsobject(const py_lsobject& other);
-	py_lsobject(py_lsobject&& other) noexcept;
+	ls_object();
+	ls_object(const ls_object& other);
+	ls_object(ls_object&& other) noexcept;
 	// ReSharper disable once CppNonExplicitConvertingConstructor
-	py_lsobject(const LSOBJECT& other);
-	virtual ~py_lsobject();
-	py_lsobject& operator=(const py_lsobject& other);
-	py_lsobject& operator=(py_lsobject&& other) noexcept;	
+	ls_object(const LSOBJECT& other);
+	virtual ~ls_object();
+	ls_object& operator=(const ls_object& other);
+	ls_object& operator=(ls_object&& other) noexcept;	
 	void execute_method(PCHAR method, int argc, char* argv[]);
 	bool get_bool_from_lso();
 	int get_byte_from_lso();
@@ -18,7 +18,7 @@ public:
 	int get_int_from_lso();
 	int64_t get_int64_from_lso();
 	const LSOBJECT& get_lso() const;
-	py_lsobject get_member(PCHAR member, int argc, char* argv[]);
+	ls_object get_member(PCHAR member, int argc, char* argv[]);
 	std::string get_string_from_lso();
 	std::string get_mutable_string_from_lso();
 	unsigned int get_uint_from_lso();

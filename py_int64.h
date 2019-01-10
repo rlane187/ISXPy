@@ -1,6 +1,6 @@
 #pragma once
 
-class py_int64 : public py_lsobject
+class py_int64 : public ls_object
 {
 public:
 	py_int64() = default;

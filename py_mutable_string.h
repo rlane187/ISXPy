@@ -1,6 +1,6 @@
 #pragma once
 
-class py_mutable_string : public py_lsobject
+class py_mutable_string : public ls_object
 {
 public:
 	py_mutable_string();

@@ -1,6 +1,6 @@
 #pragma once
 
-class py_eq2_effect_info : public py_lsobject
+class py_eq2_effect_info : public ls_object
 {
 public:
 	py_eq2_effect_info();

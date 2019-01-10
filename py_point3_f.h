@@ -1,6 +1,6 @@
 #pragma once
 
-class py_point3_f : public py_lsobject
+class py_point3_f : public ls_object
 {
 public:
 	py_point3_f();

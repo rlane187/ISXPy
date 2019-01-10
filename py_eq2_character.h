@@ -13,7 +13,7 @@ public:
 	py_eq2_character& operator=(py_eq2_character&& other) noexcept;
 	bool check_collision(const float& to_x, const float& to_y, const float& to_z) override;
 	int get_agility();
-	py_int get_agility_lso();
+	ls_integer get_agility_lso();
 	int get_arcane_resist();
 	float get_arcane_resist_percent();
 	std::string get_archetype();

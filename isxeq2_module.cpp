@@ -6,7 +6,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 	using namespace boost::python;
 	import("isxpy");	
 
-	class_<py_eq2, bases<py_lsobject>>("eq2")
+	class_<py_eq2, bases<ls_object>>("eq2")
 		.def("accept_pending_quests", &py_eq2::accept_pending_quest)
 		.def("check_collision", &py_eq2::check_collision)
 		.def("confirm_zone_teleporter_destination", &py_eq2::confirm_zone_teleporter_destination)
@@ -43,7 +43,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("query_actors", &py_eq2::query_actors, py_eq2::query_actors_overloads(args("actor_list", "query")))
 		.add_property("zoning", &py_eq2::get_zoning);
 
-	class_<py_eq2_actor, bases<py_lsobject>>("actor")
+	class_<py_eq2_actor, bases<ls_object>>("actor")
 		.def(init<const int&>())
 		.def(init<const std::string&>())
 		.def(init<const LSOBJECT&>())
@@ -150,7 +150,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("get_actor", &py_eq2_actor::from_query)
 		.add_property("name_lso", &py_eq2_actor::get_name_lso);
 
-	class_<py_eq2_actor_effect, bases<py_lsobject>>("actor_effect", init<const LSOBJECT&>())
+	class_<py_eq2_actor_effect, bases<ls_object>>("actor_effect", init<const LSOBJECT&>())
 		.add_property("back_drop_icon_id", &py_eq2_actor_effect::get_back_drop_icon_id)
 		.add_property("current_increments", &py_eq2_actor_effect::get_current_increments)
 		.add_property("is_effect_info_available", &py_eq2_actor_effect::get_is_effect_info_available)
@@ -264,11 +264,11 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("get_raid_member", &py_eq2_character::get_raid_member_2)
 		.def("get_raid_member", &py_eq2_character::get_raid_member_3);
 
-	class_<py_eq2_dynamic_data, bases<py_lsobject>>("dynamic_data", init<const LSOBJECT&>())
+	class_<py_eq2_dynamic_data, bases<ls_object>>("dynamic_data", init<const LSOBJECT&>())
 		.add_property("label", &py_eq2_dynamic_data::get_label)
 		.add_property("percent", &py_eq2_dynamic_data::get_percent);
 
-	class_<py_eq2_effect, bases<py_lsobject>>("effect", init<const LSOBJECT&>())
+	class_<py_eq2_effect, bases<ls_object>>("effect", init<const LSOBJECT&>())
 		.add_property("back_drop_icon_id", &py_eq2_effect::get_back_drop_icon_id)
 		.add_property("current_increments", &py_eq2_effect::get_current_increments)
 		.add_property("duration", &py_eq2_effect::get_duration)
@@ -278,7 +278,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("main_icon_id", &py_eq2_effect::get_main_icon_id)
 		.add_property("max_duration", &py_eq2_effect::get_max_duration);
 
-	class_<py_eq2_effect_info, bases<py_lsobject>>("effect_info", init<const LSOBJECT&>())
+	class_<py_eq2_effect_info, bases<ls_object>>("effect_info", init<const LSOBJECT&>())
 		.add_property("description", &py_eq2_effect_info::get_description)
 		.add_property("name", &py_eq2_effect_info::get_name)
 		.add_property("type", &py_eq2_effect_info::get_type);
@@ -300,10 +300,10 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("trauma", &py_eq2_group_member::get_trauma)
 		.add_property("zone_name", &py_eq2_group_member::get_zone_name);
 
-	class_<py_eq2_item, bases<py_lsobject>>("item")
+	class_<py_eq2_item, bases<ls_object>>("item")
 		.add_property("name", &py_eq2_item::get_name);
 
-	class_<py_eq2_maintained, bases<py_lsobject>>("maintained")
+	class_<py_eq2_maintained, bases<ls_object>>("maintained")
 		.add_property("concentration_cost", &py_eq2_maintained::get_concentration_cost)
 		.add_property("current_increments", &py_eq2_maintained::get_current_increments)
 		.add_property("damage_remaining", &py_eq2_maintained::get_damage_remaining)
@@ -315,7 +315,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("target_type", &py_eq2_maintained::get_target_type)
 		.add_property("uses_remaining", &py_eq2_maintained::get_uses_remaining);
 
-	class_<py_isxeq2, bases<py_lsobject>>("isxeq2")
+	class_<py_isxeq2, bases<ls_object>>("isxeq2")
 		.def("add_loc", &py_isxeq2::add_loc, py_isxeq2::add_loc_overloads(args("label", "notes")))
 		.add_property("affliction_events_on", &py_isxeq2::get_affliction_events_on)
 		.add_property("api_version", &py_isxeq2::get_api_version)
@@ -334,13 +334,13 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("set_affliction_events_time_interval", &py_isxeq2::set_affliction_events_time_interval, args("time"))
 		.add_property("version", &py_isxeq2::get_version);	
 
-	class_<py_point3_f, bases<py_lsobject>>("point3f")
+	class_<py_point3_f, bases<ls_object>>("point3f")
 		.add_property("x", &py_point3_f::get_x)
 		.add_property("y", &py_point3_f::get_y)
 		.add_property("z", &py_point3_f::get_z)
 		.def("xyz", &py_point3_f::get_xyz, py_point3_f::get_xyz_overloads(args("separator")));
 
-	class_<py_eq2_recipe, bases<py_lsobject>>("recipe")
+	class_<py_eq2_recipe, bases<ls_object>>("recipe")
 		.add_property("name", &py_eq2_recipe::get_name);
 
 	class_<eq2_actor_despawned_args>("eq2_actor_despawned_args")

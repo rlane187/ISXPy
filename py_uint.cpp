@@ -69,7 +69,7 @@ std::string py_uint::leading_zeros(const unsigned int& num_zeros)
 int py_uint::get_signed()
 {
 	char* const member = static_cast<char *>("Signed");
-	return py_int(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_integer(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 void py_uint::inc(const std::string& formula)

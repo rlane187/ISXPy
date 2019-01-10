@@ -1,6 +1,6 @@
 #pragma once
 
-class py_eq2_item : public py_lsobject
+class py_eq2_item : public ls_object
 {
 public:
 	py_eq2_item();
