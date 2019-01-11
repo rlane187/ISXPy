@@ -48,44 +48,64 @@ int64_t ls_int64::operator-()
 
 #pragma region operator +
 
-int64_t ls_int::operator+(const bool& other)
+int64_t ls_int64::operator+(const bool& other)
 {
-	return int(*this) + other;
+	return int64_t(*this) + other;
 }
 
-int64_t operator+(const bool& lhs, const ls_int& rhs)
+int64_t operator+(const bool& lhs, const ls_int64& rhs)
 {
-	return lhs + ls_int(rhs).get_value();
+	return lhs + ls_int64(rhs).get_value();
 }
 
-int64_t ls_int::operator+(const ls_bool& other)
+int64_t ls_int64::operator+(const ls_bool& other)
 {
-	return int(*this) + ls_bool(other).get_value();
+	return int64_t(*this) + ls_bool(other).get_value();
 }
 
-int64_t ls_int::operator+(const int& other)
+int64_t ls_int64::operator+(const int& other)
 {
-	return int(*this) + other;
+	return int64_t(*this) + other;
 }
 
-int64_t operator+(const int& lhs, const ls_int& rhs)
+int64_t operator+(const int& lhs, const ls_int64& rhs)
 {
-	return lhs + ls_int(rhs).get_value();
+	return lhs + ls_int64(rhs).get_value();
 }
 
-int64_t ls_int::operator+(const ls_int& other)
+int64_t ls_int64::operator+(const int64_t& other)
 {
-	return int(*this) + ls_int(other).get_value();
+	return int64_t(*this) + other;
 }
 
-double ls_int::operator+(const double& other)
+int64_t operator+(const int64_t& lhs, const ls_int64& rhs)
 {
-	return int(*this) + other;
+	return lhs + ls_int64(rhs).get_value();
 }
 
-double operator+(const double& lhs, const ls_int& rhs)
+int64_t ls_int64::operator+(const ls_int& other)
 {
-	return lhs + ls_int(rhs).get_value();
+	return int64_t(*this) + ls_int(other).get_value();
+}
+
+int64_t ls_int64::operator+(const ls_int64& other)
+{
+	return int64_t(*this) + ls_int64(other).get_value();
+}
+
+double ls_int64::operator+(const double& other)
+{
+	return int64_t(*this) + other;
+}
+
+double operator+(const double& lhs, const ls_int64& rhs)
+{
+	return lhs + ls_int64(rhs).get_value();
+}
+
+double ls_int64::operator+(const ls_float& other)
+{
+	return int64_t(*this) + ls_float(other).get_value();
 }
 
 #pragma endregion

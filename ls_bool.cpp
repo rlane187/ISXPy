@@ -51,6 +51,85 @@ int ls_bool::operator-()
 	return -1 * bool(*this);
 }
 
+#pragma region operator +
+
+int ls_bool::operator+(const bool& other)
+{
+	return bool(*this) + other;
+}
+
+int operator+(const bool& lhs, const ls_bool& rhs)
+{
+	return lhs + ls_bool(rhs).get_value();
+}
+
+int ls_bool::operator+(const ls_bool& other)
+{
+	return bool(*this) + ls_bool(other).get_value();
+}
+
+int ls_bool::operator+(const int& other)
+{
+	return bool(*this) + other;
+}
+
+int operator+(const int& lhs, const ls_bool& rhs)
+{
+	return lhs + ls_bool(rhs).get_value();
+}
+
+int ls_bool::operator+(const ls_int& other)
+{
+	return bool(*this) + ls_int(other).get_value();
+}
+/*
+int64_t ls_bool::operator+(const int64_t& other)
+{
+	return bool(*this) + other;
+}
+
+int64_t operator+(const int64_t& lhs, const ls_bool& rhs)
+{
+	return lhs + ls_bool(rhs).get_value();
+}
+
+int64_t ls_bool::operator+(const ls_int64& other)
+{
+	return bool(*this) + ls_int64(other).get_value();
+}
+
+float ls_bool::operator+(const float& other)
+{
+	return bool(*this) + other;
+}
+
+float operator+(const float& lhs, const ls_bool& rhs)
+{
+	return lhs + ls_bool(rhs).get_value();
+}
+
+float ls_bool::operator+(const ls_float& other)
+{
+	return bool(*this) + ls_float(other).get_value();
+}
+*/
+double ls_bool::operator+(const double& other)
+{
+	return bool(*this) + other;
+}
+
+double operator+(const double& lhs, const ls_bool& rhs)
+{
+	return lhs + ls_bool(rhs).get_value();
+}
+
+double ls_bool::operator+(const ls_double& other)
+{
+	return bool(*this) + ls_double(other).get_value();
+}
+
+#pragma endregion
+
 #pragma region operator ==
 
 bool ls_bool::operator==(const bool& other)
@@ -177,49 +256,7 @@ bool ls_bool::operator||(const ls_bool& other)
 
 #pragma endregion
 
-#pragma region operator +
 
-int ls_bool::operator+(const bool& other)
-{
-	return bool(*this) + other;
-}
-
-int operator+(const bool& lhs, const ls_bool& rhs)
-{
-	return lhs + ls_bool(rhs).get_value();
-}
-
-int ls_bool::operator+(const ls_bool& other)
-{
-	return bool(*this) + ls_bool(other).get_value();
-}
-
-int ls_bool::operator+(const int& other)
-{
-	return bool(*this) + other;
-}
-
-int operator+(const int& lhs, const ls_bool& rhs)
-{
-	return lhs + ls_bool(rhs).get_value();
-}
-
-int ls_bool::operator+(const ls_int& other)
-{
-	return bool(*this) + ls_int(other).get_value();
-}
-
-double ls_bool::operator+(const double& other)
-{
-	return bool(*this) + other;
-}
-
-double operator+(const double& lhs, const ls_bool& rhs)
-{
-	return lhs + ls_bool(rhs).get_value();
-}
-
-#pragma endregion
 
 #pragma region operator -
 

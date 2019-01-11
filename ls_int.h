@@ -1,5 +1,5 @@
 ﻿#pragma once
-class py_float;
+class ls_float;
 
 class ls_int : public ls_object, boost::integer_arithmetic<ls_int>
 {
@@ -20,6 +20,7 @@ public:
 	int operator+(const ls_bool& other);
 	int operator+(const int& other);
 	int operator+(const ls_int& other);
+	int64_t operator+(const ls_float& other);
 	double operator+(const double& other);	
 
 	int operator-(const bool& other);
@@ -73,8 +74,11 @@ public:
 	bool operator==(const bool& other);
 	bool operator==(const ls_bool& other);
 	bool operator==(const int& other);
-	bool operator==(const double& other);
 	bool operator==(const ls_int& other);
+	bool operator==(const int64_t& other);
+	bool operator==(const ls_int64& other);
+	bool operator==(const double& other);
+	bool operator==(const ls_float& other);	
 
 	bool operator!=(const bool& other);
 	bool operator!=(const ls_bool& other);

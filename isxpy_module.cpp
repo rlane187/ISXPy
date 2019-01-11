@@ -35,6 +35,25 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def("__nonzero__", &ls_bool::operator!)
 		.def(-self)
 
+		.def(self + bool())
+		.def(bool() + self)
+		.def(self + ls_bool())
+		.def(self + int())
+		.def(int() + self)
+		.def(self + ls_int())
+		// ls_int + self
+		//.def(self + int64_t())
+		//.def(int64_t() + self)
+		//.def(self + ls_int64())
+		// ls_int64 + self
+		//.def(self + float())
+		//.def(float() + self)
+		//.def(self + ls_float())
+		// ls_float + self
+		.def(self + double())
+		.def(double() + self)
+		.def(self + ls_double())
+
 		.def(self == bool())
 		.def(bool() == self)
 		.def(self == ls_bool())		
@@ -55,15 +74,7 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self != double())
 		.def(double() != self)
 		
-		.def(self + bool())
-		.def(bool() + self)
-		.def(self + ls_bool())
-		.def(self + int())
-		.def(int() + self)
-		.def(self + ls_int())
-		// ls_int + self
-		.def(self + double())
-		.def(double() + self)
+		
 
 		.def(self - bool())
 		.def(bool() - self)
@@ -386,31 +397,13 @@ BOOST_PYTHON_MODULE(isxpy)
 
 #pragma endregion
 
-	class_<py_float, bases<ls_object>>("lso_float", init<const LSOBJECT&>())
-		.add_property("value", &py_float::get_value)
-		.add_property("deci", &py_float::get_deci)
-		.add_property("centi", &py_float::get_centi)
-		.add_property("milli", &py_float::get_milli)
-		.add_property("floor", &py_float::get_int)
-		.def("precision", &py_float::precision)
-		.add_property("ceil", &py_float::get_ceil)
-		.add_property("round", &py_float::get_round)
-		.def("inc", &py_float::inc, py_float::inc_overloads(args("formula")))
-		.def("dec", &py_float::dec, py_float::dec_overloads(args("formula")))
-		.def("set", &py_float::set);
+	class_<ls_float, bases<ls_object>>("lso_float", init<const LSOBJECT&>())
+		.add_property("value", &ls_float::get_value)
+		;
 
-	class_<py_float64, bases<ls_object>>("lso_float64", init<const LSOBJECT&>())
-		.add_property("value", &py_float64::get_value)
-		.add_property("deci", &py_float64::get_deci)
-		.add_property("centi", &py_float64::get_centi)
-		.add_property("milli", &py_float64::get_milli)
-		.add_property("floor", &py_float64::get_int)
-		.def("precision", &py_float64::precision)
-		.add_property("ceil", &py_float64::get_ceil)
-		.add_property("round", &py_float64::get_round)
-		.def("inc", &py_float64::inc, py_float64::inc_overloads(args("formula")))
-		.def("dec", &py_float64::dec, py_float64::dec_overloads(args("formula")))
-		.def("set", &py_float64::set);
+	class_<ls_double, bases<ls_object>>("lso_float64", init<const LSOBJECT&>())
+		.add_property("value", &ls_double::get_value)
+		;
 
 	class_<py_string, bases<ls_object>>("lso_string", init<const LSOBJECT&>())
 		.add_property("value", &py_string::get_value)

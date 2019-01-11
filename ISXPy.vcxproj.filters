@@ -179,9 +179,6 @@
     <ClCompile Include="isxpy_events.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY</Filter>
     </ClCompile>
-    <ClCompile Include="py_float.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_string.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
@@ -189,9 +186,6 @@
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_byte.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_float64.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
     <ClCompile Include="ls_object.cpp">
@@ -204,6 +198,12 @@
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
     <ClCompile Include="ls_int64.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_float.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_double.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
     </ClCompile>
   </ItemGroup>
@@ -313,16 +313,10 @@
     <ClInclude Include="isxpy_events.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
     </ClInclude>
-    <ClInclude Include="py_float.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
     <ClInclude Include="py_string.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_uint.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_float64.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="ls_object.h">
@@ -338,6 +332,12 @@
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="ls_int64.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_float.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_double.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
   </ItemGroup>

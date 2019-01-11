@@ -86,8 +86,8 @@
     <ClCompile Include="py_byte.cpp" />
     <ClCompile Include="py_eq2_group_member.cpp" />
     <ClCompile Include="py_eq2_item.cpp" />
-    <ClCompile Include="py_float.cpp" />
-    <ClCompile Include="py_float64.cpp" />
+    <ClCompile Include="ls_float.cpp" />
+    <ClCompile Include="ls_double.cpp" />
     <ClCompile Include="ls_int.cpp" />
     <ClCompile Include="ls_int64.cpp" />
     <ClCompile Include="ls_object.cpp" />
@@ -120,7 +120,7 @@
     <ClInclude Include="eq2_on_quest_offered_args.h" />
     <ClInclude Include="ls_bool.h" />
     <ClInclude Include="py_byte.h" />
-    <ClInclude Include="py_float64.h" />
+    <ClInclude Include="ls_double.h" />
     <ClInclude Include="ls_int64.h" />
     <ClInclude Include="isxeq2_events.h" />
     <ClInclude Include="globals.h" />
@@ -134,7 +134,7 @@
     <ClInclude Include="ISXPy.h" />
     <ClInclude Include="py_eq2_group_member.h" />
     <ClInclude Include="py_eq2_item.h" />
-    <ClInclude Include="py_float.h" />
+    <ClInclude Include="ls_float.h" />
     <ClInclude Include="ls_int.h" />
     <ClInclude Include="ls_object.h" />
     <ClInclude Include="ISXPyPCH.h" />

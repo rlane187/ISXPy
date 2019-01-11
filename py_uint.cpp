@@ -40,7 +40,7 @@ unsigned int py_uint::get_value()
 float py_uint::get_float()
 {
 	char* const member = static_cast<char *>("Float");
-	return py_float(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_float(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 std::string py_uint::get_hex()

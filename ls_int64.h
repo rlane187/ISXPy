@@ -13,7 +13,7 @@ public:
 	ls_int64& operator=(ls_int64&& other) noexcept;
 	int64_t get_value();
 
-	int operator-();
+	int64_t operator-();
 
 	int64_t operator+(const bool& other);
 	int64_t operator+(const ls_bool& other);
@@ -22,6 +22,7 @@ public:
 	int64_t operator+(const int64_t& other);
 	int64_t operator+(const ls_int64& other);
 	double operator+(const double& other);
+	double operator+(const ls_float& other);
 	
 
 

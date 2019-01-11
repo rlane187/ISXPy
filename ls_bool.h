@@ -1,6 +1,9 @@
 #pragma once
 
 class ls_int;
+class ls_int64;
+class ls_float;
+class ls_double;
 
 class ls_bool : public ls_object
 {
@@ -17,17 +20,38 @@ public:
 	bool operator!();
 	int operator-();
 
+	int operator+(const bool& other);
+	int operator+(const ls_bool& other);
+	int operator+(const int& other);
+	int operator+(const ls_int& other);
+	//int64_t operator+(const int64_t& other);
+	//int64_t operator+(const ls_int64 &other);
+	//float operator+(const float& other);
+	//float operator+(const ls_float& other);
+	double operator+(const double& other);
+	double operator+(const ls_double& other);
+
 	bool operator==(const bool& other);
 	bool operator==(const ls_bool& other);
 	bool operator==(const int& other);
 	bool operator==(const ls_int& other);
+	//bool operator==(const int64_t& other);
+	//bool operator==(const ls_int64& other);
+	//bool operator==(const float& other);
+	//bool operator==(const ls_float& other);
 	bool operator==(const double& other);
+	//bool operator==(const ls_double& other);
 
 	bool operator!=(const bool& other);
 	bool operator!=(const ls_bool& other);
 	bool operator!=(const int& other);
 	bool operator!=(const ls_int& other);
+	bool operator!=(const int64_t& other);
+	bool operator!=(const ls_int64& other);
+	bool operator!=(const float& other);
+	bool operator!=(const ls_float& other);
 	bool operator!=(const double& other);
+	bool operator!=(const ls_double& other);
 
 	bool operator&&(const bool& other);
 	bool operator&&(const ls_bool& other);
@@ -35,11 +59,7 @@ public:
 	bool operator||(const bool& other);
 	bool operator||(const ls_bool& other);
 		
-	int operator+(const bool& other);
-	int operator+(const ls_bool& other);
-	int operator+(const int& other);
-	int operator+(const ls_int& other);
-	double operator+(const double& other);	
+	
 
 	int operator-(const bool& other);
 	int operator-(const ls_bool& other);
@@ -128,6 +148,13 @@ public:
 	}
 };
 
+int operator+(const bool& lhs, const ls_bool& rhs);
+int operator+(const int& lhs, const ls_bool& rhs);
+//int64_t operator+(const int64_t& lhs, ls_bool& rhs);
+//float operator+(const float& lhs, ls_bool& rhs);
+double operator+(const double& lhs, const ls_bool& rhs);
+
+
 bool operator==(const bool& lhs, const ls_bool& rhs);
 bool operator==(const int& lhs, const ls_bool& rhs);
 bool operator==(const double& lhs, const ls_bool& rhs);
@@ -140,9 +167,7 @@ bool operator&&(const bool& lhs, const ls_bool& rhs);
 
 bool operator||(const bool& lhs, const ls_bool& rhs);
 
-int operator+(const bool& lhs, const ls_bool& rhs);
-int operator+(const int& lhs, const ls_bool& rhs);
-double operator+(const double& lhs, const ls_bool& rhs);
+
 
 int operator-(const bool& lhs, const ls_bool& rhs);
 int operator-(const int& lhs, const ls_bool& rhs);
