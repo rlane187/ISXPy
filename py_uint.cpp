@@ -46,7 +46,7 @@ float py_uint::get_float()
 std::string py_uint::get_hex()
 {
 	char* const member = static_cast<char *>("Hex");
-	return py_string(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_string(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 unsigned int py_uint::get_reverse()
@@ -63,7 +63,7 @@ std::string py_uint::leading_zeros(const unsigned int& num_zeros)
 	sprintf_s(buffer, _countof(buffer), "%u", num_zeros);
 	argv[0] = buffer;
 	char* const member = static_cast<char *>("LeadingZeroes");
-	return py_string(this->get_member(member, argc, argv).get_lso()).get_value();
+	return ls_string(this->get_member(member, argc, argv).get_lso()).get_value();
 }
 
 int py_uint::get_signed()

@@ -17,121 +17,131 @@ public:
 	ls_bool& operator=(const ls_bool& other);
 	ls_bool& operator=(ls_bool&& other) noexcept;
 	bool get_value();
+	bool get_is_valid() const;
 	bool operator!();
 	int operator-();
 
-	int operator+(const bool& other);
-	int operator+(const ls_bool& other);
-	int operator+(const int& other);
-	int operator+(const ls_int& other);
-	//int64_t operator+(const int64_t& other);
-	//int64_t operator+(const ls_int64 &other);
-	//float operator+(const float& other);
-	//float operator+(const ls_float& other);
+	int64_t operator+(const bool& other);
+	int64_t operator+(const ls_bool& other);
+	int64_t operator+(const int& other);
+	int64_t operator+(const int64_t& other);
+	int64_t operator+(const ls_int& other);	
 	double operator+(const double& other);
-	double operator+(const ls_double& other);
+	double operator+(const ls_float& other);
+
+	int64_t operator-(const bool& other);
+	int64_t operator-(const ls_bool& other);
+	int64_t operator-(const int& other);
+	int64_t operator-(const int64_t& other);
+	int64_t operator-(const ls_int& other);
+	double operator-(const double& other);
+	double operator-(const ls_float& other);
+
+	int64_t operator*(const bool& other);
+	int64_t operator*(const ls_bool& other);
+	int64_t operator*(const int& other);
+	int64_t operator*(const int64_t& other);
+	int64_t operator*(const ls_int& other);
+	double operator*(const double& other);
+	double operator*(const ls_float& other);
+
+	int64_t operator/(const bool& other);
+	int64_t operator/(const ls_bool& other);
+	int64_t operator/(const int& other);
+	int64_t operator/(const int64_t& other);
+	int64_t operator/(const ls_int& other);
+	double operator/(const double& other);
+	double operator/(const ls_float& other);
+
+	int64_t operator%(const bool& other);
+	int64_t operator%(const ls_bool& other);
+	int64_t operator%(const int& other);
+	int64_t operator%(const int64_t& other);
+	int64_t operator%(const ls_int& other);
+
+	int64_t operator>>(const bool& other);
+	int64_t operator>>(const ls_bool& other);
+	int64_t operator>>(const int& other);
+	int64_t operator>>(const int64_t& other);
+	int64_t operator>>(const ls_int& other);
+
+	int64_t operator<<(const bool& other);
+	int64_t operator<<(const ls_bool& other);
+	int64_t operator<<(const int& other);
+	int64_t operator<<(const int64_t& other);
+	int64_t operator<<(const ls_int& other);
+
+	int64_t operator&(const bool& other);
+	int64_t operator&(const ls_bool& other);
+	int64_t operator&(const int& other);
+	int64_t operator&(const int64_t& other);
+	int64_t operator&(const ls_int& other);
+
+	int64_t operator^(const bool& other);
+	int64_t operator^(const ls_bool& other);
+	int64_t operator^(const int& other);
+	int64_t operator^(const int64_t& other);
+	int64_t operator^(const ls_int& other);
+
+	int64_t operator|(const bool& other);
+	int64_t operator|(const ls_bool& other);
+	int64_t operator|(const int& other);
+	int64_t operator|(const int64_t& other);
+	int64_t operator|(const ls_int& other);
 
 	bool operator==(const bool& other);
 	bool operator==(const ls_bool& other);
-	bool operator==(const int& other);
+	bool operator==(const int& other);	
+	bool operator==(const int64_t& other);
 	bool operator==(const ls_int& other);
-	//bool operator==(const int64_t& other);
-	//bool operator==(const ls_int64& other);
-	//bool operator==(const float& other);
-	//bool operator==(const ls_float& other);
 	bool operator==(const double& other);
-	//bool operator==(const ls_double& other);
+	bool operator==(const ls_float& other);
 
 	bool operator!=(const bool& other);
 	bool operator!=(const ls_bool& other);
 	bool operator!=(const int& other);
-	bool operator!=(const ls_int& other);
 	bool operator!=(const int64_t& other);
-	bool operator!=(const ls_int64& other);
-	bool operator!=(const float& other);
-	bool operator!=(const ls_float& other);
+	bool operator!=(const ls_int& other);
 	bool operator!=(const double& other);
-	bool operator!=(const ls_double& other);
+	bool operator!=(const ls_float& other);
 
 	bool operator&&(const bool& other);
 	bool operator&&(const ls_bool& other);
 
 	bool operator||(const bool& other);
 	bool operator||(const ls_bool& other);
-		
-	
-
-	int operator-(const bool& other);
-	int operator-(const ls_bool& other);
-	int operator-(const int& other);
-	int operator-(const ls_int& other);
-	double operator-(const double& other);
-
-	int operator*(const bool& other);
-	int operator*(const ls_bool& other);
-	int operator*(const int& other);
-	int operator*(const ls_int& other);
-	double operator*(const double& other);	
-
-	int operator/(const bool& other);
-	int operator/(const ls_bool& other);
-	int operator/(const int& other);
-	int operator/(const ls_int& other);
-	double operator/(const double& other);	
-
-	int operator%(const bool& other);
-	int operator%(const ls_bool& other);
-	int operator%(const int& other);
-	int operator%(const ls_int& other);
-
-	int operator>>(const bool& other);
-	int operator>>(const ls_bool& other);
-	int operator>>(const int& other);
-	int operator>>(const ls_int& other);
-
-	int operator<<(const bool& other);
-	int operator<<(const ls_bool& other);
-	int operator<<(const int& other);
-	int operator<<(const ls_int& other);
-
-	int operator&(const bool& other);
-	int operator&(const ls_bool& other);
-	int operator&(const int& other);
-	int operator&(const ls_int& other);
-
-	int operator^(const bool& other);
-	int operator^(const int& other);
-	int operator^(const ls_int& other);
-	int operator^(const ls_bool& other);
-
-	int operator|(const bool& other);
-	int operator|(const ls_bool& other);
-	int operator|(const int& other);
-	int operator|(const ls_int& other);
 
 	bool operator<(const bool& other);
 	bool operator<(const ls_bool& other);
 	bool operator<(const int& other);
+	bool operator<(const int64_t& other);
 	bool operator<(const ls_int& other);
 	bool operator<(const double& other);
+	bool operator<(const ls_float& other);
 
 	bool operator>(const bool& other);
 	bool operator>(const ls_bool& other);
 	bool operator>(const int& other);
+	bool operator>(const int64_t& other);
 	bool operator>(const ls_int& other);
 	bool operator>(const double& other);
+	bool operator>(const ls_float& other);
 
 	bool operator<=(const bool& other);
 	bool operator<=(const ls_bool& other);
 	bool operator<=(const int& other);
+	bool operator<=(const int64_t& other);
 	bool operator<=(const ls_int& other);
 	bool operator<=(const double& other);
+	bool operator<=(const ls_float& other);
 
 	bool operator>=(const bool& other);
 	bool operator>=(const ls_bool& other);
 	bool operator>=(const int& other);
+	bool operator>=(const int64_t& other);
 	bool operator>=(const ls_int& other);
 	bool operator>=(const double& other);
+	bool operator>=(const ls_float& other);
 
 	// ReSharper disable once CppNonExplicitConversionOperator
 	operator bool() { return this->get_value(); }
@@ -148,71 +158,82 @@ public:
 	}
 };
 
-int operator+(const bool& lhs, const ls_bool& rhs);
-int operator+(const int& lhs, const ls_bool& rhs);
-//int64_t operator+(const int64_t& lhs, ls_bool& rhs);
-//float operator+(const float& lhs, ls_bool& rhs);
+int64_t operator+(const bool& lhs, const ls_bool& rhs);
+int64_t operator+(const int& lhs, const ls_bool& rhs);
+int64_t operator+(const int64_t& lhs, const ls_bool& rhs);
 double operator+(const double& lhs, const ls_bool& rhs);
 
+int64_t operator-(const bool& lhs, const ls_bool& rhs);
+int64_t operator-(const int& lhs, const ls_bool& rhs);
+int64_t operator-(const int64_t& lhs, const ls_bool& rhs);
+double operator-(const double& lhs, const ls_bool& rhs);
+
+int64_t operator*(const bool& lhs, const ls_bool& rhs);
+int64_t operator*(const int& lhs, const ls_bool& rhs);
+int64_t operator*(const int64_t& lhs, const ls_bool& rhs);
+double operator*(const double& lhs, const ls_bool& rhs);
+
+int64_t operator/(const bool& lhs, const ls_bool& rhs);
+int64_t operator/(const int& lhs, const ls_bool& rhs);
+int64_t operator/(const int64_t& lhs, const ls_bool& rhs);
+double operator/(const double& lhs, const ls_bool& rhs);
+
+int64_t operator%(const bool& lhs, const ls_bool& rhs);
+int64_t operator%(const int& lhs, const ls_bool& rhs);
+int64_t operator%(const int64_t& lhs, const ls_bool& rhs);
+
+int64_t operator>>(const bool& lhs, const ls_bool& rhs);
+int64_t operator>>(const int& lhs, const ls_bool& rhs);
+int64_t operator>>(const int64_t& lhs, const ls_bool& rhs);
+
+int64_t operator<<(const bool& lhs, const ls_bool& rhs);
+int64_t operator<<(const int& lhs, const ls_bool& rhs);
+int64_t operator<<(const int64_t& lhs, const ls_bool& rhs);
+
+int64_t operator&(const bool& lhs, const ls_bool& rhs);
+int64_t operator&(const int& lhs, const ls_bool& rhs);
+int64_t operator&(const int64_t& lhs, const ls_bool& rhs);
+
+int64_t operator^(const bool& lhs, const ls_bool& rhs);
+int64_t operator^(const int& lhs, const ls_bool& rhs);
+int64_t operator^(const int64_t& lhs, const ls_bool& rhs);
+
+int64_t operator|(const bool& lhs, const ls_bool& rhs);
+int64_t operator|(const int& lhs, const ls_bool& rhs);
+int64_t operator|(const int64_t& lhs, const ls_bool& rhs);
 
 bool operator==(const bool& lhs, const ls_bool& rhs);
 bool operator==(const int& lhs, const ls_bool& rhs);
+bool operator==(const int64_t& lhs, const ls_bool& rhs);
 bool operator==(const double& lhs, const ls_bool& rhs);
 
 bool operator!=(const bool& lhs, const ls_bool& rhs);
 bool operator!=(const int& lhs, const ls_bool& rhs);
+bool operator!=(const int64_t& lhs, const ls_bool& rhs);
 bool operator!=(const double& lhs, const ls_bool& rhs);
 
 bool operator&&(const bool& lhs, const ls_bool& rhs);
 
 bool operator||(const bool& lhs, const ls_bool& rhs);
 
-
-
-int operator-(const bool& lhs, const ls_bool& rhs);
-int operator-(const int& lhs, const ls_bool& rhs);
-double operator-(const double& lhs, const ls_bool& rhs);
-
-int operator*(const bool& lhs, const ls_bool& rhs);
-int operator*(const int& lhs, const ls_bool& rhs);
-double operator*(const double& lhs, const ls_bool& rhs);
-
-int operator/(const bool& lhs, const ls_bool& rhs);
-int operator/(const int& lhs, const ls_bool& rhs);
-double operator/(const double& lhs, const ls_bool& rhs);
-
-int operator%(const bool& lhs, const ls_bool& rhs);
-int operator%(const int& lhs, const ls_bool& rhs);
-
-int operator>>(const bool& lhs, const ls_bool& rhs);
-int operator>>(const int& lhs, const ls_bool& rhs);
-
-int operator<<(const bool& lhs, const ls_bool& rhs);
-int operator<<(const int& lhs, const ls_bool& rhs);
-
-int operator&(const bool& lhs, const ls_bool& rhs);
-int operator&(const int& lhs, const ls_bool& rhs);
-
-int operator^(const bool& lhs, const ls_bool& rhs);
-int operator^(const int& lhs, const ls_bool& rhs);
-
-int operator|(const bool& lhs, const ls_bool& rhs);
-int operator|(const int& lhs, const ls_bool& rhs);
-
 bool operator<(const bool& lhs, const ls_bool& rhs);
 bool operator<(const int& lhs, const ls_bool& rhs);
+bool operator<(const int64_t& lhs, const ls_bool& rhs);
 bool operator<(const double& lhs, const ls_bool& rhs);
 
 bool operator>(const bool& lhs, const ls_bool& rhs);
 bool operator>(const int& lhs, const ls_bool& rhs);
+bool operator>(const int64_t& lhs, const ls_bool& rhs);
 bool operator>(const double& lhs, const ls_bool& rhs);
 
 bool operator<=(const bool& lhs, const ls_bool& rhs);
 bool operator<=(const int& lhs, const ls_bool& rhs);
+bool operator<=(const int64_t& lhs, const ls_bool& rhs);
 bool operator<=(const double& lhs, const ls_bool& rhs);
 
 bool operator>=(const bool& lhs, const ls_bool& rhs);
 bool operator>=(const int& lhs, const ls_bool& rhs);
+bool operator>=(const int64_t& lhs, const ls_bool& rhs);
 bool operator>=(const double& lhs, const ls_bool& rhs);
 
 double pow(const int& lhs, const ls_bool& rhs);

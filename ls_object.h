@@ -26,6 +26,7 @@ public:
 	int get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list);	
 protected:
 	LSOBJECT lsobject_;
+	bool is_valid_{ false };
 private:	
 	bool has_inherited_member(PCHAR member) const;
 	bool has_inherited_method(PCHAR method) const;

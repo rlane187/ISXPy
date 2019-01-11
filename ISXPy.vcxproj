@@ -83,13 +83,10 @@
     <ClCompile Include="isxpy_module.cpp" />
     <ClCompile Include="LGUIPyFrame.cpp" />
     <ClCompile Include="ls_bool.cpp" />
-    <ClCompile Include="py_byte.cpp" />
     <ClCompile Include="py_eq2_group_member.cpp" />
     <ClCompile Include="py_eq2_item.cpp" />
     <ClCompile Include="ls_float.cpp" />
-    <ClCompile Include="ls_double.cpp" />
     <ClCompile Include="ls_int.cpp" />
-    <ClCompile Include="ls_int64.cpp" />
     <ClCompile Include="ls_object.cpp" />
     <ClCompile Include="py_eq2_actor.cpp" />
     <ClCompile Include="py_eq2_effect.cpp" />
@@ -103,8 +100,7 @@
     <ClCompile Include="py_point3_f.cpp" />
     <ClCompile Include="py_eq2_actor_effect.cpp" />
     <ClCompile Include="py_eq2_recipe.cpp" />
-    <ClCompile Include="py_string.cpp" />
-    <ClCompile Include="py_uint.cpp" />
+    <ClCompile Include="ls_string.cpp" />
     <ClCompile Include="Services.cpp" />
     <ClCompile Include="stackless_module.cpp" />
     <ClCompile Include="tasklet.cpp" />
@@ -119,9 +115,6 @@
     <ClInclude Include="eq2_actor_spawned_args.h" />
     <ClInclude Include="eq2_on_quest_offered_args.h" />
     <ClInclude Include="ls_bool.h" />
-    <ClInclude Include="py_byte.h" />
-    <ClInclude Include="ls_double.h" />
-    <ClInclude Include="ls_int64.h" />
     <ClInclude Include="isxeq2_events.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="isxeq2_module.h" />
@@ -149,8 +142,7 @@
     <ClInclude Include="py_mutable_string.h" />
     <ClInclude Include="py_point3_f.h" />
     <ClInclude Include="py_eq2_recipe.h" />
-    <ClInclude Include="py_string.h" />
-    <ClInclude Include="py_uint.h" />
+    <ClInclude Include="ls_string.h" />
     <ClInclude Include="Services.h" />
     <ClInclude Include="stackless_module.h" />
     <ClInclude Include="tasklet.h" />

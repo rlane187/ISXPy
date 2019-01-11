@@ -29,6 +29,7 @@ BOOST_PYTHON_MODULE(isxpy)
 
 	class_<ls_bool, bases<ls_object>>("ls_bool", init<const LSOBJECT&>())
 		.add_property("value", &ls_bool::get_value)
+		.add_property("is_valid", &ls_bool::get_is_valid)
 		.def(self_ns::str(self))
 		.def(int_(self))
 		.def("__bool__", &ls_bool::get_value)
@@ -39,20 +40,29 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(bool() + self)
 		.def(self + ls_bool())
 		.def(self + int())
-		.def(int() + self)
+		.def(int() + self)		
+		.def(self + int64_t())
+		.def(int64_t() + self)
 		.def(self + ls_int())
 		// ls_int + self
-		//.def(self + int64_t())
-		//.def(int64_t() + self)
-		//.def(self + ls_int64())
-		// ls_int64 + self
-		//.def(self + float())
-		//.def(float() + self)
-		//.def(self + ls_float())
-		// ls_float + self
 		.def(self + double())
 		.def(double() + self)
-		.def(self + ls_double())
+		.def(self + ls_float())
+		// ls_float + self
+
+		.def(self - bool())
+		.def(bool() - self)
+		.def(self - ls_bool())
+		.def(self - int())
+		.def(int() - self)
+		.def(self - int64_t())
+		.def(int64_t() - self)
+		.def(self - ls_int())
+		// ls_int - self
+		.def(self - double())
+		.def(double() - self)
+		.def(self - ls_float())
+		// ls_float - self
 
 		.def(self == bool())
 		.def(bool() == self)
@@ -73,44 +83,42 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_int == self
 		.def(self != double())
 		.def(double() != self)
-		
-		
-
-		.def(self - bool())
-		.def(bool() - self)
-		.def(self - ls_bool())
-		.def(self - int())
-		.def(int() - self)
-		.def(self - ls_int())
-		// ls_int - self
-		.def(self - double())
-		.def(double() - self)
-		
+						
 		.def(self * bool())
 		.def(bool() * self)
 		.def(self * ls_bool())
-		.def(self * int())
+		.def(self * int())		
+		.def(int() * self)
+		.def(self * int64_t())
+		.def(int64_t() * self)
 		.def(self * ls_int())
 		// ls_int * self
-		.def(int() * self)
 		.def(self * double())
 		.def(double() * self)
+		.def(self * ls_float())
+		// ls_float * self
 
 		.def(self / bool())
 		.def(bool() / self)
 		.def(self / ls_bool())
 		.def(self / int())
+		.def(int() / self)
+		.def(self / int64_t())
+		.def(int64_t() / self)
 		.def(self / ls_int())
 		// ls_int / self
-		.def(int() / self)
 		.def(self / double())
 		.def(double() / self)
+		.def(self / ls_float())
+		// ls_float / self
 
 		.def(self % bool())
 		.def(bool() % self)
 		.def(self % ls_bool())
 		.def(self % int())
 		.def(int() % self)
+		.def(self % int64_t())
+		.def(int64_t() % self)
 		.def(self % ls_int())
 		// ls_int % self
 
@@ -119,6 +127,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self >> ls_bool())
 		.def(self >> int())
 		.def(int() >> self)
+		.def(self >> int64_t())
+		.def(int64_t() >> self)
 		.def(self >> ls_int())
 		// ls_int >> self	
 		
@@ -127,6 +137,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self << ls_bool())
 		.def(self << int())
 		.def(int() << self)
+		.def(self << int64_t())
+		.def(int64_t() << self)
 		.def(self << ls_int())
 		// ls_int << self
 		
@@ -135,6 +147,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self & ls_bool())
 		.def(self & int())
 		.def(int() & self)
+		.def(self & int64_t())
+		.def(int64_t() & self)
 		.def(self & ls_int())
 		// ls_int & self
 
@@ -143,6 +157,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self ^ ls_bool())
 		.def(self ^ int())
 		.def(int() ^ self)
+		.def(self ^ int64_t())
+		.def(int64_t() ^ self)
 		.def(self ^ ls_int())
 		// ls_int ^ self		
 
@@ -151,48 +167,94 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self | ls_bool())
 		.def(self | int())
 		.def(int() | self)
+		.def(self | int64_t())
+		.def(int64_t() | self)
 		.def(self | ls_int())
 		// ls_int | self		
+
+		.def(self == bool())
+		.def(bool() == self)
+		.def(self == ls_bool())
+		.def(self == int())
+		.def(int() == self)
+		.def(self == int64_t())
+		.def(int64_t() == self)
+		.def(self == ls_int())
+		// ls_int == self
+		.def(self == double())
+		.def(double() == self)
+		.def(self == ls_float())
+		// ls_float == self
+
+		.def(self != bool())
+		.def(bool() != self)
+		.def(self != ls_bool())
+		.def(self != int())
+		.def(int() != self)
+		.def(self != int64_t())
+		.def(int64_t() != self)
+		.def(self != ls_int())
+		// ls_int != self
+		.def(self != double())
+		.def(double() != self)
+		.def(self != ls_float())
+		// ls_float != self
 
 		.def(self < bool())
 		.def(bool() < self)
 		.def(self < ls_bool())
 		.def(self < int())
 		.def(int() < self)
+		.def(self < int64_t())
+		.def(int64_t() < self)
 		.def(self < ls_int())
-		// ls_int < self		
+		// ls_int < self
 		.def(self < double())
-		.def(double() < self)	
+		.def(double() < self)
+		.def(self < ls_float())
+		// ls_float < self
 
 		.def(self > bool())
 		.def(bool() > self)
 		.def(self > ls_bool())
 		.def(self > int())
 		.def(int() > self)
+		.def(self > int64_t())
+		.def(int64_t() > self)
 		.def(self > ls_int())
 		// ls_int > self
 		.def(self > double())
-		.def(double() > self)		
+		.def(double() > self)
+		.def(self > ls_float())
+		// ls_float > self		
 
 		.def(self <= bool())
 		.def(bool() <= self)
 		.def(self <= ls_bool())
 		.def(self <= int())
 		.def(int() <= self)
+		.def(self <= int64_t())
+		.def(int64_t() <= self)
 		.def(self <= ls_int())
 		// ls_int <= self
 		.def(self <= double())
 		.def(double() <= self)
+		.def(self <= ls_float())
+		// ls_float <= self	
 
 		.def(self >= bool())
 		.def(bool() >= self)
 		.def(self >= ls_bool())
 		.def(self >= int())
 		.def(int() >= self)
+		.def(self >= int64_t())
+		.def(int64_t() >= self)
 		.def(self >= ls_int())
 		// ls_int >= self
 		.def(self >= double())
-		.def(double() >= self)		
+		.def(double() >= self)
+		.def(self >= ls_float())
+		// ls_float >= self		
 
 		.def(pow(int(), self))
 		.def(pow(double(), self))
@@ -202,16 +264,11 @@ BOOST_PYTHON_MODULE(isxpy)
 
 #pragma endregion
 
-	class_<py_byte, bases<ls_object>>("lso_byte", init<const LSOBJECT&>())
-		.add_property("value", &py_byte::get_value)
-		.def("inc", &py_byte::inc, py_byte::inc_overloads(args("formula")))
-		.def("inc", &py_byte::dec, py_byte::dec_overloads(args("formula")))
-		.def("set", &py_byte::set);
-
 #pragma region ls_int
 
 	class_<ls_int, bases<ls_object>>("ls_int", init<const LSOBJECT&>())
 		.add_property("value", &ls_int::get_value)
+		.add_property("is_valid", &ls_int::get_is_valid)
 		.def(self_ns::str(self))
 		.def(int_(self))
 		.def(float_(self))
@@ -223,9 +280,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool + self		
 		.def(self + int())
 		.def(int() + self)
+		.def(self + int64_t())
+		.def(int64_t() + self)
 		.def(self + ls_int())
 		.def(self + double())
 		.def(double() + self)
+		.def(self + ls_float())
+		// ls_float + self
 
 		.def(self - bool())
 		.def(bool() - self)
@@ -233,9 +294,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool - self		
 		.def(self - int())
 		.def(int() - self)
+		.def(self - int64_t())
+		.def(int64_t() - self)
 		.def(self - ls_int())
 		.def(self - double())
 		.def(double() - self)
+		.def(self - ls_float())
+		// ls_float - self
 
 		.def(self * bool())
 		.def(bool() * self)
@@ -244,26 +309,36 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self * int())
 		.def(int() * self)
 		.def(self * ls_int())
+		.def(self * int64_t())
+		.def(int64_t() * self)
 		.def(self * double())
 		.def(double() * self)
+		.def(self * ls_float())
+		// ls_float * self
 
 		.def(self / bool())
 		.def(bool() / self)
 		.def(self / ls_bool())
-		// ls_bool / self		
+		// ls_bool / self
 		.def(self / int())
 		.def(int() / self)
 		.def(self / ls_int())
+		.def(self / int64_t())
+		.def(int64_t() / self)
 		.def(self / double())
 		.def(double() / self)
+		.def(self / ls_float())
+		// ls_float / self
 
 		.def(self % bool())
 		.def(bool() % self)
 		.def(self % ls_bool())
-		// ls_bool % self		
+		// ls_bool % self
 		.def(self % int())
 		.def(int() % self)
 		.def(self % ls_int())
+		.def(self % int64_t())
+		.def(int64_t() % self)
 
 		.def(self >> bool())
 		.def(bool() >> self)
@@ -271,6 +346,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool >> self
 		.def(self >> int())
 		.def(int() >> self)
+		.def(self >> int64_t())
+		.def(int64_t() >> self)
 		.def(self >> ls_int())
 
 		.def(self << bool())
@@ -279,6 +356,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool << self
 		.def(self << int())
 		.def(int() << self)
+		.def(self << int64_t())
+		.def(int64_t() << self)
 		.def(self << ls_int())
 
 		.def(self & bool())
@@ -287,6 +366,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool & self
 		.def(self & int())
 		.def(int() & self)
+		.def(self & int64_t())
+		.def(int64_t() & self)
 		.def(self & ls_int())
 
 		.def(self ^ bool())
@@ -295,6 +376,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool ^ self
 		.def(self ^ int())
 		.def(int() ^ self)
+		.def(self ^ int64_t())
+		.def(int64_t() ^ self)
 		.def(self ^ ls_int())
 
 		.def(self | bool())
@@ -303,6 +386,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool | self
 		.def(self | int())
 		.def(int() | self)
+		.def(self | int64_t())
+		.def(int64_t() | self)
 		.def(self | ls_int())
 
 		.def(self == bool())
@@ -311,9 +396,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool == self
 		.def(self == int())
 		.def(int() == self)
+		.def(self == int64_t())
+		.def(int64_t() == self)
 		.def(self == ls_int())
 		.def(self == double())
-		.def(double() == self)		
+		.def(double() == self)
+		.def(self == ls_float())
+		// ls_float == self
 
 		.def(self != bool())
 		.def(bool() != self)
@@ -321,9 +410,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool != self
 		.def(self != int())
 		.def(int() != self)
+		.def(self != int64_t())
+		.def(int64_t() != self)
 		.def(self != ls_int())
 		.def(self != double())
-		.def(double()!= self)
+		.def(double() != self)
+		.def(self != ls_float())
+		// ls_float != self
 		
 		.def(self < bool())
 		.def(bool() < self)
@@ -331,9 +424,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool < self
 		.def(self < int())
 		.def(int() < self)
+		.def(self < int64_t())
+		.def(int64_t() < self)
+		.def(self < ls_int())
 		.def(self < double())
 		.def(double() < self)
-		.def(self < ls_int())
+		.def(self < ls_float())
+		// ls_float < self
 
 		.def(self > bool())
 		.def(bool() > self)
@@ -341,9 +438,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool > self
 		.def(self > int())
 		.def(int() > self)
+		.def(self > int64_t())
+		.def(int64_t() > self)
 		.def(self > ls_int())
 		.def(self > double())
 		.def(double() > self)
+		.def(self > ls_float())
+		// ls_float > self
 		
 		.def(self <= bool())
 		.def(bool() <= self)
@@ -351,9 +452,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool <= self
 		.def(self <= int())
 		.def(int() <= self)
+		.def(self <= int64_t())
+		.def(int64_t() <= self)
 		.def(self <= ls_int())
 		.def(self <= double())
 		.def(double() <= self)
+		.def(self <= ls_float())
+		// ls_float <= self
 		
 		.def(self >= bool())
 		.def(bool() >= self)
@@ -361,9 +466,13 @@ BOOST_PYTHON_MODULE(isxpy)
 		// ls_bool >= self
 		.def(self >= int())
 		.def(int() >= self)
+		.def(self >= int64_t())
+		.def(int64_t() >= self)
 		.def(self >= ls_int())
 		.def(self >= double())
-		.def(double() >= self)		
+		.def(double() >= self)
+		.def(self >= ls_float())
+		// ls_float >= self		
 
 		.def(pow(int(), self))
 		.def(pow(double(), self))
@@ -373,50 +482,178 @@ BOOST_PYTHON_MODULE(isxpy)
 
 #pragma endregion
 
-	class_<py_uint, bases<ls_object>>("lso_uint", init<const LSOBJECT&>())
-		.add_property("value", &py_uint::get_value)
-		.add_property("as_float", &py_uint::get_float)
-		.add_property("as_hex", &py_uint::get_hex)
-		.add_property("reverse", &py_uint::get_reverse)
-		.def("leading_zeros", &py_uint::leading_zeros)
-		.add_property("as_unsigned", &py_uint::get_signed)
-		.def("inc", &py_uint::inc, py_uint::inc_overloads(args("formula")))
-		.def("dec", &py_uint::dec, py_uint::dec_overloads(args("formula")))
-		.def("set", &py_uint::set);
+#pragma region ls_float
 
-#pragma region ls_int64
-
-	class_<ls_int64, bases<ls_object>>("lso_int64", init<const LSOBJECT&>())
-		.add_property("value", &ls_int64::get_value)
+	class_<ls_float, bases<ls_object>>("lso_float", init<const LSOBJECT&>())
+		.add_property("value", &ls_float::get_value)
+		.add_property("is_valid", &ls_float::get_is_valid)
 		.def(self_ns::str(self))
 		.def(int_(self))
 		.def(float_(self))
 		.def(-self)
+	
+		.def(self + bool())
+		.def(bool() + self)
+		.def(self + ls_bool())
+		// ls_bool + self
+		.def(self + int())
+		.def(int() + self)
+		.def(self + int64_t())
+		.def(int64_t() + self)
+		.def(self + ls_int())
+		// ls_int + self
+		.def(self + double())
+		.def(double() + self)
+		.def(self + ls_float())
+
+		.def(self - bool())
+		.def(bool() - self)
+		.def(self - ls_bool())
+		// ls_bool - self
+		.def(self - int())
+		.def(int() - self)
+		.def(self - int64_t())
+		.def(int64_t() - self)
+		.def(self - ls_int())
+		// ls_int - self
+		.def(self - double())
+		.def(double() - self)
+		.def(self - ls_float())
+
+		.def(self * bool())
+		.def(bool() * self)
+		.def(self * ls_bool())
+		// ls_bool * self
+		.def(self * int())
+		.def(int() * self)
+		.def(self * int64_t())
+		.def(int64_t() * self)
+		.def(self * ls_int())
+		// ls_int * self
+		.def(self * double())
+		.def(double() * self)
+		.def(self * ls_float())
+
+		.def(self / bool())
+		.def(bool() / self)
+		.def(self / ls_bool())
+		// ls_bool / self
+		.def(self / int())
+		.def(int() / self)
+		.def(self / int64_t())
+		.def(int64_t() / self)
+		.def(self / ls_int())
+		// ls_int / self
+		.def(self / double())
+		.def(double() / self)
+		.def(self / ls_float())
+
+		.def(self == bool())
+		.def(bool() == self)
+		.def(self == ls_bool())
+		// ls_bool == self
+		.def(self == int())
+		.def(int() == self)
+		.def(self == int64_t())
+		.def(int64_t() == self)
+		.def(self == ls_int())
+		// ls_int == self
+		.def(self == double())
+		.def(double() == self)
+		.def(self == ls_float())
+
+		.def(self != bool())
+		.def(bool() != self)
+		.def(self != ls_bool())
+		// ls_bool != self
+		.def(self != int())
+		.def(int() != self)
+		.def(self != int64_t())
+		.def(int64_t() != self)
+		.def(self != ls_int())
+		// ls_int != self
+		.def(self != double())
+		.def(double() != self)
+		.def(self != ls_float())
+
+		.def(self < bool())
+		.def(bool() < self)
+		.def(self < ls_bool())
+		// ls_bool < self
+		.def(self < int())
+		.def(int() < self)
+		.def(self < int64_t())
+		.def(int64_t() < self)
+		.def(self < ls_int())
+		// ls_int < self
+		.def(self < double())
+		.def(double() < self)
+		.def(self < ls_float())
+
+		.def(self > bool())
+		.def(bool() > self)
+		.def(self > ls_bool())
+		// ls_bool > self
+		.def(self > int())
+		.def(int() > self)
+		.def(self > int64_t())
+		.def(int64_t() > self)
+		.def(self > ls_int())
+		// ls_int > self
+		.def(self > double())
+		.def(double() > self)
+		.def(self > ls_float())
+
+		.def(self <= bool())
+		.def(bool() <= self)
+		.def(self <= ls_bool())
+		// ls_bool <= self
+		.def(self <= int())
+		.def(int() <= self)
+		.def(self <= int64_t())
+		.def(int64_t() <= self)
+		.def(self <= ls_int())
+		// ls_int <= self
+		.def(self <= double())
+		.def(double() <= self)
+		.def(self <= ls_float())
+
+		.def(self >= bool())
+		.def(bool() >= self)
+		.def(self >= ls_bool())
+		// ls_bool >= self
+		.def(self >= int())
+		.def(int() >= self)
+		.def(self >= int64_t())
+		.def(int64_t() >= self)
+		.def(self >= ls_int())
+		// ls_int >= self
+		.def(self >= double())
+		.def(double() >= self)
+		.def(self >= ls_float())
+
+		.def(pow(self, int()))
+		.def(pow(self, double()))
+		.def(pow(double(), self))
+		.def(pow(self, ls_float()))
+		.def(pow(ls_float(), self))
 	;
-		
 
 #pragma endregion
 
-	class_<ls_float, bases<ls_object>>("lso_float", init<const LSOBJECT&>())
-		.add_property("value", &ls_float::get_value)
+#pragma region ls_string
+
+	class_<ls_string, bases<ls_object>>("lso_string", init<const LSOBJECT&>())
+		.add_property("value", &ls_string::get_value)
+		.def("__str__", &ls_string::get_value)
+		.def(self_ns::str(self))
+		.def(self == std::string())
+		.def(std::string() == self)
+		.def(self != std::string())
+		.def(std::string() != self)
 		;
 
-	class_<ls_double, bases<ls_object>>("lso_float64", init<const LSOBJECT&>())
-		.add_property("value", &ls_double::get_value)
-		;
-
-	class_<py_string, bases<ls_object>>("lso_string", init<const LSOBJECT&>())
-		.add_property("value", &py_string::get_value)
-		.def("mid", &py_string::mid)
-		.def("left", &py_string::left)
-		.def("right", &py_string::right)
-		.def("find", &py_string::find)
-		.add_property("length", &py_string::get_length)
-		.add_property("to_lower", &py_string::get_lower)
-		.add_property("to_upper", &py_string::get_upper)
-		.def("compare", &py_string::compare)
-		.def("compare_cs", &py_string::compare_cs)
-		.def("__str__", &py_string::get_value);
+#pragma endregion
 
 }
 

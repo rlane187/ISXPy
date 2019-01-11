@@ -31,7 +31,7 @@ py_mutable_string& py_mutable_string::operator=(py_mutable_string&& other) noexc
 std::string py_mutable_string::get_string()
 {
 	char* const member = static_cast<char *>("String");
-	return py_string(this->get_member(member, 0, nullptr).get_lso()).get_value();
+	return ls_string(this->get_member(member, 0, nullptr).get_lso()).get_value();
 }
 
 void py_mutable_string::set(const std::string& text)
