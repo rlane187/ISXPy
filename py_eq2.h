@@ -24,7 +24,7 @@ public:
 	int get_ho_icon_id_4();
 	int get_ho_icon_id_5();
 	int get_ho_icon_id_6();
-	py_eq2_actor get_ho_last_manipulator();
+	eq2_actor get_ho_last_manipulator();
 	std::string get_ho_name();
 	float get_ho_time_elapsed();
 	float get_ho_time_limit();

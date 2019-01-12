@@ -116,9 +116,6 @@
     <ClCompile Include="py_eq2.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
-    <ClCompile Include="py_eq2_actor.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_eq2_actor_effect.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
@@ -170,12 +167,6 @@
     <ClCompile Include="isxpy_extensions.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY</Filter>
     </ClCompile>
-    <ClCompile Include="py_mutable_string.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_point3_f.cpp">
-      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
-    </ClCompile>
     <ClCompile Include="isxpy_events.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY</Filter>
     </ClCompile>
@@ -193,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="ls_string.cpp">
       <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="ls_point3_f.cpp">
+      <Filter>Source Files\PythonExtensions\ISXPY\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_actor.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +233,6 @@
       <Filter>Header Files\Stackless</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_actor.h">
       <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_actor_effect.h">
@@ -289,12 +283,6 @@
     <ClInclude Include="isxpy_extensions.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
     </ClInclude>
-    <ClInclude Include="py_mutable_string.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_point3_f.h">
-      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
-    </ClInclude>
     <ClInclude Include="isxpy_module.h">
       <Filter>Header Files\PythonExtensions\ISXPy</Filter>
     </ClInclude>
@@ -315,6 +303,12 @@
     </ClInclude>
     <ClInclude Include="ls_string.h">
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ls_point3_f.h">
+      <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_actor.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

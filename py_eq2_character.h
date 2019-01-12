@@ -1,6 +1,6 @@
 #pragma once
 
-class py_eq2_character : public py_eq2_actor
+class py_eq2_character : public eq2_actor
 {
 public:
 	py_eq2_character();
@@ -11,7 +11,7 @@ public:
 	py_eq2_character(const LSOBJECT& other);
 	py_eq2_character& operator=(const py_eq2_character& other);
 	py_eq2_character& operator=(py_eq2_character&& other) noexcept;
-	bool check_collision(const float& to_x, const float& to_y, const float& to_z) override;
+	ls_bool check_collision(const float& to_x, const float& to_y, const float& to_z) override;
 	int get_agility();
 	ls_int get_agility_lso();
 	int get_arcane_resist();

@@ -1,6 +1,6 @@
 #pragma once
 
-class py_eq2_group_member : public py_eq2_actor
+class py_eq2_group_member : public eq2_actor
 {
 public:
 	py_eq2_group_member();

@@ -1,6 +1,11 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
+ls_int::ls_int(const ls_object& other)
+{
+	this->lsobject_ = other.get_lso();
+}
+
 ls_int::ls_int(const LSOBJECT& other)
 {
 	this->lsobject_ = other;
@@ -22,45 +27,36 @@ ls_int& ls_int::operator=(ls_int&& other) noexcept
 
 int64_t ls_int::get_value()
 {	
-	this->is_valid_ = false;
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pByteType)
 	{
-		this->is_valid_ = true;
 		return int64_t(this->lsobject_.GetObjectData().DWord);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pBytePtrType)
 	{
-		this->is_valid_ = true;
 		return int64_t(*(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pIntType)
 	{
-		this->is_valid_ = true;
 		return int64_t(this->lsobject_.GetObjectData().DWord);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pIntPtrType)
 	{
-		this->is_valid_ = true;
 		return int64_t(*(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pUintType)
 	{
-		this->is_valid_ = true;
 		return int64_t(this->lsobject_.GetObjectData().DWord);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pUintPtrType)
 	{
-		this->is_valid_ = true;
 		return int64_t(*(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pInt64Type)
 	{
-		this->is_valid_ = true;
 		return int64_t(this->lsobject_.GetObjectData().Int64);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pInt64PtrType)
 	{
-		this->is_valid_ = true;
 		return int64_t(*(this->lsobject_.GetObjectData().Int64Ptr));
 	}
 	if (this->lsobject_.ObjectType)
@@ -76,7 +72,9 @@ int64_t ls_int::get_value()
 
 bool ls_int::get_is_valid() const
 {
-	return this->is_valid_;
+	return this->lsobject_.ObjectType != nullptr && (this->lsobject_.ObjectType == pByteType || this->lsobject_.ObjectType == pBytePtrType 
+		|| this->lsobject_.ObjectType == pIntType || this->lsobject_.ObjectType == pIntPtrType || this->lsobject_.ObjectType == pUintType
+		|| this->lsobject_.ObjectType == pUintPtrType || this->lsobject_.ObjectType == pInt64Type || this->lsobject_.ObjectType == pInt64PtrType);
 }
 
 int64_t ls_int::operator-()

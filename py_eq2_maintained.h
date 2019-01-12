@@ -18,7 +18,7 @@ public:
 	bool get_is_beneficial();
 	float get_max_duration();
 	std::string get_name();
-	py_eq2_actor get_target();
+	eq2_actor get_target();
 	std::string get_target_type();
 	int get_uses_remaining();
 

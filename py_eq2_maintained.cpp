@@ -70,7 +70,7 @@ std::string py_eq2_maintained::get_name()
 	return this->get_member(member, 0, nullptr).get_string_from_lso();
 }
 
-py_eq2_actor py_eq2_maintained::get_target()
+eq2_actor py_eq2_maintained::get_target()
 {
 	char* const member = static_cast<char *>("Target");
 	const LSOBJECT target_object = this->get_member(member, 0, nullptr).get_lso();

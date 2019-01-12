@@ -7,6 +7,8 @@ BOOST_PYTHON_MODULE(isxpy)
 {
 	def("frame_count", &get_frame_count);
 
+#pragma region output_handler and error_handler
+
 	class_<output_handler>("output_handler")
 		.def("write", &output_handler::write)
 		.def("flush", &output_handler::flush);
@@ -14,6 +16,10 @@ BOOST_PYTHON_MODULE(isxpy)
 	class_<error_handler>("error_handler")
 		.def("write", &error_handler::write)
 		.def("flush", &error_handler::flush);
+
+#pragma endregion
+
+#pragma region ls_object
 
 	class_<ls_object>("ls_object", init<const LSOBJECT&>())
 		.add_property("to_bool", &ls_object::get_bool_from_lso)
@@ -24,6 +30,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.add_property("to_string", &ls_object::get_string_from_lso)
 		.add_property("to_uint", &ls_object::get_uint_from_lso)
 		.def("to_lso", &ls_object::get_lso, return_value_policy<reference_existing_object>());
+
+#pragma endregion
 
 #pragma region ls_bool
 
@@ -645,12 +653,21 @@ BOOST_PYTHON_MODULE(isxpy)
 
 	class_<ls_string, bases<ls_object>>("lso_string", init<const LSOBJECT&>())
 		.add_property("value", &ls_string::get_value)
+		.add_property("is_valid", &ls_string::get_is_valid)
 		.def("__str__", &ls_string::get_value)
 		.def(self_ns::str(self))
 		.def(self == std::string())
 		.def(std::string() == self)
 		.def(self != std::string())
 		.def(std::string() != self)
+		.def(self < std::string())
+		.def(std::string() < self)
+		.def(self > std::string())
+		.def(std::string() > self)
+		.def(self <= std::string())
+		.def(std::string() <= self)
+		.def(self >= std::string())
+		.def(std::string() >= self)
 		;
 
 #pragma endregion

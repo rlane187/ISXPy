@@ -1,6 +1,11 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
+ls_float::ls_float(const ls_object& other)
+{
+	this->lsobject_ = other.get_lso();
+}
+
 ls_float::ls_float(const LSOBJECT& other)
 {
 	this->lsobject_ = other;
@@ -22,25 +27,20 @@ ls_float& ls_float::operator=(ls_float&& other) noexcept
 
 double ls_float::get_value()
 {
-	this->is_valid_ = false;
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pFloatType)
 	{
-		this->is_valid_ = true;
 		return double(this->lsobject_.GetObjectData().Float);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pFloatPtrType)
 	{
-		this->is_valid_ = true;
 		return double(*reinterpret_cast<float*>(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pFloat64Type)
 	{
-		this->is_valid_ = true;
 		return double(this->lsobject_.GetObjectData().Float64);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pFloat64PtrType)
 	{
-		this->is_valid_ = true;
 		return double(*reinterpret_cast<double*>(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType)
@@ -56,7 +56,9 @@ double ls_float::get_value()
 
 bool ls_float::get_is_valid() const
 {
-	return this->is_valid_;
+	return this->lsobject_.ObjectType != nullptr && (this->lsobject_.ObjectType == pFloatType || this->lsobject_.ObjectType
+		== pFloatPtrType || this->lsobject_.ObjectType == pFloat64Type || this->lsobject_.ObjectType == pFloat64PtrType
+	);
 }
 
 double ls_float::operator-()

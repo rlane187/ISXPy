@@ -149,10 +149,10 @@ int py_eq2::get_ho_icon_id_6()
 	return this->get_member(member, 0, nullptr).get_int_from_lso();
 }
 
-py_eq2_actor py_eq2::get_ho_last_manipulator()
+eq2_actor py_eq2::get_ho_last_manipulator()
 {
 	char* const member = static_cast<char *>("HOLastManipulator");
-	py_eq2_actor actor_object = this->get_member(member, 0, nullptr).get_lso();
+	eq2_actor actor_object = this->get_member(member, 0, nullptr).get_lso();
 	return actor_object;
 }
 

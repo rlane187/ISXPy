@@ -6,6 +6,8 @@ class ls_int : public ls_object
 public:
 	ls_int() = default;
 	~ls_int() = default;
+	// ReSharper disable once CppNonExplicitConvertingConstructor
+	ls_int::ls_int(const ls_object& other);
 	ls_int(const ls_int& other) = default;
 	ls_int(ls_int&& other) noexcept = default;
 	// ReSharper disable once CppNonExplicitConvertingConstructor

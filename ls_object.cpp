@@ -34,12 +34,12 @@ ls_object& ls_object::operator=(ls_object&& other) noexcept
 	return *this;
 }
 
-void ls_object::execute_method(PCHAR method, int argc, char* argv[])
+void ls_object::execute_method(const char* method, int argc, char* argv[])
 {
 	if (this->lsobject_.ObjectType && this->has_method(method))
-		this->lsobject_.ObjectType->GetMethodEx(this->lsobject_.GetObjectData(), method, argc, argv);
+		this->lsobject_.ObjectType->GetMethodEx(this->lsobject_.GetObjectData(), const_cast<PCHAR>(method), argc, argv);
 	else if (this->lsobject_.ObjectType && this->has_inherited_method(method))
-		this->lsobject_.ObjectType->GetInheritedMethod(this->lsobject_.GetObjectData(), method, argc, argv);
+		this->lsobject_.ObjectType->GetInheritedMethod(this->lsobject_.GetObjectData(), const_cast<PCHAR>(method), argc, argv);
 	else
 	{
 		if (this->lsobject_.ObjectType)
@@ -165,13 +165,13 @@ const LSOBJECT& ls_object::get_lso() const
 	return this->lsobject_;
 }
 
-ls_object ls_object::get_member(PCHAR member, int argc, char* argv[])
+ls_object ls_object::get_member(const char* member, int argc, char* argv[])
 {
 	LSOBJECT dest;
 	if(this->lsobject_.ObjectType && this->has_member(member))
-		this->lsobject_.ObjectType->GetMemberEx(this->lsobject_.GetObjectData(), member, argc, argv, dest);
+		this->lsobject_.ObjectType->GetMemberEx(this->lsobject_.GetObjectData(), const_cast<PCHAR>(member), argc, argv, dest);
 	else if (this->lsobject_.ObjectType && this->has_inherited_member(member))
-		this->lsobject_.ObjectType->GetInheritedMember(this->lsobject_.GetObjectData(), member, argc, argv, dest);
+		this->lsobject_.ObjectType->GetInheritedMember(this->lsobject_.GetObjectData(), const_cast<PCHAR>(member), argc, argv, dest);
 	else
 	{
 		if (this->lsobject_.ObjectType)
@@ -196,7 +196,6 @@ std::string ls_object::get_mutable_string_from_lso()
 	}
 	return std::string("NULL");
 }
-
 
 std::string ls_object::get_string_from_lso()
 {
@@ -251,48 +250,48 @@ unsigned int ls_object::get_uint_from_lso()
 	return UINT_MAX;
 }
 
-bool ls_object::has_inherited_member(PCHAR member) const
+bool ls_object::has_inherited_member(const char* member) const
 {
 	if (this->lsobject_.ObjectType)
 	{
-		if (this->lsobject_.ObjectType->InheritedMember(member))
+		if (this->lsobject_.ObjectType->InheritedMember(const_cast<PCHAR>(member)))
 			return true;
 	}
 	return false;
 }
 
-bool ls_object::has_inherited_method(PCHAR method) const
+bool ls_object::has_inherited_method(const char* method) const
 {
 	if (this->lsobject_.ObjectType)
 	{
-		if (this->lsobject_.ObjectType->InheritedMethod(method))
+		if (this->lsobject_.ObjectType->InheritedMethod(const_cast<PCHAR>(method)))
 			return true;
 	}
 	return false;
 }
 
-bool ls_object::has_member(PCHAR member) const
+bool ls_object::has_member(const char* member) const
 {
 	if(this->lsobject_.ObjectType)
 	{
-		if (this->lsobject_.ObjectType->FindMember(member))
+		if (this->lsobject_.ObjectType->FindMember(const_cast<PCHAR>(member)))
 			return true;
 	}
 	return false;
 }
 
-bool ls_object::has_method(PCHAR method) const
+bool ls_object::has_method(const char* method) const
 {
 	if(this->lsobject_.ObjectType)
 	{
-		if (this->lsobject_.ObjectType->FindMethod(method))
+		if (this->lsobject_.ObjectType->FindMethod(const_cast<PCHAR>(method)))
 			return true;
 	}
 	return false;
 }
 
 template <class T>
-int ls_object::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR query, boost::python::list& python_list)
+int ls_object::get_list_from_index_method(const char* method, const char* index_type, const char* query, boost::python::list& python_list)
 {
 	LSOBJECT index_object;
 	size_t size = 0;
@@ -309,7 +308,7 @@ int ls_object::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR 
 	sprintf_s(delete_command, _countof(delete_command), "DeleteVariable %s", variable_name);
 	argv[0] = variable_name;
 	argv_query[0] = variable_name;
-	argv_query[1] = query;
+	argv_query[1] = const_cast<PCHAR>(query);
 	pISInterface->ExecuteCommand(declare_command);
 	pISInterface->DataParse(argv[0], index_object);
 	if (query == nullptr)
@@ -327,7 +326,7 @@ int ls_object::get_list_from_index_method(PCHAR method, PCHAR index_type, PCHAR 
 
 int py_eq2::query_actors(boost::python::list& actor_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_eq2_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"),
+	return this->get_list_from_index_method<eq2_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"),
 		const_cast<char *>(query.c_str()), actor_list);
 }
 

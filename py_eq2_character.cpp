@@ -36,7 +36,7 @@ py_eq2_character& py_eq2_character::operator=(py_eq2_character&& other) noexcept
 	return *this;
 }
 
-bool py_eq2_character::check_collision(const float& to_x, const float& to_y, const float& to_z)
+ls_bool py_eq2_character::check_collision(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
@@ -50,7 +50,7 @@ bool py_eq2_character::check_collision(const float& to_x, const float& to_y, con
 	argv[1] = buffer_y;
 	argv[2] = buffer_z;
 	char* const member = static_cast<char *>("CheckCollision");
-	return this->get_member(member, argc, argv).get_bool_from_lso();
+	return this->get_member(member, argc, argv);
 }
 
 int py_eq2_character::get_agility()

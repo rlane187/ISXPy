@@ -1,6 +1,11 @@
 #include "ISXPyPCH.h"
 #include "ISXPy.h"
 
+ls_bool::ls_bool(const ls_object& other)
+{
+	this->lsobject_ = other.get_lso();
+}
+
 ls_bool::ls_bool(const LSOBJECT& other)
 {
 	this->lsobject_ = other;
@@ -22,15 +27,12 @@ ls_bool& ls_bool::operator=(ls_bool&& other) noexcept
 
 bool ls_bool::get_value()
 {
-	this->is_valid_ = false;
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pBoolType)
 	{
-		this->is_valid_ = true;
 		return bool(this->lsobject_.GetObjectData().DWord);
 	}
 	if (this->lsobject_.ObjectType && this->lsobject_.ObjectType == pBoolPtrType)
 	{
-		this->is_valid_ = true;
 		return bool(*(this->lsobject_.GetObjectData().DWordPtr));
 	}
 	if (this->lsobject_.ObjectType)
@@ -46,7 +48,8 @@ bool ls_bool::get_value()
 
 bool ls_bool::get_is_valid() const
 {
-	return this->is_valid_;
+	return this->lsobject_.ObjectType != nullptr && (this->lsobject_.ObjectType == pBoolType 
+		|| this->lsobject_.ObjectType == pBoolPtrType);
 }
 
 

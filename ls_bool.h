@@ -10,6 +10,8 @@ class ls_bool : public ls_object
 public:
 	ls_bool() = default;
 	~ls_bool() = default;
+	// ReSharper disable once CppNonExplicitConvertingConstructor
+	ls_bool(const ls_object& other);
 	ls_bool(const ls_bool& other) = default;
 	ls_bool(ls_bool&& other) noexcept = default;
 	// ReSharper disable once CppNonExplicitConvertingConstructor
