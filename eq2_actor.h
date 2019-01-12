@@ -18,6 +18,7 @@ public:
 	eq2_actor& operator=(eq2_actor&& other) noexcept;
 
 	virtual ls_bool check_collision(const float& to_x = NULL, const float& to_y = NULL, const float& to_z = NULL);
+	ls_bool check_collision_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z);
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(check_collision_overloads, check_collision, 0, 3)
 	ls_string get_aura();	
 	ls_bool get_can_turn();
@@ -90,33 +91,32 @@ public:
 	ls_point3_f get_loc();
 	ls_string get_mood();
 	ls_string get_name();
-	ls_string get_name_lso();
 	ls_int get_num_effects();
 	ls_bool get_on_flying_mount();
-	std::string get_overlay();
+	ls_string get_overlay();
 	eq2_actor get_pet();
-	int get_power();
-	std::string get_race();
-	int get_raid_size();
-	float get_speed();
-	std::string get_suffix_title();
-	float get_swimming_speed_mod();
-	std::string get_tag_target_icon();
-	std::string get_tag_target_number();
+	ls_int get_power();
+	ls_string get_race();
+	ls_int get_raid_size();
+	ls_float get_speed();
+	ls_string get_suffix_title();
+	ls_float get_swimming_speed_mod();
+	ls_string get_tag_target_icon();
+	ls_string get_tag_target_number();
 	eq2_actor get_target();
-	float get_target_ring_radius();
-	int get_threat_to_me();
-	int get_threat_to_pet();
-	int get_threat_to_next();
-	unsigned int get_tint_flags();
-	std::string get_type();
+	ls_float get_target_ring_radius();
+	ls_int get_threat_to_me();
+	ls_int get_threat_to_pet();
+	ls_int get_threat_to_next();
+	ls_int get_tint_flags();
+	ls_string get_type();
 	ls_point3_f get_velocity();
-	std::string get_visual_variant();
-	std::string get_who_following();
-	int get_who_following_id();
-	float get_x();
-	float get_y();
-	float get_z();
+	ls_string get_visual_variant();
+	ls_string get_who_following();
+	ls_int get_who_following_id();
+	ls_float get_x();
+	ls_float get_y();
+	ls_float get_z();
 	
 	void double_click();
 	void waypoint_to();
@@ -125,6 +125,4 @@ public:
 	void location(const bool& add_location = true, const std::string& notes = std::string());
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(location_overloads, location, 0, 2)
 	void request_effects_info();
-	static eq2_actor from_id(const unsigned int& actor_id);
-	static eq2_actor from_query(const std::string& query);
 };

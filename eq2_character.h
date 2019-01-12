@@ -1,44 +1,42 @@
 #pragma once
 
-class py_eq2_character : public eq2_actor
+class eq2_character : public eq2_actor
 {
 public:
-	py_eq2_character();
-	~py_eq2_character();
-	py_eq2_character(const py_eq2_character& other);
-	py_eq2_character(py_eq2_character&& other) noexcept;
+	eq2_character();
+	~eq2_character();
+	eq2_character(const eq2_character& other);
+	eq2_character(eq2_character&& other) noexcept;
 	// ReSharper disable once CppNonExplicitConvertingConstructor
-	py_eq2_character(const LSOBJECT& other);
-	py_eq2_character& operator=(const py_eq2_character& other);
-	py_eq2_character& operator=(py_eq2_character&& other) noexcept;
+	eq2_character(const LSOBJECT& other);
+	eq2_character& operator=(const eq2_character& other);
+	eq2_character& operator=(eq2_character&& other) noexcept;
 	ls_bool check_collision(const float& to_x, const float& to_y, const float& to_z) override;
-	int get_agility();
-	ls_int get_agility_lso();
-	int get_arcane_resist();
-	float get_arcane_resist_percent();
-	std::string get_archetype();
+	ls_int get_agility();
+	ls_int get_arcane_resist();
+	ls_float get_arcane_resist_percent();
+	ls_string get_archetype();
 	float get_ascension_exp_bubble();
 	int get_ascension_exp_current();
 	int get_ascension_exp_next_level();
 	float get_ascension_exp_percent();
 	int get_ascension_level();
-	bool get_at_char_select();
-	bool get_is_auto_attack_on();
-	int get_base_agility();
-	int get_base_intelligence();
-	int get_base_stamina();
-	int get_base_strength();
-	int get_base_wisdom();
-	float get_breath();
-	int get_copper();
-	int get_count_maintained();
-	int64_t get_current_health();
-	int get_current_power();
-	int get_dissipation();
-	int get_dissonance();
-	int get_dissonance_remaining();
-	int get_elemental_resist();
-	float get_elemental_resist_percent();
+	ls_bool get_at_char_select();	
+	ls_int get_base_agility();
+	ls_int get_base_intelligence();
+	ls_int get_base_stamina();
+	ls_int get_base_strength();
+	ls_int get_base_wisdom();
+	ls_float get_breath();
+	ls_int get_copper();
+	ls_int get_count_maintained();
+	ls_int get_current_health();
+	ls_int get_current_power();
+	ls_int get_dissipation();
+	ls_int get_dissonance();
+	ls_int get_dissonance_remaining();
+	ls_int get_elemental_resist();
+	ls_float get_elemental_resist_percent();
 	float get_exp_bubble();
 	int get_exp_current();
 	float get_exp_debt_current();
@@ -52,17 +50,18 @@ public:
 	py_eq2_group_member get_group_member_2(const std::string& name) { return get_group_member(-1, name); };
 	bool get_grouped();
 	int get_health_regen();
-	bool get_in_game_world();
-	bool get_is_in_raid();
-	bool get_is_in_water();
+	bool get_in_game_world();	
 	int get_intelligence();
+	bool get_is_auto_attack_on();
 	bool get_is_casting_spell();
 	bool get_is_group_leader();
-	bool get_is_hated();
+	bool get_is_hated();	
 	bool get_is_in_combat();
 	bool get_is_in_first_person_view();
 	bool get_is_in_pvp();
+	bool get_is_in_raid();
 	bool get_is_in_third_person_view();
+	bool get_is_in_water();
 	bool get_is_moving();
 	bool get_is_ranged_auto_attack_on();
 	int get_max_conc();
@@ -112,9 +111,9 @@ public:
 	int get_wisdom();
 	float get_heading_to(const float& to_x, const float& to_y, const float& to_z);
 	std::string get_heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z);
-	py_eq2_maintained maintained(const int& number = 0, const std::string& name = std::string());
-	py_eq2_maintained maintained_1(const int& number) { return maintained(number); }
-	py_eq2_maintained maintained_2(const std::string& name) { return maintained(0, name); }
+	eq2_maintained maintained(const int& number = 0, const std::string& name = std::string());
+	eq2_maintained maintained_1(const int& number) { return maintained(number); }
+	eq2_maintained maintained_2(const std::string& name) { return maintained(0, name); }
 	int query_effects(boost::python::list& effect_list, const std::string& query = std::string());
 	int query_inventory(boost::python::list& item_list, const std::string& query = std::string());
 	int query_recipes(boost::python::list& recipe_list, const std::string& query = std::string());

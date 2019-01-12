@@ -70,31 +70,6 @@ eq2_actor& eq2_actor::operator=(eq2_actor&& other) noexcept
 	return *this;
 }
 
-eq2_actor eq2_actor::from_id(const unsigned int& actor_id)
-{
-	LSOBJECT ls_object;
-	const int argc_id = 1;
-	char* argv_id[argc_id];
-	char buffer_id[MAX_VARSTRING];
-	sprintf_s(buffer_id, _countof(buffer_id), "%u", actor_id);
-	argv_id[0] = buffer_id;
-	pISInterface->IsTopLevelObject("Actor")(argc_id, argv_id, ls_object);
-	return ls_object;
-}
-
-eq2_actor eq2_actor::from_query(const std::string& query)
-{
-	LSOBJECT ls_object;
-	const int argc_query = 2;
-	char* argv_query[argc_query];
-	char buffer_query[MAX_VARSTRING];
-	strcpy_s(buffer_query, _countof(buffer_query), query.c_str());
-	argv_query[0] = const_cast<char *>("Query");
-	argv_query[1] = buffer_query;
-	pISInterface->IsTopLevelObject("Actor")(argc_query, argv_query, ls_object);
-	return ls_object;
-}
-
 ls_string eq2_actor::get_aura()
 {
 	return this->get_member("Aura");
@@ -117,6 +92,22 @@ ls_bool eq2_actor::check_collision(const float& to_x, const float& to_y, const f
 	if (to_x == NULL || to_y == NULL || to_z == NULL)
 		return this->get_member(member);
 	return this->get_member(member, argc, argv);
+}
+
+ls_bool eq2_actor::check_collision_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z)
+{
+	const int argc = 3;
+	char* argv[argc];
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(ls_float(to_x).get_value()).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(ls_float(to_y).get_value()).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(ls_float(to_z).get_value()).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
+	return this->get_member("CheckCollision", argc, argv);
 }
 
 ls_bool eq2_actor::get_can_turn()
@@ -181,7 +172,7 @@ int eq2_actor::get_effects(boost::python::list& effect_list)
 		char buffer[MAX_VARSTRING];
 		sprintf_s(buffer, _countof(buffer), "%d", i);
 		argv[0] = const_cast<char*>(buffer);
-		effect_list.append(py_eq2_actor_effect(this->get_member(effect_string, argc, argv).get_lso()));
+		effect_list.append(eq2_actor_effect(this->get_member(effect_string, argc, argv).get_lso()));
 	}
 	return len(effect_list);
 }
@@ -509,147 +500,120 @@ ls_bool eq2_actor::get_on_flying_mount()
 	return this->get_member("OnFlyingMount");
 }
 
-std::string eq2_actor::get_overlay()
+ls_string eq2_actor::get_overlay()
 {
-	char* const member = static_cast<char *>("Overlay");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("Overlay");
 }
 
-int eq2_actor::get_power()
+ls_int eq2_actor::get_power()
 {
-	char* const member = static_cast<char *>("Power");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Power");
 }
 
-std::string eq2_actor::get_race()
+ls_string eq2_actor::get_race()
 {
-	char* const member = static_cast<char *>("Race");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("Race");
 }
 
-int eq2_actor::get_raid_size()
+ls_int eq2_actor::get_raid_size()
 {
-	char* const member = static_cast<char *>("RaidSize");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("RaidSize");
 }
 
-float eq2_actor::get_speed()
+ls_float eq2_actor::get_speed()
 {
-	char* const member = static_cast<char *>("Speed");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("Speed");
 }
 
-std::string eq2_actor::get_suffix_title()
+ls_string eq2_actor::get_suffix_title()
 {
-	char* const member = static_cast<char *>("SuffixTitle");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("SuffixTitle");
 }
 
-float eq2_actor::get_swimming_speed_mod()
+ls_float eq2_actor::get_swimming_speed_mod()
 {
-	char* const member = static_cast<char *>("SwimmingSpeedMod");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("SwimmingSpeedMod");
 }
 
-std::string eq2_actor::get_tag_target_icon()
+ls_string eq2_actor::get_tag_target_icon()
 {
-	char* const member = static_cast<char *>("TagTargetIcon");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("TagTargetIcon");
 }
 
-std::string eq2_actor::get_tag_target_number()
+ls_string eq2_actor::get_tag_target_number()
 {
-	char* const member = static_cast<char *>("TagTargetNumber");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("TagTargetNumber");
 }
 
 eq2_actor eq2_actor::get_target()
 {
-	char* const member = static_cast<char *>("Target");
-	const LSOBJECT target_object = this->get_member(member).get_lso();
-	return target_object;
+	return this->get_member("Target");
 }
 
-float eq2_actor::get_target_ring_radius()
+ls_float eq2_actor::get_target_ring_radius()
 {
-	char* const member = static_cast<char *>("TargetRingRadius");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("TargetRingRadius");
 }
 
-int eq2_actor::get_threat_to_me()
+ls_int eq2_actor::get_threat_to_me()
 {
-	char* const member = static_cast<char *>("ThreatToMe");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("ThreatToMe");
 }
 
-int eq2_actor::get_threat_to_next()
+ls_int eq2_actor::get_threat_to_next()
 {
-	char* const member = static_cast<char *>("ThreatToNext");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("ThreatToNext");
 }
 
-int eq2_actor::get_threat_to_pet()
+ls_int eq2_actor::get_threat_to_pet()
 {
-	char* const member = static_cast<char *>("ThreatToPet");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("ThreatToPet");
 }
 
-unsigned int eq2_actor::get_tint_flags()
+ls_int eq2_actor::get_tint_flags()
 {
-	char* const member = static_cast<char *>("TintFlags");
-	return this->get_member(member).get_uint_from_lso();
+	return this->get_member("TintFlags");
 }
 
-std::string eq2_actor::get_type()
+ls_string eq2_actor::get_type()
 {
-	char* const member = static_cast<char *>("Type");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("Type");
 }
-
-
 
 // TODO: Find out why this member always returns 0.0, 0.0, 0.0
 ls_point3_f eq2_actor::get_velocity()
 {
-	char* const member = static_cast<char *>("Velocity");
-	const LSOBJECT velocity_object = this->get_member(member).get_lso();
-	return velocity_object;
+	return this->get_member("Velocity");
 }
 
-std::string eq2_actor::get_visual_variant()
+ls_string eq2_actor::get_visual_variant()
 {
-	char* const member = static_cast<char *>("VisualVariant");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("VisualVariant");
 }
 
-std::string eq2_actor::get_who_following()
+ls_string eq2_actor::get_who_following()
 {
-	char* const member = static_cast<char *>("WhoFollowing");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("WhoFollowing");
 }
 
-int eq2_actor::get_who_following_id()
+ls_int eq2_actor::get_who_following_id()
 {
-	char* const member = static_cast<char *>("WhoFollowingID");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("WhoFollowingID");
 }
 
-float eq2_actor::get_x()
+ls_float eq2_actor::get_x()
 {
-	char* const member = static_cast<char *>("X");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("X");
 }
 
-float eq2_actor::get_y()
+ls_float eq2_actor::get_y()
 {
-	char* const member = static_cast<char *>("Y");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("Y");
 }
 
-float eq2_actor::get_z()
+ls_float eq2_actor::get_z()
 {
-	char* const member = static_cast<char *>("Z");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("Z");
 }
 
 void eq2_actor::double_click()

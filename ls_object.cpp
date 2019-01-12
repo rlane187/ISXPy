@@ -324,26 +324,26 @@ int ls_object::get_list_from_index_method(const char* method, const char* index_
 	return len(python_list);
 }
 
-int py_eq2::query_actors(boost::python::list& actor_list, const std::string& query)
+int eq2_eq2::query_actors(boost::python::list& actor_list, const std::string& query)
 {
 	return this->get_list_from_index_method<eq2_actor>(static_cast<char *>("QueryActors"), static_cast<char *>("actor"),
 		const_cast<char *>(query.c_str()), actor_list);
 }
 
-int py_eq2_character::query_effects(boost::python::list& effect_list, const std::string& query)
+int eq2_character::query_effects(boost::python::list& effect_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_eq2_effect>(static_cast<char *>("QueryEffects"),
+	return this->get_list_from_index_method<eq2_effect>(static_cast<char *>("QueryEffects"),
 	                                                   static_cast<char *>("effect"), const_cast<char *>(query.c_str()),
 	                                                   effect_list);
 }
 
-int py_eq2_character::query_inventory(boost::python::list& item_list, const std::string& query)
+int eq2_character::query_inventory(boost::python::list& item_list, const std::string& query)
 {
 	return this->get_list_from_index_method<py_eq2_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
 	                                                 const_cast<char *>(query.c_str()), item_list);
 }
 
-int py_eq2_character::query_recipes(boost::python::list& recipe_list, const std::string& query)
+int eq2_character::query_recipes(boost::python::list& recipe_list, const std::string& query)
 {
 	return this->get_list_from_index_method<py_eq2_recipe>(static_cast<char *>("QueryRecipes"),
 	                                                   static_cast<char *>("recipe"), const_cast<char *>(query.c_str()),

@@ -113,31 +113,10 @@
     <ClCompile Include="stackless_module.cpp">
       <Filter>Source Files\Stackless</Filter>
     </ClCompile>
-    <ClCompile Include="py_eq2.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_actor_effect.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_character.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_dynamic_data.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_effect.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_effect_info.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
     <ClCompile Include="py_eq2_group_member.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_item.cpp">
-      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="py_eq2_maintained.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
     <ClCompile Include="py_eq2_recipe.cpp">
@@ -191,6 +170,27 @@
     <ClCompile Include="eq2_actor.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
     </ClCompile>
+    <ClCompile Include="eq2_eq2.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_actor_effect.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_character.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_dynamic_data.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_effect.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_effect_info.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="eq2_maintained.cpp">
+      <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ISXPy.h">
@@ -232,31 +232,10 @@
     <ClInclude Include="channel.h">
       <Filter>Header Files\Stackless</Filter>
     </ClInclude>
-    <ClInclude Include="py_eq2.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_actor_effect.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_character.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_dynamic_data.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_effect.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_effect_info.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
     <ClInclude Include="py_eq2_group_member.h">
       <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_item.h">
-      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="py_eq2_maintained.h">
       <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
     <ClInclude Include="py_eq2_recipe.h">
@@ -308,6 +287,27 @@
       <Filter>Header Files\PythonExtensions\ISXPy\Types</Filter>
     </ClInclude>
     <ClInclude Include="eq2_actor.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_eq2.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_actor_effect.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_character.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_dynamic_data.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_effect.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_effect_info.h">
+      <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="eq2_maintained.h">
       <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
     </ClInclude>
   </ItemGroup>
