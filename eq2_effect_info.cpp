@@ -33,20 +33,17 @@ eq2_effect_info& eq2_effect_info::operator=(eq2_effect_info&& other) noexcept
 	return *this;
 }
 
-std::string eq2_effect_info::get_description()
+ls_string eq2_effect_info::get_description()
 {
-	char* const member = static_cast<char *>("Description");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
+	return this->get_member("Description");
 }
 
-std::string eq2_effect_info::get_name()
+ls_string eq2_effect_info::get_name()
 {
-	char* const member = static_cast<char *>("Name");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
+	return this->get_member("Name");
 }
 
-std::string eq2_effect_info::get_type()
+ls_string eq2_effect_info::get_type()
 {
-	char* const member = static_cast<char *>("type");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
+	return this->get_member("Type");
 }

@@ -53,6 +53,23 @@ ls_bool eq2_character::check_collision(const float& to_x, const float& to_y, con
 	return this->get_member(member, argc, argv);
 }
 
+ls_bool eq2_character::check_collision_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z)
+{
+	const int argc = 3;
+	char* argv[argc];
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(ls_float(to_x).get_value()).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(ls_float(to_y).get_value()).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(ls_float(to_z).get_value()).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
+	char* const member = static_cast<char *>("CheckCollision");
+	return this->get_member(member, argc, argv);
+}
+
 ls_int eq2_character::get_agility()
 {
 	return this->get_member("Agility");
@@ -78,7 +95,7 @@ ls_string eq2_character::get_archetype()
 	return this->get_member("Archetype");
 }
 
-float eq2_character::get_ascension_exp_bubble()
+ls_float eq2_character::get_ascension_exp_bubble()
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -107,7 +124,7 @@ int eq2_character::get_ascension_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_ascension_exp_percent()
+ls_float eq2_character::get_ascension_exp_percent()
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -200,7 +217,7 @@ ls_float eq2_character::get_elemental_resist_percent()
 	return this->get_member("ElementalResistPct");
 }
 
-float eq2_character::get_exp_bubble()
+ls_float eq2_character::get_exp_bubble()
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -218,7 +235,7 @@ int eq2_character::get_exp_current()
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_exp_debt_current()
+ls_float eq2_character::get_exp_debt_current()
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -236,7 +253,7 @@ int eq2_character::get_exp_next_level()
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_exp_percent()
+ls_float eq2_character::get_exp_percent()
 {
 	const int argc = 1;
 	char* argv[argc];
@@ -244,16 +261,24 @@ float eq2_character::get_exp_percent()
 	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-int eq2_character::get_gold()
+eq2_dynamic_data eq2_character::get_game_data(const std::string& data)
 {
-	char* const member = static_cast<char *>("Gold");
-	return this->get_member(member).get_int_from_lso();
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	argv[0] = buffer;
+	strcpy_s(buffer, _countof(buffer), data.c_str());
+	return this->get_member("GetGameData", argc, argv);
+}
+
+ls_int eq2_character::get_gold()
+{
+	return this->get_member("Gold");
 }
 
 int eq2_character::get_group(boost::python::list& group_member_list)
 {
-	char* const group_string = static_cast<char *>("Group");
-	const int group_count = this->get_group_count();
+	const int group_count = this->get_group_count().get_value();
 	for (int i = 1; i < group_count; i++)
 	{
 		const int argc = 1;
@@ -261,111 +286,144 @@ int eq2_character::get_group(boost::python::list& group_member_list)
 		char buffer[MAX_VARSTRING];
 		sprintf_s(buffer, _countof(buffer), "%d", i);
 		argv[0] = const_cast<char*>(buffer);
-		group_member_list.append(py_eq2_group_member(this->get_member(group_string, argc, argv).get_lso()));
+		group_member_list.append(eq2_group_member(this->get_member("Group", argc, argv)));
 	}
 	return len(group_member_list);
 }
 
-int eq2_character::get_group_count()
+ls_int eq2_character::get_group_count()
 {
-	char* const member = static_cast<char *>("GroupCount");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("GroupCount");
 }
 
-bool eq2_character::get_grouped()
+ls_bool eq2_character::get_grouped()
 {
-	char* const member = static_cast<char *>("Grouped");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("Grouped");
 }
 
-int eq2_character::get_health_regen()
+ls_int eq2_character::get_health_regen()
 {
-	char* const member = static_cast<char *>("HealthRegen");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("HealthRegen");
 }
 
-bool eq2_character::get_in_game_world()
+ls_bool eq2_character::get_in_game_world()
 {
-	char* const member = static_cast<char *>("InGameWorld");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("InGameWorld");
 }
 
-bool eq2_character::get_is_in_raid()
+ls_int eq2_character::get_is_in_raid()
 {
-	char* const member = static_cast<char *>("InRaid");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("InRaid");
 }
 
-bool eq2_character::get_is_in_water()
+ls_bool eq2_character::get_is_in_water()
 {
-	char* const member = static_cast<char *>("InWater");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("InWater");
 }
 
-int eq2_character::get_intelligence()
+ls_int eq2_character::get_intelligence()
 {
-	char* const member = static_cast<char *>("Intelligence");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Intelligence");
 }
 
-bool eq2_character::get_is_auto_attack_on()
+ls_bool eq2_character::get_is_anonymous()
 {
-	char* const member = static_cast<char *>("AutoAttackOn");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsAnonymous");
 }
 
-bool eq2_character::get_is_casting_spell()
+ls_bool eq2_character::get_is_auto_attack_on()
 {
-	char* const member = static_cast<char *>("CastingSpell");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("AutoAttackOn");
 }
 
-bool eq2_character::get_is_group_leader()
+ls_bool eq2_character::get_is_casting_spell()
 {
-	char* const member = static_cast<char *>("IsGroupLeader");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("CastingSpell");
 }
 
-bool eq2_character::get_is_hated()
+ls_bool eq2_character::get_is_declining_duel_invites()
 {
-	char* const member = static_cast<char *>("IsHated");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsDecliningDuelInvites");
 }
 
-bool eq2_character::get_is_in_combat()
+ls_bool eq2_character::get_is_declining_group_invites()
 {
-	char* const member = static_cast<char *>("InCombat");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsDecliningGroupInvites");
 }
 
-bool eq2_character::get_is_in_first_person_view()
+ls_bool eq2_character::get_is_declining_guild_invites()
 {
-	char* const member = static_cast<char *>("In1stPersonView");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsDecliningGuildInvites");
 }
 
-bool eq2_character::get_is_in_pvp()
+ls_bool eq2_character::get_is_declining_raid_invites()
 {
-	char* const member = static_cast<char *>("IsInPVP");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsDecliningRaidInvites");
 }
 
-bool eq2_character::get_is_in_third_person_view()
+ls_bool eq2_character::get_is_declining_trade_invites()
 {
-	char* const member = static_cast<char *>("In3rdPersonView");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsDecliningTradeInvites");
 }
 
-bool eq2_character::get_is_moving()
+ls_bool eq2_character::get_is_group_leader()
 {
-	char* const member = static_cast<char *>("IsMoving");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("IsGroupLeader");
 }
 
-bool eq2_character::get_is_ranged_auto_attack_on()
+ls_bool eq2_character::get_is_guild_privacy_on()
 {
-	char* const member = static_cast<char *>("RangedAutoAttackOn");
-	return this->get_member(member).get_bool_from_lso();
+	return this->get_member("GuildPrivacyOn");
+}
+
+ls_bool eq2_character::get_is_hated()
+{
+	return this->get_member("IsHated");
+}
+
+ls_bool eq2_character::get_is_ignoring_all()
+{
+	return this->get_member("IgnoringAll");
+}
+
+ls_bool eq2_character::get_is_in_combat()
+{
+	return this->get_member("InCombat");
+}
+
+ls_bool eq2_character::get_is_in_first_person_view()
+{
+	return this->get_member("In1stPersonView");
+}
+
+ls_bool eq2_character::get_is_in_pvp()
+{
+	return this->get_member("IsInPVP");
+}
+
+ls_bool eq2_character::get_is_in_third_person_view()
+{
+	return this->get_member("In3rdPersonView");
+}
+
+ls_bool eq2_character::get_is_moving()
+{
+	return this->get_member("IsMoving");
+}
+
+ls_bool eq2_character::get_is_ranged_auto_attack_on()
+{
+	return this->get_member("RangedAutoAttackOn");
+}
+
+ls_bool eq2_character::get_is_roleplaying()
+{
+	return this->get_member("IsRolePlaying");
+}
+
+ls_bool eq2_character::get_is_target_in_los()
+{
+	return this->get_member("TargetLOS");
 }
 
 int eq2_character::get_maintained(boost::python::list& maintained_list)
@@ -383,60 +441,51 @@ int eq2_character::get_maintained(boost::python::list& maintained_list)
 	return len(maintained_list);
 }
 
-int eq2_character::get_max_conc()
+ls_int eq2_character::get_max_conc()
 {
-	char* const member = static_cast<char *>("MaxConc");
-	return this->get_member(member).get_byte_from_lso();
+	return this->get_member("MaxConc");
 }
 
-int eq2_character::get_max_dissonance()
+ls_int eq2_character::get_max_dissonance()
 {
-	char* const member = static_cast<char *>("MaxDissonance");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("MaxDissonance");
 }
 
-int64_t eq2_character::get_max_health()
+ls_int eq2_character::get_max_health()
 {
-	char* const member = static_cast<char *>("MaxHealth");
-	return this->get_member(member).get_int64_from_lso();
+	return this->get_member("MaxHealth");
 }
 
-int eq2_character::get_max_power()
+ls_int eq2_character::get_max_power()
 {
-	char* const member = static_cast<char *>("MaxPower");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("MaxPower");
 }
 
-int eq2_character::get_noxious_resist()
+ls_int eq2_character::get_noxious_resist()
 {
-	char* const member = static_cast<char *>("NoxiousResist");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("NoxiousResist");
 }
 
-float eq2_character::get_noxious_resist_percent()
+ls_float eq2_character::get_noxious_resist_percent()
 {
-	char* const member = static_cast<char *>("NoxiousResistPct");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("NoxiousResistPct");
 }
 
-int eq2_character::get_platinum()
+ls_int eq2_character::get_platinum()
 {
-	char* const member = static_cast<char *>("Platinum");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Platinum");
 }
 
-int eq2_character::get_power_regen()
+ls_int eq2_character::get_power_regen()
 {
-	char* const member = static_cast<char *>("PowerRegen");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("PowerRegen");
 }
 
 int eq2_character::get_raid(boost::python::list& raid_member_list)
 {
 	const int max_raid_size = 24;
-	const int current_raid_size = get_raid_count();
+	const int current_raid_size = get_raid_count().get_value();
 	int raid_members_found = 0;
-	char* const member = static_cast<char *>("Raid");
 	for (int i = 1; i <= max_raid_size; i++)
 	{
 		const int argc = 1;
@@ -444,11 +493,11 @@ int eq2_character::get_raid(boost::python::list& raid_member_list)
 		char buffer[MAX_VARSTRING] = { 0 };
 		sprintf_s(buffer, _countof(buffer), "%d", i);
 		argv[0] = buffer;
-		LSOBJECT ls_object = this->get_member(member, argc, argv).get_lso();
+		LSOBJECT ls_object = this->get_member("Raid", argc, argv).get_lso();
 		if (ls_object.GetObjectData().Ptr != nullptr)
 		{
 			raid_members_found++;
-			raid_member_list.append(py_eq2_group_member(ls_object));
+			raid_member_list.append(eq2_group_member(ls_object));
 		}
 		if (raid_members_found == current_raid_size)
 			break;
@@ -456,255 +505,229 @@ int eq2_character::get_raid(boost::python::list& raid_member_list)
 	return len(raid_member_list);
 }
 
-int eq2_character::get_raid_count()
+ls_int eq2_character::get_raid_count()
 {
-	char* const member = static_cast<char *>("RaidCount");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("RaidCount");
 }
 
-int eq2_character::get_raid_group_num()
+ls_int eq2_character::get_raid_group_num()
 {
-	char* const member = static_cast<char *>("RaidGroupNum");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("RaidGroupNum");
 }
 
-int eq2_character::get_silver()
+ls_int eq2_character::get_silver()
 {
-	char* const member = static_cast<char *>("Silver");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Silver");
 }
 
-int eq2_character::get_stamina()
+ls_int eq2_character::get_stamina()
 {
-	char* const member = static_cast<char *>("Stamina");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Stamina");
 }
 
-int eq2_character::get_strength()
+ls_int eq2_character::get_strength()
 {
-	char* const member = static_cast<char *>("Strength");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Strength");
 }
 
-float eq2_character::get_tithe_exp_bubble()
+ls_float eq2_character::get_time_to_campout()
 {
-	char* const member = static_cast<char *>("GetGameData");
+	return this->get_member("TimeToCampOut");
+}
+
+ls_float eq2_character::get_tithe_exp_bubble()
+{
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TitheExperienceBubble");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
 int eq2_character::get_tithe_exp_current()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TitheExperience");
-	std::string result = eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+	std::string result = eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_label();
 	boost::erase_all(result, ",");
 	return boost::lexical_cast<int>(result);
 }
 
 int eq2_character::get_tithe_exp_next_level()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TitheExperienceNextLevel");
-	std::string result = eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+	std::string result = eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_label();
 	boost::erase_all(result, ",");
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_tithe_exp_percent()
+ls_float eq2_character::get_tithe_exp_percent()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TitheExperienceCurrent");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_tithe_vitality_overflow_marker()
+ls_float eq2_character::get_tithe_vitality_overflow_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TitheVitalityOverflowMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-std::string eq2_character::get_subclass()
+ls_string eq2_character::get_subclass()
 {
-	char* const member = static_cast<char *>("SubClass");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("SubClass");
 }
 
-std::string eq2_character::get_ts_archetype()
+ls_string eq2_character::get_ts_archetype()
 {
-	char* const member = static_cast<char *>("TSArchetype");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("TSArchetype");
 }
 
-std::string eq2_character::get_ts_class()
+ls_string eq2_character::get_ts_class()
 {
-	char* const member = static_cast<char *>("TSClass");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("TSClass");
 }
 
-float eq2_character::get_ts_exp_bubble()
+ls_float eq2_character::get_ts_exp_bubble()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TradeskillExperienceBubble");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
 int eq2_character::get_ts_exp_current()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TradeskillExperience");
-	std::string result = eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+	std::string result = eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_label();
 	boost::erase_all(result, ",");
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_ts_exp_debt_current()
+ls_float eq2_character::get_ts_exp_debt_current()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TSExperienceDebtCurrent");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
 int eq2_character::get_ts_exp_next_level()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TradeskillExperienceNextLevel");
-	std::string result = eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_label();
+	std::string result = eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_label();
 	boost::erase_all(result, ",");
 	return boost::lexical_cast<int>(result);
 }
 
-float eq2_character::get_ts_exp_percent()
+ls_float eq2_character::get_ts_exp_percent()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TradeskillExperienceCurrent");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-int eq2_character::get_ts_level()
+ls_int eq2_character::get_ts_level()
 {
-	char* const member = static_cast<char *>("TSLevel");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("TSLevel");
 }
 
-std::string eq2_character::get_ts_subclass()
+ls_string eq2_character::get_ts_subclass()
 {
-	char* const member = static_cast<char *>("TSSubClass");
-	return this->get_member(member).get_string_from_lso();
+	return this->get_member("TSSubClass");
 }
 
-float eq2_character::get_ts_vitality()
+ls_float eq2_character::get_ts_vitality()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TSVitality");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_ts_vitality_lower_marker()
+ls_float eq2_character::get_ts_vitality_lower_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TSVitalityLowerMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_ts_vitality_overflow_marker()
+ls_float eq2_character::get_ts_vitality_overflow_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TSVitalityOverflowMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_ts_vitality_upper_marker()
+ls_float eq2_character::get_ts_vitality_upper_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.TSVitalityUpperMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-int eq2_character::get_used_conc()
+ls_int eq2_character::get_used_conc()
 {
-	char* const member = static_cast<char *>("UsedConc");
-	return this->get_member(member).get_byte_from_lso();
+	return this->get_member("UsedConc");
 }
 
-float eq2_character::get_vitality()
+ls_float eq2_character::get_vitality()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.Vitality");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_vitality_lower_marker()
+ls_float eq2_character::get_vitality_lower_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.VitalityLowerMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_vitality_overflow_marker()
+ls_float eq2_character::get_vitality_overflow_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.VitalityOverflowMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_vitality_upper_marker()
+ls_float eq2_character::get_vitality_upper_marker()
 {
-	char* const member = static_cast<char *>("GetGameData");
 	const int argc = 1;
 	char* argv[argc];
 	argv[0] = const_cast<char*>("Self.VitalityUpperMarker");
-	return eq2_dynamic_data(this->get_member(member, argc, argv).get_lso()).get_percent();
+	return eq2_dynamic_data(this->get_member("GetGameData", argc, argv)).get_percent();
 }
 
-float eq2_character::get_water_depth()
+ls_float eq2_character::get_water_depth()
 {
-	char* const member = static_cast<char *>("WaterDepth");
-	return this->get_member(member).get_float_from_lso();
+	return this->get_member("WaterDepth");
 }
 
-int eq2_character::get_wisdom()
+ls_int eq2_character::get_wisdom()
 {
-	char* const member = static_cast<char *>("Wisdom");
-	return this->get_member(member).get_int_from_lso();
+	return this->get_member("Wisdom");
 }
 
-float eq2_character::get_heading_to(const float& to_x, const float& to_y, const float& to_z)
+ls_float eq2_character::get_heading_to(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 3;
 	char* argv[argc];
@@ -717,11 +740,26 @@ float eq2_character::get_heading_to(const float& to_x, const float& to_y, const 
 	argv[0] = buffer_x;
 	argv[1] = buffer_y;
 	argv[2] = buffer_z;
-	char* const member = static_cast<char *>("HeadingTo");
-	return this->get_member(member, argc, argv).get_float_from_lso();
+	return this->get_member("HeadingTo", argc, argv);
 }
 
-std::string eq2_character::get_heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
+ls_float eq2_character::get_heading_to_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z)
+{
+	const int argc = 3;
+	char* argv[argc];
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(ls_float(to_x).get_value()).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(ls_float(to_y).get_value()).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(ls_float(to_z).get_value()).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
+	return this->get_member("HeadingTo", argc, argv);
+}
+
+ls_string eq2_character::get_heading_to_as_compass_bearing(const float& to_x, const float& to_y, const float& to_z)
 {
 	const int argc = 4;
 	char* argv[argc];
@@ -735,13 +773,28 @@ std::string eq2_character::get_heading_to_as_compass_bearing(const float& to_x, 
 	argv[1] = buffer_y;
 	argv[2] = buffer_z;
 	argv[3] = static_cast<char *>("AsString");
-	char* const member = static_cast<char *>("HeadingTo");
-	return this->get_member(member, argc, argv).get_string_from_lso();
+	return this->get_member("HeadingTo", argc, argv);
 }
 
-py_eq2_group_member eq2_character::get_group_member(const int& member_or_id, const std::string& name)
+ls_string eq2_character::get_heading_to_as_compass_bearing_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z)
 {
-	py_eq2_group_member group_member;
+	const int argc = 4;
+	char* argv[argc];
+	char buffer_x[MAX_VARSTRING];
+	char buffer_y[MAX_VARSTRING];
+	char buffer_z[MAX_VARSTRING];
+	strcpy_s(buffer_x, _countof(buffer_x), boost::lexical_cast<std::string>(ls_float(to_x).get_value()).c_str());
+	strcpy_s(buffer_y, _countof(buffer_y), boost::lexical_cast<std::string>(ls_float(to_y).get_value()).c_str());
+	strcpy_s(buffer_z, _countof(buffer_z), boost::lexical_cast<std::string>(ls_float(to_z).get_value()).c_str());
+	argv[0] = buffer_x;
+	argv[1] = buffer_y;
+	argv[2] = buffer_z;
+	argv[3] = static_cast<char *>("AsString");
+	return this->get_member("HeadingTo", argc, argv);
+}
+
+eq2_group_member eq2_character::get_group_member(const int& member_or_id, const std::string& name)
+{
 	const int argc = 1;
 	const int argc_by_id = 2;
 	char* argv[argc];
@@ -756,17 +809,15 @@ py_eq2_group_member eq2_character::get_group_member(const int& member_or_id, con
 	argv[0] = buffer;
 	argv_by_id[0] = buffer_by_id;
 	argv_by_id[1] = buffer;
-	char* const member = static_cast<char*>("Group");
 	if (member_or_id <= 5)
-		group_member = this->get_member(member, argc, argv).get_lso();
+		return this->get_member("Group", argc, argv);
 	else
-		group_member = this->get_member(member, argc_by_id, argv_by_id).get_lso();
-	return group_member;
+		return this->get_member("Group", argc_by_id, argv_by_id);
 }
 
-py_eq2_group_member eq2_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
+eq2_group_member eq2_character::get_raid_member(const int& member_or_id, const int& group_num, const std::string& name)
 {
-	py_eq2_group_member group_member;
+	eq2_group_member group_member;
 	const int argc = 1;
 	const int argc_by_id = 2;
 	const int argc_by_group = 2;
@@ -787,17 +838,14 @@ py_eq2_group_member eq2_character::get_raid_member(const int& member_or_id, cons
 	argv_by_id[1] = buffer;
 	argv_by_group[0] = buffer_by_group;
 	argv_by_group[1] = buffer;
-	char* const member = static_cast<char*>("Raid");
 	// Search by id.
 	if (member_or_id > 24)
-		group_member = this->get_member(member, argc_by_id, argv_by_id).get_lso();
+		return this->get_member("Raid", argc_by_id, argv_by_id);
 	// Search by group and member number.
-	else if (member_or_id > 0 && member_or_id <= 6 && group_num > 0)
-		group_member = this->get_member(member, argc_by_group, argv_by_group).get_lso();
+	if (member_or_id > 0 && member_or_id <= 6 && group_num > 0)
+		return this->get_member("Raid", argc_by_group, argv_by_group);
 	// Search by name or member number
-	else
-		group_member = this->get_member(member, argc, argv).get_lso();
-	return group_member;
+	return this->get_member("Raid", argc, argv);
 }
 
 eq2_maintained eq2_character::maintained(const int& number, const std::string& name)
@@ -809,7 +857,162 @@ eq2_maintained eq2_character::maintained(const int& number, const std::string& n
 		sprintf_s(buffer, _countof(buffer), "%d", number);
 	else
 		strcpy_s(buffer, _countof(buffer), name.c_str());
-	char* const member = static_cast<char*>("Maintained");
 	argv[0] = buffer;
-	return this->get_member(member, argc, argv).get_lso();
+	return this->get_member("Maintained", argc, argv);
+}
+
+void eq2_character::face(const float& heading)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), boost::lexical_cast<std::string>(heading).c_str());
+	argv[0] = buffer;
+	this->execute_method("face", argc, argv);
+}
+
+void eq2_character::face_ls(const ls_float& heading)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), boost::lexical_cast<std::string>(ls_float(heading).get_value()).c_str());
+	argv[0] = buffer;
+	this->execute_method("face", argc, argv);
+}
+
+void eq2_character::take_all_vending_coin()
+{
+	this->execute_method("TakeAllVendingCoin");
+}
+
+void eq2_character::reset_zone_timer(const std::string& zone_name)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), zone_name.c_str());
+	argv[0] = buffer;
+	this->execute_method("ResetZoneTimer", argc, argv);
+}
+
+void eq2_character::reset_zone_timer_ls(const ls_string& zone_name)
+{
+	const int argc = 1;
+	char* argv[argc];
+	char buffer[MAX_VARSTRING];
+	strcpy_s(buffer, _countof(buffer), ls_string(zone_name).get_value().c_str());
+	argv[0] = buffer;
+	this->execute_method("ResetZoneTimer", argc, argv);
+}
+
+void eq2_character::bank_deposit(const std::string& type, const int& amount, const bool& from_shared)
+{
+	const int argc = 2;
+	const int argc_from_shared = 3;
+	char* argv[argc];
+	char* argv_from_shared[argc_from_shared];
+	char buffer_type[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	char buffer_from_shared[MAX_VARSTRING];
+	strcpy_s(buffer_type, _countof(buffer_type), type.c_str());
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	strcpy_s(buffer_from_shared, _countof(buffer_from_shared), "FromShared");
+	argv[0] = buffer_type;
+	argv[1] = buffer_amount;
+	argv_from_shared[0] = buffer_type;
+	argv_from_shared[1] = buffer_amount;
+	argv_from_shared[2] = buffer_from_shared;
+	if (from_shared)
+		this->execute_method("BankDeposit", argc_from_shared, argv_from_shared);
+	else
+		this->execute_method("BankDeposit", argc, argv);
+}
+
+void eq2_character::shared_bank_deposit(const std::string& type, const int& amount, const bool& from_bank)
+{
+	const int argc = 2;
+	const int argc_from_bank = 3;
+	char* argv[argc];
+	char* argv_from_bank[argc_from_bank];
+	char buffer_type[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	char buffer_from_bank[MAX_VARSTRING];
+	strcpy_s(buffer_type, _countof(buffer_type), type.c_str());
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	strcpy_s(buffer_from_bank, _countof(buffer_from_bank), "FromBank");
+	argv[0] = buffer_type;
+	argv[1] = buffer_amount;
+	argv_from_bank[0] = buffer_type;
+	argv_from_bank[1] = buffer_amount;
+	argv_from_bank[2] = buffer_from_bank;
+	if (from_bank)
+		this->execute_method("SharedBankDeposit", argc_from_bank, argv_from_bank);
+	else
+		this->execute_method("SharedBankDeposit", argc, argv);
+}
+
+void eq2_character::bank_withdraw(const std::string& type, const int& amount)
+{
+	const int argc = 2;
+	char* argv[argc];
+	char buffer_type[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	strcpy_s(buffer_type, _countof(buffer_type), type.c_str());
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	argv[0] = buffer_type;
+	argv[1] = buffer_amount;
+	this->execute_method("BankWithdraw", argc, argv);
+}
+
+void eq2_character::shared_bank_withdraw(const std::string& type, const int& amount)
+{
+	const int argc = 2;
+	char* argv[argc];
+	char buffer_type[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	strcpy_s(buffer_type, _countof(buffer_type), type.c_str());
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	argv[0] = buffer_type;
+	argv[1] = buffer_amount;
+	this->execute_method("SharedBankWithdraw", argc, argv);
+}
+
+void eq2_character::guild_bank_deposit(const int& bank_number, const int& amount)
+{
+	const int argc = 2;
+	char* argv[argc];
+	char buffer_bank[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	sprintf_s(buffer_bank, _countof(buffer_bank), "%d", bank_number);
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	argv[0] = buffer_bank;
+	argv[1] = buffer_amount;
+	this->execute_method("GuildBankDeposit", argc, argv);
+}
+
+void eq2_character::guild_bank_withdraw(const int& bank_number, const int& amount)
+{
+	const int argc = 2;
+	char* argv[argc];
+	char buffer_bank[MAX_VARSTRING];
+	char buffer_amount[MAX_VARSTRING];
+	sprintf_s(buffer_bank, _countof(buffer_bank), "%d", bank_number);
+	sprintf_s(buffer_amount, _countof(buffer_amount), "%d", amount);
+	argv[0] = buffer_bank;
+	argv[1] = buffer_amount;
+	this->execute_method("GuildBankWithdraw", argc, argv);
+}
+
+void eq2_character::deposit_into_house_escrow(const int& coin_amount, const int& status_amount)
+{
+	const int argc = 2;
+	char* argv[argc];
+	char buffer_coin[MAX_VARSTRING];
+	char buffer_status[MAX_VARSTRING];
+	sprintf_s(buffer_coin, _countof(buffer_coin), "%d", coin_amount);
+	sprintf_s(buffer_status, _countof(buffer_status), "%d", status_amount);
+	argv[0] = buffer_coin;
+	argv[1] = buffer_status;
+	this->execute_method("DepositIntoHouseEscrow", argc, argv);
 }

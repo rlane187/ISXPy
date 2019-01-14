@@ -9,8 +9,8 @@ public:
 	// ReSharper disable once CppNonExplicitConvertingConstructor
 	ls_object(const LSOBJECT& other);
 	virtual ~ls_object();
-	ls_object& operator=(const ls_object& other);
-	ls_object& operator=(ls_object&& other) noexcept;	
+	virtual ls_object& operator=(const ls_object& other);
+	virtual ls_object& operator=(ls_object&& other) noexcept;	
 	void execute_method(const char* method, int argc = 0, char* argv[] = nullptr);
 	bool get_bool_from_lso();
 	int get_byte_from_lso();

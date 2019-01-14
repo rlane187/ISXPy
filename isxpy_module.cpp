@@ -278,6 +278,8 @@ BOOST_PYTHON_MODULE(isxpy)
 		.add_property("value", &ls_int::get_value)
 		.add_property("is_valid", &ls_int::get_is_valid)
 		.def(self_ns::str(self))
+		.def("__bool__", &ls_int::get_value)
+		.def("__nonzero__", &ls_int::operator!)
 		.def(int_(self))
 		.def(float_(self))
 		.def(-self)
@@ -669,6 +671,16 @@ BOOST_PYTHON_MODULE(isxpy)
 		.def(self >= std::string())
 		.def(std::string() >= self)
 		;
+
+#pragma endregion
+
+#pragma region ls_point3_f
+
+	class_<ls_point3_f, bases<ls_object>>("point3f")
+		.add_property("x", &ls_point3_f::get_x)
+		.add_property("y", &ls_point3_f::get_y)
+		.add_property("z", &ls_point3_f::get_z)
+		.def("xyz", &ls_point3_f::get_xyz, ls_point3_f::get_xyz_overloads(args("separator")));
 
 #pragma endregion
 

@@ -28,57 +28,47 @@ eq2_effect::eq2_effect(const LSOBJECT& other)
 	this->lsobject_ = other;
 }
 
-int eq2_effect::get_back_drop_icon_id()
+ls_int eq2_effect::get_back_drop_icon_id()
 {
-	char* const member = static_cast<char *>("BackDropIconID");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
+	return this->get_member("BackDropIconID");
 }
 
-int eq2_effect::get_current_increments()
+ls_int eq2_effect::get_current_increments()
 {
-	char* const member = static_cast<char *>("CurrentIncrements");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
+	return this->get_member("CurrentIncrements");
 }
 
-float eq2_effect::get_duration()
+ls_float eq2_effect::get_duration()
 {
-	char* const member = static_cast<char *>("Duration");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
+	return this->get_member("Duration");
 }
 
-int eq2_effect::get_id()
+ls_int eq2_effect::get_id()
 {
-	char* const member = static_cast<char *>("ID");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
+	return this->get_member("ID");
 }
 
-bool eq2_effect::get_is_effect_info_available()
+ls_bool eq2_effect::get_is_effect_info_available()
 {
-	char* const member = static_cast<char *>("IsEffectInfoAvailable");
-	return this->get_member(member, 0, nullptr).get_bool_from_lso();
+	return this->get_member("IsEffectInfoAvailable");
 }
 
-int eq2_effect::get_main_icon_id()
+ls_int eq2_effect::get_main_icon_id()
 {
-	char* const member = static_cast<char *>("MainIconID");
-	return this->get_member(member, 0, nullptr).get_int_from_lso();
+	return this->get_member("MainIconID");
 }
 
-float eq2_effect::get_max_duration()
+ls_float eq2_effect::get_max_duration()
 {
-	char* const member = static_cast<char *>("MaxDuration");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
+	return this->get_member("MaxDuration");
 }
 
 eq2_effect_info eq2_effect::get_effect_info()
 {
-	char* const member = static_cast<char *>("ToEffectInfo");
-	eq2_effect_info effect_info = eq2_effect_info(this->get_member(member, 0, nullptr).get_lso());
-	return effect_info;
+	return this->get_member("ToEffectInfo");
 }
 
-std::string eq2_effect::get_type()
+ls_string eq2_effect::get_type()
 {
-	char* const member = static_cast<char *>("Type");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
+	return this->get_member("Type");
 }

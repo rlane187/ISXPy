@@ -18,6 +18,7 @@ public:
 	bool get_is_valid() const;
 
 	int64_t operator-();
+	bool operator!();
 
 	int64_t operator+(const bool& other);
 	int64_t operator+(const ls_bool& other);
@@ -135,6 +136,8 @@ public:
 	bool operator>=(const double& other);
 	bool operator>=(const ls_float& other);
 
+	// ReSharper disable once CppNonExplicitConversionOperator
+	operator bool() { return bool(this->get_value()); }
 	// ReSharper disable once CppNonExplicitConversionOperator
 	operator int() { return int(this->get_value()); }
 	// ReSharper disable once CppNonExplicitConversionOperator

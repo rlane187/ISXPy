@@ -77,6 +77,11 @@ bool ls_int::get_is_valid() const
 		|| this->lsobject_.ObjectType == pUintPtrType || this->lsobject_.ObjectType == pInt64Type || this->lsobject_.ObjectType == pInt64PtrType);
 }
 
+bool ls_int::operator!()
+{
+	return !bool(*this);
+}
+
 int64_t ls_int::operator-()
 {
 	return -1 * int64_t(*this);

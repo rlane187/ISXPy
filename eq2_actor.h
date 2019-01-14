@@ -18,7 +18,7 @@ public:
 	eq2_actor& operator=(eq2_actor&& other) noexcept;
 
 	virtual ls_bool check_collision(const float& to_x = NULL, const float& to_y = NULL, const float& to_z = NULL);
-	ls_bool check_collision_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z);
+	virtual ls_bool check_collision_ls(const ls_float& to_x, const ls_float& to_y, const ls_float& to_z);
 	BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(check_collision_overloads, check_collision, 0, 3)
 	ls_string get_aura();	
 	ls_bool get_can_turn();

@@ -13,6 +13,6 @@ public:
 	eq2_dynamic_data& operator=(eq2_dynamic_data&& other) noexcept;
 	// ReSharper disable once CppNonExplicitConvertingConstructor
 	eq2_dynamic_data(const LSOBJECT& ls_object);
-	std::string get_label();
-	float get_percent();
+	ls_string get_label();
+	ls_float get_percent();
 };

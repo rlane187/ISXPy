@@ -33,14 +33,12 @@ eq2_dynamic_data::eq2_dynamic_data(const LSOBJECT& ls_object)
 	this->lsobject_ = ls_object;
 }
 
-std::string eq2_dynamic_data::get_label()
+ls_string eq2_dynamic_data::get_label()
 {
-	char* const member = static_cast<char *>("Label");
-	return this->get_member(member, 0, nullptr).get_string_from_lso();
+	return this->get_member("Label");
 }
 
-float eq2_dynamic_data::get_percent()
+ls_float eq2_dynamic_data::get_percent()
 {
-	char* const member = static_cast<char *>("Percent");
-	return this->get_member(member, 0, nullptr).get_float_from_lso();
+	return this->get_member("Percent");
 }

@@ -149,6 +149,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("base_wisdom", &eq2_character::get_base_wisdom)
 		.add_property("breath", &eq2_character::get_breath)
 		.def("check_collision", &eq2_character::check_collision)
+		.def("check_collision", &eq2_character::check_collision_ls)
 		.add_property("copper", &eq2_character::get_copper)
 		.add_property("count_maintained", &eq2_character::get_count_maintained)
 		.add_property("current_health", &eq2_character::get_current_health)
@@ -163,13 +164,22 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("exp_debt_current", &eq2_character::get_exp_debt_current)
 		.add_property("exp_next_level", &eq2_character::get_exp_next_level)
 		.add_property("exp_percent", &eq2_character::get_exp_percent)
+		.def("get_game_data", &eq2_character::get_game_data)
 		.add_property("gold", &eq2_character::get_gold)
 		.add_property("grouped", &eq2_character::get_grouped)
 		.add_property("group_count", &eq2_character::get_group_count)
 		.add_property("health_regen", &eq2_character::get_health_regen)
+		.add_property("is_anonymous", &eq2_character::get_is_anonymous)
 		.add_property("is_auto_attack_on", &eq2_character::get_is_auto_attack_on)
 		.add_property("is_casting_spell", &eq2_character::get_is_casting_spell)
+		.add_property("is_declining_duel_invites", &eq2_character::get_is_declining_duel_invites)
+		.add_property("is_declining_group_invites", &eq2_character::get_is_declining_group_invites)
+		.add_property("is_declining_guild_invites", &eq2_character::get_is_declining_guild_invites)
+		.add_property("is_declining_raid_invites", &eq2_character::get_is_declining_raid_invites)
+		.add_property("is_declining_trade_invites", &eq2_character::get_is_declining_trade_invites)
 		.add_property("in_game_world", &eq2_character::get_in_game_world)
+		.add_property("is_guild_privacy_on", &eq2_character::get_is_guild_privacy_on)
+		.add_property("is_ignoring_all", &eq2_character::get_is_ignoring_all)	
 		.add_property("is_in_combat", &eq2_character::get_is_in_combat)
 		.add_property("is_in_first_person_view", &eq2_character::get_is_in_first_person_view)
 		.add_property("is_in_pvp", &eq2_character::get_is_in_pvp)
@@ -181,6 +191,8 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("is_group_leader", &eq2_character::get_is_group_leader)
 		.add_property("is_hated", &eq2_character::get_is_hated)
 		.add_property("is_moving", &eq2_character::get_is_moving)
+		.add_property("is_roleplaying", &eq2_character::get_is_roleplaying)
+		.add_property("is_target_in_los", &eq2_character::get_is_target_in_los)
 		.def("Maintained", &eq2_character::maintained_1)
 		.def("Maintained", &eq2_character::maintained_2)
 		.add_property("max_conc", &eq2_character::get_max_conc)
@@ -197,6 +209,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("stamina", &eq2_character::get_stamina)
 		.add_property("strength", &eq2_character::get_strength)
 		.add_property("subclass", &eq2_character::get_subclass)
+		.add_property("time_to_campout", &eq2_character::get_time_to_campout)
 		.add_property("tithe_exp_bubble", &eq2_character::get_tithe_exp_bubble)
 		.add_property("tithe_exp_current", &eq2_character::get_tithe_exp_current)
 		.add_property("tithe_exp_next_level", &eq2_character::get_tithe_exp_next_level)
@@ -227,14 +240,28 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.def("query_recipes", &eq2_character::query_recipes, eq2_character::query_recipes_overloads(args("recipe_list", "query")))
 		.def("get_maintained", &eq2_character::get_maintained)
 		.def("heading_to", &eq2_character::get_heading_to)
+		.def("heading_to", &eq2_character::get_heading_to_ls)
 		.def("heading_to_as_compass_bearing", &eq2_character::get_heading_to_as_compass_bearing)
+		.def("heading_to_as_compass_bearing", &eq2_character::get_heading_to_as_compass_bearing_ls)
 		.def("get_group", &eq2_character::get_group)
 		.def("get_group_member", &eq2_character::get_group_member_1)
 		.def("get_group_member", &eq2_character::get_group_member_2)
 		.def("get_raid", &eq2_character::get_raid)
 		.def("get_raid_member", &eq2_character::get_raid_member_1)
 		.def("get_raid_member", &eq2_character::get_raid_member_2)
-		.def("get_raid_member", &eq2_character::get_raid_member_3);
+		.def("get_raid_member", &eq2_character::get_raid_member_3)
+		.def("face", &eq2_character::face)
+		.def("face", &eq2_character::face_ls)
+		.def("take_all_vending_coin", &eq2_character::take_all_vending_coin)
+		.def("reset_zone_timer", &eq2_character::reset_zone_timer)
+		.def("reset_zone_timer", &eq2_character::reset_zone_timer_ls)
+		.def("bank_deposit", &eq2_character::bank_deposit, eq2_character::bank_deposit_overloads(args("type", "amount", "from_shared_bank")))
+		.def("shared_bank_deposit", &eq2_character::shared_bank_deposit, eq2_character::shared_bank_deposit_overloads(args("type", "amount", "from_bank")))
+		.def("bank_withdraw", &eq2_character::bank_withdraw)
+		.def("shared_bank_withdraw", &eq2_character::shared_bank_withdraw)
+		.def("guild_bank_deposit", &eq2_character::guild_bank_deposit)
+		.def("guild_bank_withdraw", &eq2_character::guild_bank_withdraw)
+		.def("deposit_into_house_escrow", &eq2_character::deposit_into_house_escrow);
 
 #pragma endregion
 
@@ -304,7 +331,7 @@ BOOST_PYTHON_MODULE(isxeq2)
 
 #pragma endregion
 
-#pragma endregion eq2_effect_info
+#pragma region eq2_effect_info
 
 	class_<eq2_effect_info, bases<ls_object>>("effect_info", init<const LSOBJECT&>())
 		.add_property("description", &eq2_effect_info::get_description)
@@ -313,25 +340,58 @@ BOOST_PYTHON_MODULE(isxeq2)
 
 #pragma endregion
 
-	class_<py_eq2_group_member, bases<eq2_actor>>("group_member")
-		.add_property("arcane", &py_eq2_group_member::get_arcane)
-		.add_property("current_health", &py_eq2_group_member::get_current_health)
-		.add_property("current_power", &py_eq2_group_member::get_current_power)
-		.add_property("cursed", &py_eq2_group_member::get_cursed)
-		.add_property("elemental", &py_eq2_group_member::get_elemental)
-		.add_property("max_health", &py_eq2_group_member::get_max_health)
-		.add_property("max_power", &py_eq2_group_member::get_max_power)
-		.add_property("noxious", &py_eq2_group_member::get_noxious)
-		.add_property("in_zone", &py_eq2_group_member::get_in_zone)
-		.add_property("is_afflicted", &py_eq2_group_member::get_is_afflicted)
-		.add_property("pet_id", &py_eq2_group_member::get_pet_id)
-		.add_property("raid_group_num", &py_eq2_group_member::get_raid_group_num)
-		.add_property("raid_role", &py_eq2_group_member::get_raid_role)
-		.add_property("trauma", &py_eq2_group_member::get_trauma)
-		.add_property("zone_name", &py_eq2_group_member::get_zone_name);
+#pragma region eq2_group_member
 
-	class_<py_eq2_item, bases<ls_object>>("item")
-		.add_property("name", &py_eq2_item::get_name);
+	class_<eq2_group_member, bases<eq2_actor>>("group_member")
+		.add_property("arcane", &eq2_group_member::get_arcane)
+		.add_property("current_health", &eq2_group_member::get_current_health)
+		.add_property("current_power", &eq2_group_member::get_current_power)
+		.add_property("cursed", &eq2_group_member::get_cursed)
+		.add_property("elemental", &eq2_group_member::get_elemental)
+		.add_property("max_health", &eq2_group_member::get_max_health)
+		.add_property("max_power", &eq2_group_member::get_max_power)
+		.add_property("noxious", &eq2_group_member::get_noxious)
+		.add_property("in_zone", &eq2_group_member::get_in_zone)
+		.add_property("is_afflicted", &eq2_group_member::get_is_afflicted)
+		.add_property("pet_id", &eq2_group_member::get_pet_id)
+		.add_property("raid_group_num", &eq2_group_member::get_raid_group_num)
+		.add_property("raid_role", &eq2_group_member::get_raid_role)
+		.add_property("trauma", &eq2_group_member::get_trauma)
+		.add_property("zone_name", &eq2_group_member::get_zone_name);
+
+#pragma endregion
+
+#pragma region eq2_isxeq2
+
+	class_<eq2_isxeq2, bases<ls_object>>("isxeq2")
+		.def("add_loc", &eq2_isxeq2::add_loc, eq2_isxeq2::add_loc_overloads(args("label", "notes")))
+		.add_property("affliction_events_on", &eq2_isxeq2::get_affliction_events_on)
+		.add_property("api_version", &eq2_isxeq2::get_api_version)
+		.def("clear_abilities_cache", &eq2_isxeq2::clear_abilities_cache)
+		.def("disable_affliction_events", &eq2_isxeq2::disable_affliction_events)
+		.def("disable_custom_zoning_text", &eq2_isxeq2::disable_custom_zoning_text)
+		.def("enable_affliction_events", &eq2_isxeq2::enable_affliction_events)
+		.def("enable_custom_zoning_text", &eq2_isxeq2::enable_custom_zoning_text)
+		.def("eq2locs_count", &eq2_isxeq2::get_eq2locs_count, eq2_isxeq2::get_eq2locs_count_overloads(args("all_zones")))
+		.add_property("is_ready", &eq2_isxeq2::get_is_ready)
+		.def("is_valid_eq2press_key", &eq2_isxeq2::get_is_valid_eq2press_key, args("key"))
+		.def("popup", &eq2_isxeq2::popup, eq2_isxeq2::popup_overloads(args("message", "title", "status")))
+		.def("reset_internal_vending_system", &eq2_isxeq2::reset_internal_vending_system)
+		.def("set_actor_events_range", &eq2_isxeq2::set_actor_events_range, args("range"))
+		.def("set_actor_events_time_interval", &eq2_isxeq2::set_actor_events_time_interval, args("time"))
+		.def("set_affliction_events_time_interval", &eq2_isxeq2::set_affliction_events_time_interval, args("time"))
+		.add_property("version", &eq2_isxeq2::get_version);
+
+#pragma endregion
+
+#pragma region eq2_item
+
+	class_<eq2_item, bases<ls_object>>("item")
+		.add_property("name", &eq2_item::get_name);
+
+#pragma endregion
+
+#pragma region eq2_maintained
 
 	class_<eq2_maintained, bases<ls_object>>("maintained")
 		.add_property("concentration_cost", &eq2_maintained::get_concentration_cost)
@@ -345,33 +405,16 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("target_type", &eq2_maintained::get_target_type)
 		.add_property("uses_remaining", &eq2_maintained::get_uses_remaining);
 
-	class_<py_isxeq2, bases<ls_object>>("isxeq2")
-		.def("add_loc", &py_isxeq2::add_loc, py_isxeq2::add_loc_overloads(args("label", "notes")))
-		.add_property("affliction_events_on", &py_isxeq2::get_affliction_events_on)
-		.add_property("api_version", &py_isxeq2::get_api_version)
-		.def("clear_abilities_cache", &py_isxeq2::clear_abilities_cache)
-		.def("disable_affliction_events", &py_isxeq2::disable_affliction_events)
-		.def("disable_custom_zoning_text", &py_isxeq2::disable_custom_zoning_text)
-		.def("enable_affliction_events", &py_isxeq2::enable_affliction_events)
-		.def("enable_custom_zoning_text", &py_isxeq2::enable_custom_zoning_text)
-		.def("eq2locs_count", &py_isxeq2::get_eq2locs_count, py_isxeq2::get_eq2locs_count_overloads(args("all_zones")))
-		.add_property("is_ready", &py_isxeq2::get_is_ready)
-		.def("is_valid_eq2press_key", &py_isxeq2::get_is_valid_eq2press_key, args("key"))
-		.def("popup", &py_isxeq2::popup, py_isxeq2::popup_overloads(args("message", "title", "status")))
-		.def("reset_internal_vending_system", &py_isxeq2::reset_internal_vending_system)
-		.def("set_actor_events_range", &py_isxeq2::set_actor_events_range, args("range"))
-		.def("set_actor_events_time_interval", &py_isxeq2::set_actor_events_time_interval, args("time"))
-		.def("set_affliction_events_time_interval", &py_isxeq2::set_affliction_events_time_interval, args("time"))
-		.add_property("version", &py_isxeq2::get_version);	
+#pragma endregion
 
-	class_<ls_point3_f, bases<ls_object>>("point3f")
-		.add_property("x", &ls_point3_f::get_x)
-		.add_property("y", &ls_point3_f::get_y)
-		.add_property("z", &ls_point3_f::get_z)
-		.def("xyz", &ls_point3_f::get_xyz, ls_point3_f::get_xyz_overloads(args("separator")));
+#pragma region eq2_recipe
 
-	class_<py_eq2_recipe, bases<ls_object>>("recipe")
-		.add_property("name", &py_eq2_recipe::get_name);
+	class_<eq2_recipe, bases<ls_object>>("recipe")
+		.add_property("name", &eq2_recipe::get_name);
+
+#pragma endregion
+
+#pragma region event args
 
 	class_<eq2_actor_despawned_args>("eq2_actor_despawned_args")
 		.add_property("id", &eq2_actor_despawned_args::get_id, &eq2_actor_despawned_args::set_id)
@@ -386,6 +429,9 @@ BOOST_PYTHON_MODULE(isxeq2)
 		.add_property("description", &eq2_on_quest_offered_args::get_description, &eq2_on_quest_offered_args::set_description)
 		.add_property("level", &eq2_on_quest_offered_args::get_level, &eq2_on_quest_offered_args::set_level)
 		.add_property("status_reward", &eq2_on_quest_offered_args::get_status_reward, &eq2_on_quest_offered_args::set_status_reward);
+
+#pragma endregion
+
 }
 
 void initialize_module_isxeq2()

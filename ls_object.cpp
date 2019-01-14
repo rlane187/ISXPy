@@ -339,13 +339,13 @@ int eq2_character::query_effects(boost::python::list& effect_list, const std::st
 
 int eq2_character::query_inventory(boost::python::list& item_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_eq2_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
+	return this->get_list_from_index_method<eq2_item>(static_cast<char *>("QueryInventory"), static_cast<char *>("item"),
 	                                                 const_cast<char *>(query.c_str()), item_list);
 }
 
 int eq2_character::query_recipes(boost::python::list& recipe_list, const std::string& query)
 {
-	return this->get_list_from_index_method<py_eq2_recipe>(static_cast<char *>("QueryRecipes"),
+	return this->get_list_from_index_method<eq2_recipe>(static_cast<char *>("QueryRecipes"),
 	                                                   static_cast<char *>("recipe"), const_cast<char *>(query.c_str()),
 	                                                   recipe_list);
 }

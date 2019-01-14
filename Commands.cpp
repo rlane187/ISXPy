@@ -6,16 +6,7 @@ int CMD_Py(int argc, char *argv[])
 	using namespace boost::python;
 	try
 	{
-		object main_module = import("__main__");
-		const dict main_namespace = boost::python::extract<dict>(main_module.attr("__dict__"));
-		scope main_scope(main_module);
-		object isxpy = import("isxpy");
-		object isxeq2 = import("isxeq2");
-		exec("import stackless", main_namespace, main_namespace);
-		exec("stackless.getcurrent().block_trap = True", main_namespace, main_namespace);
-		def("on_pulse", &stackless_module::on_pulse);
-		stackless_module::call_method_main(main_module, "on_pulse", nullptr);
-		printf("%d", stackless_module::get_run_count());
+		
 	}
 	catch(error_already_set&)
 	{
