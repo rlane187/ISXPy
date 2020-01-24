@@ -7,12 +7,18 @@ void adjust_path()
 {
 	wcscpy_s(PythonPathW, _countof(PythonPathW), Py_DecodeLocale(PythonScriptPath, nullptr));
 	wcscat_s(PythonPathW, _countof(PythonPathW), L";");
-	wcscat_s(PythonPathW, _countof(PythonPathW), Py_GetPath());
+	wcscat_s(PythonPathW, _countof(PythonPathW), Py_DecodeLocale(PythonLibPath, nullptr));
+	wcscat_s(PythonPathW, _countof(PythonPathW), L";");
+	wcscat_s(PythonPathW, _countof(PythonPathW), Py_DecodeLocale(PythonDLLPath, nullptr));
+	wcscat_s(PythonPathW, _countof(PythonPathW), L";");
+	// wcscat_s(PythonPathW, _countof(PythonPathW), Py_GetPath());
 
 	Py_SetPath(PythonPathW);
 	object sys_module = import("sys");
 	object path_object = sys_module.attr("path");
 	object result = path_object.attr("insert")(0, PythonScriptPath);
+	result = path_object.attr("insert")(0, PythonLibPath);
+	result = path_object.attr("insert")(0, PythonDLLPath);
 	import("isxpy");
 
 }

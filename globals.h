@@ -5,6 +5,8 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 EXTERN_C char DllPath[MAX_PATH];
 EXTERN_C wchar_t DllPathW[MAX_PATH];
 EXTERN_C char PythonScriptPath[MAX_PATH];
+EXTERN_C char PythonLibPath[MAX_PATH];
+EXTERN_C char PythonDLLPath[MAX_PATH];
 EXTERN_C wchar_t PythonPathW[MAX_VARSTRING];
 
 EXTERN_C unsigned int frame_count;

@@ -696,6 +696,10 @@ void initialize_module_isxpy()
 	pISInterface->GetInnerSpacePath(PythonScriptPath, _countof(PythonScriptPath));
 	strcat_s(PythonScriptPath, _countof(PythonScriptPath), "\\PythonScripts");
 	mbstowcs_s(&chars_converted, PythonPathW, _countof(PythonPathW), PythonScriptPath, _countof(PythonScriptPath));
+	pISInterface->GetInnerSpacePath(PythonLibPath, _countof(PythonLibPath));
+	strcat_s(PythonLibPath, _countof(PythonLibPath), "\\stackless\\Lib");
+	pISInterface->GetInnerSpacePath(PythonDLLPath, _countof(PythonDLLPath));
+	strcat_s(PythonDLLPath, _countof(PythonLibPath), "\\stackless\\DLLs");
 }
 
 void shutdown_module_isxpy()

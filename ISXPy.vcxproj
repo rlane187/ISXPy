@@ -32,15 +32,15 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(PYTHON_DEV)\Stackless;$(BOOST_ROOT)\;$(ISXDK_INCLUDES);$(PYTHON_DEV)\include;$(PYTHON_DEV)\include\Stackless;$(PYTHON_DEV)\include\Stackless\core;$(IncludePath)</IncludePath>
-    <LibraryPath>$(PYTHON_DEV)\libs;$(BOOST_ROOT)\stage\lib;$(ISXDK_LIBS);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ISXDK_35_ROOT)\include;$(STACKLESS_DEV_ROOT)\Include;$(BOOST_DEV_ROOT);$(IncludePath)</IncludePath>
+    <LibraryPath>$(ISXDK_35_ROOT)\lib\vs14;$(STACKLESS_DEV_ROOT)\PCBuild\win32;$(BOOST_DEV_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ISX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Py_NO_ENABLE_SHARED;WIN32;NDEBUG;_WINDOWS;_USRDLL;ISX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -58,13 +58,13 @@
       <ImportLibrary>$(OutDir)ISXPy.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(PYTHON_DEV)\libs;$(ISXDK_LIBS);$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>python36.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;ws2_32.lib;version.lib;python37.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /e /r "$(OutDir)ISXPy.dll" "$(ISXDK_EXT_BUILD_PATH)"</Command>
+      <Command>xcopy /y /e /r "$(OutDir)ISXPy.dll" "$(ISXDK_EXT_PATH)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

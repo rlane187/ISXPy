@@ -17,6 +17,8 @@
 char DllPath[MAX_PATH] = { 0 };
 wchar_t DllPathW[MAX_PATH] = { 0 };
 char PythonScriptPath[MAX_PATH] = { 0 };
+char PythonLibPath[MAX_PATH] = { 0 };
+char PythonDLLPath[MAX_PATH] = { 0 };
 wchar_t PythonPathW[MAX_VARSTRING] = { 0 };
 
 unsigned int frame_count = 0;
@@ -158,13 +160,10 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		// Register any text triggers built into ISXPy
 		RegisterTriggers();
 
-		//initialize_module_isxpy();
-
 		printf("ISXPy version %s Loaded",Py_Version);
 
 		initialize_module_isxpy();
-		initialize_module_isxeq2();
-		Py_SetProgramName(nullptr);
+		initialize_module_isxeq2();	
 		Py_Initialize();
 		adjust_path();		
 		printf("\ayPython %s on %s", Py_GetVersion(), Py_GetPlatform());
@@ -218,11 +217,11 @@ void ISXPy::Shutdown()
 	UnRegisterDataTypes();
 	UnRegisterAliases();
 	UnRegisterCommands();
-	shutdown_eq2_events();
-	shutdown_isxpy_events();
+	//shutdown_eq2_events();
+	//shutdown_isxpy_events();
 	shutdown_module_isxpy();
 	shutdown_module_isxeq2();
-	quit_script();
+	//quit_script();
 	Py_Finalize();
 	printf("ISXPy Unloaded");
 }
