@@ -148,3 +148,6 @@ extern void set_pulse_channel();
 #include "isxpy_events.h"
 #include "isxeq2_events.h"
 #include "isxeq2_module.h"
+
+#include "imgui.h"
+#include "ui_manager.h"

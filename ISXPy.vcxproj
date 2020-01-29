@@ -32,8 +32,8 @@
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ISXDK_35_ROOT)\include;$(STACKLESS_DEV_ROOT)\Include;$(BOOST_DEV_ROOT);$(IncludePath)</IncludePath>
-    <LibraryPath>$(ISXDK_35_ROOT)\lib\vs14;$(STACKLESS_DEV_ROOT)\PCBuild\win32;$(BOOST_DEV_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)Include;$(ISXDK_35_ROOT)\include;$(STACKLESS_DEV_ROOT)\Include;$(BOOST_DEV_ROOT);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(ISXDK_35_ROOT)\lib\vs14;$(STACKLESS_DEV_ROOT)\PCBuild\win32;$(BOOST_DEV_ROOT)\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -71,9 +71,16 @@
     <ClCompile Include="channel.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="DataTypes.cpp" />
+    <ClCompile Include="ui_manager.cpp" />
     <ClCompile Include="eq2_actor_despawned_args.cpp" />
     <ClCompile Include="eq2_actor_spawned_args.cpp" />
     <ClCompile Include="eq2_on_quest_offered_args.cpp" />
+    <ClCompile Include="find_pattern.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx9.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="isxeq2_events.cpp" />
     <ClCompile Include="isxeq2_module.cpp" />
     <ClCompile Include="ISXPy.cpp" />
@@ -110,9 +117,19 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="DataTypeList.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="ui_manager.h" />
     <ClInclude Include="eq2_actor_despawned_args.h" />
     <ClInclude Include="eq2_actor_spawned_args.h" />
     <ClInclude Include="eq2_on_quest_offered_args.h" />
+    <ClInclude Include="find_pattern.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx9.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="ls_bool.h" />
     <ClInclude Include="isxeq2_events.h" />
     <ClInclude Include="globals.h" />

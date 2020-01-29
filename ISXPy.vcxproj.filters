@@ -81,6 +81,18 @@
     <Filter Include="Header Files\LavishScript Extensions\Lists\LavishGUI Elements">
       <UniqueIdentifier>{bff4d1d8-67f7-44ad-bb46-f87d5c8cae8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{8fe18812-29d1-4c51-b789-be119747fa1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{6b9521c4-25c9-4f07-9de8-edcfb9298f7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{2b388f36-9bff-4f8d-8e87-fc5999232970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{5c80454b-1d51-49c1-b580-20ee104e6ac7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ISXPy.cpp">
@@ -190,6 +202,27 @@
     </ClCompile>
     <ClCompile Include="eq2_recipe.cpp">
       <Filter>Source Files\PythonExtensions\EQ2\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="find_pattern.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx9.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_manager.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +342,36 @@
     </ClInclude>
     <ClInclude Include="eq2_recipe.h">
       <Filter>Header Files\PythonExtensions\EQ2\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="find_pattern.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx9.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_manager.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

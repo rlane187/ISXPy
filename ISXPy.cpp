@@ -161,7 +161,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		RegisterTriggers();
 
 		printf("ISXPy version %s Loaded",Py_Version);
-
+		
 		initialize_module_isxpy();
 		initialize_module_isxeq2();	
 		Py_Initialize();
@@ -170,6 +170,7 @@ bool ISXPy::Initialize(ISInterface *p_ISInterface)
 		redirect_output_to_console();
 		initialize_isxpy_events();
 		initialize_eq2_events();
+		initialize_directx_hooks();
 	}	
 	// Exception handling sample.  Exception handling should at LEAST be used in functions that
 	// are suspected of causing user crashes.  This will help users report the crash and hopefully
@@ -219,9 +220,11 @@ void ISXPy::Shutdown()
 	UnRegisterCommands();
 	//shutdown_eq2_events();
 	//shutdown_isxpy_events();
+	
 	shutdown_module_isxpy();
 	shutdown_module_isxeq2();
 	//quit_script();
+	shutdown_directx_hooks();
 	Py_Finalize();
 	printf("ISXPy Unloaded");
 }

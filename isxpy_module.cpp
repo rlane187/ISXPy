@@ -699,7 +699,7 @@ void initialize_module_isxpy()
 	pISInterface->GetInnerSpacePath(PythonLibPath, _countof(PythonLibPath));
 	strcat_s(PythonLibPath, _countof(PythonLibPath), "\\stackless\\Lib");
 	pISInterface->GetInnerSpacePath(PythonDLLPath, _countof(PythonDLLPath));
-	strcat_s(PythonDLLPath, _countof(PythonLibPath), "\\stackless\\DLLs");
+	strcat_s(PythonDLLPath, _countof(PythonDLLPath), "\\stackless\\DLLs");
 }
 
 void shutdown_module_isxpy()
