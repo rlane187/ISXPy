@@ -107,7 +107,8 @@ extern LSType *pIndexType;
 extern char Py_Version[];
 
 extern void set_pulse_channel();
-
+#include "imgui.h"
+#include "ui_manager.h"
 #include "tasklet.h"
 #include "channel.h"
 #include "stackless_module.h"
@@ -149,5 +150,4 @@ extern void set_pulse_channel();
 #include "isxeq2_events.h"
 #include "isxeq2_module.h"
 
-#include "imgui.h"
-#include "ui_manager.h"
+

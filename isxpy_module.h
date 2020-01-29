@@ -15,7 +15,7 @@ struct output_handler
 		char buffer[MAX_VARSTRING];
 		strcpy_s(buffer, _countof(buffer), "[Python] ");
 		strcat_s(buffer, _countof(buffer), message_buffer);
-		printf(buffer);
+		logger.add_log(buffer);
 	}
 
 	void flush() {}
@@ -36,7 +36,7 @@ struct error_handler
 		char buffer[MAX_VARSTRING];
 		strcpy_s(buffer, _countof(buffer), "[PythonError] ");
 		strcat_s(buffer, _countof(buffer), message_buffer);
-		printf(buffer);
+		logger.add_log(buffer);
 	}
 
 	void flush() { }
