@@ -6,6 +6,7 @@
 
 unsigned long long frames = 0;
 bool show_ui = true;
+ISXPY_LOG logger;
 
 LRESULT CALLBACK temp_wnd_proc(HWND, UINT, WPARAM, LPARAM);
 typedef HRESULT(WINAPI* o_end_scene) (LPDIRECT3DDEVICE9);
@@ -26,7 +27,8 @@ typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 
 void render_main_ui()
 {
-	ImGui::Text("Hello World");
+	//ImGui::Text("Hello World");
+	logger.draw("ISXPy", &show_ui);
 }
 
 LRESULT __stdcall wnd_proc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

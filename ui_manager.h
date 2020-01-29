@@ -3,7 +3,7 @@
 bool initialize_directx_hooks();
 bool shutdown_directx_hooks();
 
-struct isxpy_log
+typedef struct isxpy_log
 {
 	ImGuiTextBuffer     buf;
 	bool                scroll_to_bottom;
@@ -38,4 +38,6 @@ struct isxpy_log
 		ImGui::EndChild();
 		ImGui::End();
 	}
-};
+} ISXPY_LOG, *P_ISXPY_LOG;
+
+extern ISXPY_LOG logger;
